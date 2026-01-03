@@ -10,8 +10,8 @@ in {
   flake = {
     # NixOS configurations using mkHost
     nixosConfigurations = {
-      # Laptop host (barevalor)
-      barevalor = mkHost {
+      # Laptop host
+      laptop = mkHost {
         hostName = "laptop";
         modules = [
           ./hosts/laptop
