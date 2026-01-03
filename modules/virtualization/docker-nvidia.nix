@@ -42,13 +42,13 @@
   ##############################################
   ## USERS & GROUPS
   ##############################################
-  users.groups.libvirtd.members = [ "hermonyx" ];
-  users.groups.kvm.members = [ "hermonyx" ];
-  users.extraGroups.podman.members = [ "hermonyx" ];
-  users.extraGroups.docker.members = [ "hermonyx" ];
+  users.groups.libvirtd.members = [ "zayron" ];
+  users.groups.kvm.members = [ "zayron" ];
+  users.extraGroups.podman.members = [ "zayron" ];
+  users.extraGroups.docker.members = [ "zayron" ];
 
   # Uncomment ONLY if you enable docker:
-  # users.extraGroups.docker.members = [ "hermonyx" ];
+  # users.extraGroups.docker.members = [ "zayron" ];
 
 
   ##############################################

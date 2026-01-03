@@ -11,7 +11,7 @@
     zsh.enable = true;
     bash.completion.enable = true; # Required for home setting
     fish.enable = true;
-    command-not-found.enable = false; # Required for fish
+    command-not-found.enable = true; # Required for fish
   };
 
   programs.nix-index = {

@@ -12,7 +12,7 @@ in {
     nixosConfigurations = {
       # Laptop host (barevalor)
       barevalor = mkHost {
-        hostName = "barevalor";
+        hostName = "laptop";
         modules = [
           ./hosts/laptop
         ];

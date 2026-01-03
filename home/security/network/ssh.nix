@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.home-manager.users.hermonyx.programs.ssh;
+  cfg = config.home-manager.users.zayron.programs.ssh;
 in
 {
-  options.home-manager.users.hermonyx.programs.ssh.matchBlocks = mkOption {
+  options.home-manager.users.zayron.programs.ssh.matchBlocks = mkOption {
     type = types.listOf (types.submodule {
       options = {
         host = mkOption {

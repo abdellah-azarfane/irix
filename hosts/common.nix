@@ -19,7 +19,7 @@
     useUserPackages = true;
     backupFileExtension = "backup";
     extraSpecialArgs = { inherit inputs outputs; };
-    users."hermonyx" = {
+    users."zayron" = {
       imports = [
        # inputs.stylix.homeModules.stylix
         ../user

@@ -10,8 +10,7 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-   ./apps
-   ./desktop
+
    ./disk-boot
    ./hardware
    ./integration
@@ -23,34 +22,5 @@
    ./services
    ./shell
    ./users
-   ./utils
-   ./virtualization
      ];
-
-  # Modules
-  # ---------------------------------
-  # Display Manager
-  manager = {
-    gdm.enable = false;
-    sddm.enable = true;
-  };
-
-  # Extra Services
-  extraServices = {
-#    asusKeyboardBacklight.enable = true;
-    laptopLid.enable = true;
-  };
-
-  # Extra rules
-  extraRules = {
-    keychronUdev.enable = true;
-    hdmiAutoSwitch.enable = true;
-  };
-  # Garbage override
-  maintenance.nhClean = {
-    enable = true;
-    schedule = "daily";       # ou weekly
-    deleteOlderThan = "7d";   # supprime les vieilles générations
-  };
-
-}
+ }
