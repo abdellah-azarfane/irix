@@ -27,12 +27,12 @@
 
   # Alternative: Set environment variables globally for waydroid service
   # This ensures waydroid always uses Intel iGPU
-  systemd.services.waydroid-container.environment = {
-    DRI_PRIME = "0";
-    __NV_PRIME_RENDER_OFFLOAD = "0";
-    __GLX_VENDOR_LIBRARY_NAME = "mesa";
-    LIBVA_DRIVER_NAME = "i965";
-  };
+  # systemd.services.waydroid-container.environment = {
+  #  DRI_PRIME = "0";
+  #  __NV_PRIME_RENDER_OFFLOAD = "0";
+  #  __GLX_VENDOR_LIBRARY_NAME = "mesa";
+  #  LIBVA_DRIVER_NAME = "i965";
+  #};
   # Note: After enabling, you need to initialize waydroid:
   # sudo waydroid init -s GAPPS -f  # For Google Apps support
   # sudo systemctl start waydroid-container

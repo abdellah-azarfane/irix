@@ -26,7 +26,7 @@
 
   # Extra Services
   extraServices = {
-#    asusKeyboardBacklight.enable = true;
+    asusKeyboardBacklight.enable = true;
     laptopLid.enable = true;
   };
 
