@@ -255,7 +255,7 @@
             p.tree-sitter-json5
             p.tree-sitter-jsonc
             p.tree-sitter-jsonnet
-        #    p.tree-sitter-julia
+            p.tree-sitter-julia
             p.tree-sitter-just
             p.tree-sitter-kcl
             p.tree-sitter-kconfig

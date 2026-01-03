@@ -1,12 +1,20 @@
 {
   pkgs,
-  irixLib,
   inputs,
   ...
 }:
 let
   pluginsDir = ../plugins;
-  sourceLuaFile = irixLib.parsers.luaParsers.sourceLuaFile pluginsDir;
+  sourceLuaFile =
+    file:
+    let
+      path = pluginsDir + "/${file}";
+    in
+    ''
+      lua <<'EOF'
+      ${builtins.readFile path}
+      EOF
+    '';
 in
 {
   imports = [
@@ -14,7 +22,7 @@ in
     (import ./editor.nix { inherit pkgs sourceLuaFile; })
     (import ./lsp.nix { inherit pkgs sourceLuaFile; })
     (import ./ui.nix { inherit pkgs sourceLuaFile; })
-    (import ./themes.nix { inherit pkgs sourceLuaFile inputs; })
+    (import ./themes.nix { inherit pkgs sourceLuaFile; })
     (import ./utils.nix { inherit pkgs sourceLuaFile; })
   ];
 }

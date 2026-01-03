@@ -7,9 +7,9 @@ let
   userEmail = "abdellahazarfane@proton.me";
 in
 {
-  home.packages = with pkgs; [
+   home.packages = with pkgs; [
     commitizen # Commit rules for projects
-    # gitea # Self-hostable web service for managing Git repositories
+    serie # Rich TUI commit graph
   ];
 
   programs.git = {

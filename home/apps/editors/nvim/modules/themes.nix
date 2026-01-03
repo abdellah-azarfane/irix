@@ -1,7 +1,6 @@
 {
   pkgs,
   sourceLuaFile,
-  inputs,
 }:
 {
   programs.neovim = {

@@ -13,6 +13,14 @@
 
       SchemaStore-nvim # JSON parsing
 
+      # {
+      #   plugin = neoconf-nvim;
+      #   config = sourceLuaFile "neoconf-nvim.lua";
+      # }
+      # {
+      #   plugin = none-ls-nvim;
+      #   config = sourceLuaFile "none-ls-nvim.lua";
+      # }
 
       # Loading animations
       fidget-nvim

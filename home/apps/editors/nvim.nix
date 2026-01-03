@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
- #   ./nvim
+    ./nvim
   ];
 
   programs.neovim = {

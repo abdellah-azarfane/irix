@@ -32,6 +32,7 @@ require("conform").setup({
     toml = { "taplo" },
     yaml = { "prettierd", "prettier" },
     zig = { "zigfmt" },
+    fish = { "fish_indent" },
     cmake = { "cmake_format" },
     terraform = { "terraform_fmt" },
     fortran = { "fprettify" },
