@@ -13,6 +13,11 @@
     ../modules
   ];
 
+  stylix = {
+    enable = true;
+    base16Scheme = "${inputs.stylix}/base16/schemes/catppuccin-mocha.yaml";
+  };
+
   # Common Home Manager configuration
   home-manager = {
     useGlobalPkgs = true;

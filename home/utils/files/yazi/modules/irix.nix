@@ -38,21 +38,7 @@
         fg = "#BF3F42";
       }
       # --- Projects ---
-      {
-        name = "kronos";
-        text = "󰏉";
-        fg = "#BF3F42";
-      }
-      {
-        name = "phantom";
-        text = "†";
-        fg = "#BF3F42";
-      }
-      {
-        name = "personal-website";
-        text = "ψ";
-        fg = "#BF3F42";
-      }
+
       # --- Home Directories ---
       {
         name = "downloads";
@@ -74,11 +60,7 @@
         text = "";
         fg = "#88A1AC";
       }
-      {
-        name = "solenoid-labs";
-        text = "󱒀";
-        fg = "#88A1AC";
-      }
+
       {
         name = "dev";
         text = "";

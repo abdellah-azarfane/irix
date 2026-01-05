@@ -12,6 +12,7 @@
   imports = [
 
    ./disk-boot
+   ./drivers
    ./hardware
    ./integration
    ./maintenance

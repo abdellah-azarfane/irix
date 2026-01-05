@@ -20,7 +20,7 @@ in
       theme = "breeze";
       settings = {
         General = {
-          DefaultSession = "niri";
+          DefaultSession = "hyprland";
           DisplayServer = "wayland";
           RememberLastUser = true;
           RememberLastSession = true;

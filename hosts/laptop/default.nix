@@ -16,6 +16,11 @@
      ../../modules/utils
      ../../modules/virtualization
   ];
+
+  diskBoot = {
+    enable = true;
+    profile = "laptop";
+  };
   # Modules
   # ---------------------------------
   # Display Manager

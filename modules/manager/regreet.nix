@@ -57,8 +57,7 @@ in
       }
       env = GTK_USE_PORTAL,0
       env = GDG_DEBUG,no-portals
-      monitor = eDP-1,2880x1620@120,0x0,1.5
-      monitor = HDMI-A-1,3840x2160@60,0x0,1.5
+      monitor = eDP-1,1980x1080@144,0x0,1.0
     '';
     systemd.tmpfiles.rules = [
       "d /var/lib/regreet 0755 greeter greeter - -"

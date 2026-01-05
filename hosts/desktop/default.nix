@@ -13,6 +13,11 @@
     ../common.nix
   ];
 
+  diskBoot = {
+    enable = true;
+    profile = "desktop";
+  };
+
   # Desktop-specific configuration
   # Add any desktop-specific overrides here
 

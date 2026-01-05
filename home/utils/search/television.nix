@@ -15,7 +15,6 @@
         ui_scale = 100;
         layout = "landscape";
         input_bar_position = "top";
-        theme = "kanso";
 
         preview_panel = {
           size = 50;
@@ -66,13 +65,6 @@
         ];
       };
       */
-    };
-  };
-
-  xdg.configFile = {
-    "television/themes/kanso.toml" = {
-      source = ./television/themes/kanso.toml;
-      force = true;
     };
   };
 
