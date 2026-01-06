@@ -581,7 +581,7 @@ in
         default-timeout = notifTime.lg;
       };
 
-      # --- Rhodium Builds ---
+      # --- Builds ---
       "app-name=rh-build" = {
         background-color = "${c.color21}";
         text-color = "${c.color18}";

@@ -1,8 +1,15 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
+with lib;
+let
+  cfg = config.desktop.wm.niri;
+in
 {
+  config = mkIf cfg.enable {
   environment.systemPackages = with pkgs; [
     wl-clipboard # Clipboard support
     wayland-utils # Wayland debugging tools
@@ -52,5 +59,6 @@
         "org.freedesktop.impl.portal.Screenshot" = "wlr";
       };
     };
+  };
   };
 }

@@ -6,11 +6,11 @@
 {
   imports = [
     ./bar
-   # ./de/kde
+    ./de
     ./files
     ./fonts
     ./games
     ./notifications
-    ./wm/hyprland # TODO: Chose you're wm
+    ./wm
   ];
 }

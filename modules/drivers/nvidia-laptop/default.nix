@@ -90,9 +90,6 @@ in
       __NV_PRIME_RENDER_OFFLOAD = "1";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       __VK_LAYER_NV_optimus = "NVIDIA_only";
-      # Vulkan ICD paths
-      VK_ICD_FILENAMES = "/nix/store/n13jcj0c1z0pjkvl771085lif7sznjc7-nvidia-x11-580.119.02-6.18.1/share/vulkan/icd.d/nvidia_icd.x86_64.json";
-      VK_ICD_FILENAMES_32 = "/nix/store/chrlsi12zf775rvq8sapldf0jpb0h81c-nvidia-x11-580.119.02-6.18.1-lib32/share/vulkan/icd.d/nvidia_icd.i686.json";
       NVD_BACKEND = "direct"; # Hardware video acceleration
       ELECTRON_OZONE_PLATFORM_HINT = "auto"; # Electron Wayland flickering fix
       NIXOS_OZONE_WL = "1"; # Electron auto Wayland detection

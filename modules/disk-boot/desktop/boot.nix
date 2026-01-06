@@ -1,5 +1,8 @@
-{ pkgs, ... }:
-{
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.diskBoot;
+in
+lib.mkIf (cfg.enable && (cfg.profile == "desktop" || cfg.profile == "server")) {
   boot = {
     loader = {
       systemd-boot.enable = true;

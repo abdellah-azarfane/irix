@@ -32,7 +32,7 @@
   #     ExecStart = ''
   #       ${pkgs.tailscale}/bin/tailscale up \
   #         --authkey=file:/etc/nixos/secrets/tailscale-authkey \
-  #         --login-server=https://headscale.rhodium.sh \
+  #         --login-server=https://headscale.example.com \
   #         --hostname=alexandria \
   #         --ssh
   #     '';

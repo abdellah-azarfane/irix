@@ -1,29 +1,41 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{ lib
+, config
+, osConfig ? { }
+, userName ? null
+, ...
+}:
+let
+  stylixSync =
+    {
+      stylix.enable = lib.mkDefault (if osConfig ? stylix then (osConfig.stylix.enable or false) else false);
+    }
+    // lib.optionalAttrs (osConfig ? stylix && osConfig.stylix ? base16Scheme) {
+      stylix.base16Scheme = lib.mkDefault osConfig.stylix.base16Scheme;
+    }
+    // lib.optionalAttrs (osConfig ? stylix && osConfig.stylix ? image) {
+      stylix.image = lib.mkDefault osConfig.stylix.image;
+    };
+in
+({
   # You can import other home-manager modules here
   imports = [
-      ../home/apps
- #   ../assets
-      ../home/desktop
-      ../home/development
-      ../home/environment
-      ../home/modules
-      ../home/overlays
-      ../home/security
-      ../home/services
-      ../home/shells
-      ../home/system
-      ../home/utils
-      ../home/virtualization
+    ../home/apps
+    #   ../assets
+    ../home/desktop
+    ../home/development
+    ../home/environment
+    ../home/modules
+    ../home/overlays
+    ../home/security
+    ../home/services
+    ../home/shells
+    ../home/system
+    ../home/utils
+    ../home/virtualization
   ];
-    # --- Ix Home Modules ---
+  # --- Ix Home Modules ---
   ix = {
     apps.media.audio = {
       spotify.enable = true;
@@ -41,23 +53,22 @@
       haskell.enable = true;
     };
   };
-    # Custom services
+  # Custom services
   # NOTE: These are custom services located under home/services, and run as systemd daemons
   userExtraServices = {
-    eww.enable = false;
+    eww.enable = lib.mkDefault false;
     kmonad.enable = true;
     mako.enable = false;
     neovim-daemon.enable = false;
     swaybg.enable = false;
     system-keyring.enable = true;
-    waybar.enable = false;
+    waybar.enable = lib.mkDefault false;
     wlsunset.enable = false;
     hdmiAutoSwitch.enable = true;
   };
-  # TODO: Set your username
-  home = {
-    username = "zayron";
-    homeDirectory = "/home/zayron";
-  };
+  # Username is driven by the host (passed via `home-manager.extraSpecialArgs`).
+  home.username = lib.mkDefault (if userName != null then userName else "zayron");
+  home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
+
   home.stateVersion = "26.05";
-}
+} // stylixSync)

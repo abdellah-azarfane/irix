@@ -1,5 +1,9 @@
 # disko/disk-config.nix
-{
+{ config, lib, ... }:
+let
+  cfg = config.diskBoot;
+in
+lib.mkIf (cfg.enable && cfg.profile == "laptop") {
   disko.devices = {
     disk.main = {
       device = "/dev/nvme0n1";

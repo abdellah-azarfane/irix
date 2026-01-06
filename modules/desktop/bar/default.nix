@@ -2,6 +2,5 @@
 {
   imports = [
     ./waybar
-    ./noctalia.nix
   ];
 }

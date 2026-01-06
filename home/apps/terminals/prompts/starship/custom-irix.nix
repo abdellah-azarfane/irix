@@ -37,9 +37,9 @@ let
 in
 {
   programs.starship.settings = {
-    custom.rhodium = {
+    custom.irix = {
       disabled = true;
-      command = "echo 'Rh'";
+      command = "echo 'Ix'";
       when = "true";
       format = "[$output]($style) ${i.icon01} ";
       style = "#A4A7A4";

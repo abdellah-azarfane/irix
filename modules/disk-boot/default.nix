@@ -22,7 +22,14 @@ in
 		};
 	};
 
-	imports = optionals cfg.enable [
-		(./profiles + "/${cfg.profile}.nix")
+	imports = [
+		./laptop
+		./desktop
 	];
+
+	config = mkIf (cfg.enable && cfg.profile == "server") {
+		warnings = [
+			"diskBoot.profile = \"server\" is deprecated; it now maps to \"desktop\"."
+		];
+	};
 }

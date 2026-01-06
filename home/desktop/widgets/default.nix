@@ -1,8 +1,7 @@
 { ... }:
 {
   imports = [
-    # ./ags.nix
-  #  ./dms
-    ./noctalia
+    ./ags.nix
+    ./eww.nix
   ];
 }

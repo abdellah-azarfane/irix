@@ -75,7 +75,7 @@
   gh = "z $HOME"; # Go home
   gi = "zi"; # Go interactive
   gp = "z $HOME_PROJECTS"; # Go projects
-  gr = "z $IRIX"; # Go Rhodium
+  gr = "z $IRIX"; # Go Irix
   gS = "z $HOME_SOLENOIDLABS"; # Go SolenoidLabs
   gv = "z $HOME_VAULTS"; # Go Obsidian Vaults
   gw = "z $HOME_PROFESSIONAL"; # Go Professional
@@ -92,7 +92,7 @@
   gel = "z $XDG_CACHE_HOME; yy";
   ghl = "z $HOME; yy";
   gpl = "z $HOME_PROJECTS; yy";
-  grl = "z $RHODIUM; yy";
+  grl = "z $IRIX; yy";
   gsl = "z $HOME_SOLENOIDLABS; yy";
   gvl = "z $HOME_VAULTS; yy";
   gwl = "z $HOME_PROFESSIONAL; yy";

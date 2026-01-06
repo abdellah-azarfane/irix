@@ -49,7 +49,7 @@
         $env.HOME_PROJECTS
         $env.HOME_PROFESSIONAL
         $env.HOME_SOLENOIDLABS
-        $env.RHODIUM
+        $env.IRIX
       ]
 
       let project = (

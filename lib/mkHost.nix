@@ -12,14 +12,12 @@ inputs.nixpkgs.lib.nixosSystem {
   } // specialArgs;
   modules = [
     # Common modules for all hosts
-    inputs.dankMaterialShell.nixosModules.greeter
     inputs.home-manager.nixosModules.home-manager
     inputs.disko.nixosModules.disko
     inputs.stylix.nixosModules.stylix
     # Base configuration
     {
       networking.hostName = hostName;
-      system.stateVersion = "26.05";
     }
   ] ++ modules;
 }

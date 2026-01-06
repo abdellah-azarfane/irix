@@ -23,27 +23,6 @@
 
       # Tier 3 (Secondary menus & appearance)
 
-      # Special workspaces DMS & Noctalia
-      /*
-      "$mainMod, A, exec, dms ipc spotlight toggle"
-      "$mainMod, N, exec, dms ipc notifications toggle"
-      "$mainMod, Y, exec, dms ipc settings toggle"
-      "$mainMod CTRL, N, exec, dms ipc notepad toggle"
-      "$mainMod, P, exec, dms ipc powermenu toggle"
-      "$mainMod ALT, N, exec, dms ipc night toggle"
-      */
-      "$mainMod, comma, exec, noctalia-shell ipc call settings toggle"
-      "$mainMod ALT, S, exec, noctalia-shell ipc call settings toggle"
-      "$mainMod SHIFT, K, exec, noctalia-shell ipc call controlCenter toggle"
-      "$mainMod, A, exec, noctalia-shell ipc call launcher toggle"
-      "$mainMod, N, exec, noctalia-shell ipc call notifications toggleHistory"
-      #"$mainMod, Y, exec, dms ipc settings toggle"
-      #"$mainMod CTRL, N, exec, dms ipc notepad togg"
-      "$mainMod, P, exec, noctalia-shell ipc call sessionMenu toggle"
-     # "$mainMod  Q, exec, noctalia-shell ipc call launcher calculator"
-      "$mainMod SHIFT, Q, exec, noctalia-shell ipc call calendar toggle"
-      "$mainMod SHIFT, H, exec, noctalia-shell ipc call sessionMenu lockAndSuspend"
-
       # Cycles
       "$mainMod ALT, H, exec, hyprlock"
 

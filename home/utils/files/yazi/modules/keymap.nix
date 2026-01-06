@@ -33,8 +33,8 @@
         "g"
         "r"
       ];
-      run = "cd $RHODIUM";
-      desc = "Go to rhodium";
+      run = "cd $IRIX";
+      desc = "Go to irix";
     }
     {
       on = [

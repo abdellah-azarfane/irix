@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-  #  ./bars
+    ./bars
     ./cursors
     ./common
     ./keyboard
@@ -9,6 +9,7 @@
     ./lockscreen
     ./notifications
     ./portals
+    ./selector.nix
     ./widgets
   #  ./wallpaper
     ./wm
