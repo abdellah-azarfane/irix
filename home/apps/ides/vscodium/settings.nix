@@ -1,7 +1,7 @@
-{ ... }:
+{ lib, ... }:
 {
   programs.vscode.profiles.default = {
-    userSettings = {
+    userSettings = lib.mkForce {
       "update.mode" = "none";
       "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
       "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509

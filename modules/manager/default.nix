@@ -68,7 +68,7 @@ in
 
   options.manager._effectiveSession = mkOption {
     type = types.nullOr (types.enum [ "hyprland" "niri" ]);
-    default = null;
+    default = effectiveSession;
     internal = true;
     readOnly = true;
     description = "Computed session choice used by manager modules.";
@@ -82,7 +82,6 @@ in
     (mkIf (cfg.type == "regreet") { manager.regreet.enable = mkDefault true; })
     (mkIf (cfg.type == "tty") { manager.tty.enable = mkDefault true; })
     (mkIf (cfg.type == "none") { })
-    { manager._effectiveSession = effectiveSession; }
 
     {
       assertions = [

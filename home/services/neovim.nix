@@ -7,6 +7,8 @@
 with lib;
 let
   cfg = config.userExtraServices.neovim-daemon;
+  nvimPkg = config.programs.neovim.package or pkgs.neovim;
+  nvimBin = "${nvimPkg}/bin/nvim";
 in
 {
   options.userExtraServices.neovim-daemon = {
@@ -27,8 +29,8 @@ in
 
       Service = {
         Type = "exec";
-        ExecStart = "${pkgs.neovim}/bin/nvim --headless --listen ${cfg.socketPath}";
-        ExecStop = "${pkgs.neovim}/bin/nvim --server ${cfg.socketPath} --remote-send ':qa!<CR>'";
+        ExecStart = "${nvimBin} --headless --listen ${cfg.socketPath}";
+        ExecStop = "${nvimBin} --server ${cfg.socketPath} --remote-send ':qa!<CR>'";
         Restart = "on-failure";
         RestartSec = 5;
       };
@@ -39,6 +41,6 @@ in
 
     };
     # Alias for connecting to daemon
-    home.shellAliases.nvim = "${pkgs.neovim}/bin/nvim --server ${cfg.socketPath} --remote-ui";
+    home.shellAliases.nvim = "${nvimBin} --server ${cfg.socketPath} --remote-ui";
   };
 }

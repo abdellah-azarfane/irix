@@ -13,6 +13,8 @@ let
   username = userName;
 in
 {
+
+
   # Import common system modules
   imports = [
     ../modules
@@ -30,6 +32,12 @@ in
       imports = [
         ../user
       ];
+
+      # Stylix HM targets: avoid evaluation warnings by specifying defaults.
+      stylix.targets.firefox.profileNames = [ "default" ];
+      stylix.targets.librewolf.profileNames = [ "default" ];
+      stylix.targets.qt.platform = "qtct";
+
       # Note: nixpkgs options are disabled when useGlobalPkgs is enabled
       # The system nixpkgs config (from modules/utils/nix.nix) will be used automatically
     };

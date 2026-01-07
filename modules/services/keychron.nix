@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 
 {
@@ -29,12 +28,12 @@
     environment = {
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
       TZDIR = "${pkgs.tzdata}/share/zoneinfo";
-      XDG_BIN_HOME = "%h/.local/bin"; # %h expands to /home/zayron
+      XDG_BIN_HOME = "%h/.local/bin"; # %h expands to /home/abosafiya
     };
 
     serviceConfig = {
       Type = "simple";
-      User = "zayron"; # run as your user
+      User = "abosafiya"; # run as your user
       Nice = "-5";
       Restart = "no";
 
@@ -43,7 +42,7 @@
 
       # Launch KMonad with your layout
       ExecStart = ''
-        ${pkgs.kmonad}/bin/kmonad /home/zayron/.config/kmonad/keychron.kbd
+        ${pkgs.kmonad}/bin/kmonad /home/abosafiya/.config/kmonad/keychron.kbd
       '';
     };
   };

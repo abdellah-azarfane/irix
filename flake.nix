@@ -18,6 +18,10 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
+    fenix.url = "github:nix-community/fenix";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     invoiceplane.url = "git+https://git.notthebe.ee/notthebee/invoiceplane-nixos";
@@ -39,20 +43,23 @@
     # };
   };
 
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    nixpkgs,
-    home-manager,
-    stylix,
-    ...
-  }:
+  outputs =
+    inputs@{ self
+    , flake-parts
+    , nixpkgs
+    , home-manager
+    , stylix
+    , ...
+    }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       imports = [
         ./flake-parts.nix
       ];
-     _module.args.rootPath = ./.;
+      _module.args.rootPath = ./.;
     };
 }

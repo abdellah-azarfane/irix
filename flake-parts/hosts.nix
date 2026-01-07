@@ -28,7 +28,7 @@ let
   hostDefaults = {
     laptop = {
       system = "x86_64-linux";
-      userName = "zayron";
+      userName = "abosafiya";
       desktopStyle = "hyprland";
       themeStyle = "oxocarbon";
       extraModules = [ ];
@@ -36,7 +36,7 @@ let
 
     desktop = {
       system = "x86_64-linux";
-      userName = "zayron";
+      userName = "abosafiya";
       desktopStyle = "hyprland";
       themeStyle = "gruvbox";
       extraModules = [ ];
@@ -44,7 +44,7 @@ let
 
     khadim = {
       system = "x86_64-linux";
-      userName = "zayron";
+      userName = "abosafiya";
       desktopStyle = "none";
       themeStyle = "gruvbox";
       extraModules = [ ];
@@ -96,57 +96,63 @@ in
 {
   flake.nixosConfigurations = {
     # MY LAPTOP
-    laptop = mkHost {
-      hostName = "laptop";
-      system = hostDefaults.laptop.system;
-      modules =
-        let
-          extra = hostDefaults.laptop.extraModules or [ ];
-        in
-        [
-          ../hosts/laptop
-        ] ++ extra ++ [
-          (mkHostSettingsModule (hostDefaults.laptop // {
-            themeScheme = themeSchemeFor hostDefaults.laptop.system hostDefaults.laptop.themeStyle;
-          }))
-        ];
-      specialArgs = hostDefaults.laptop;
-    } { inherit inputs outputs; };
+    laptop = mkHost
+      {
+        hostName = "laptop";
+        system = hostDefaults.laptop.system;
+        modules =
+          let
+            extra = hostDefaults.laptop.extraModules or [ ];
+          in
+          [
+            ../hosts/laptop
+          ] ++ extra ++ [
+            (mkHostSettingsModule (hostDefaults.laptop // {
+              themeScheme = themeSchemeFor hostDefaults.laptop.system hostDefaults.laptop.themeStyle;
+            }))
+          ];
+        specialArgs = hostDefaults.laptop;
+      }
+      { inherit inputs outputs; };
 
     # MY DESKTOP PC
-    desktop = mkHost {
-      hostName = "desktop";
-      system = hostDefaults.desktop.system;
-      modules =
-        let
-          extra = hostDefaults.desktop.extraModules or [ ];
-        in
-        [
-          ../hosts/desktop
-        ] ++ extra ++ [
-          (mkHostSettingsModule (hostDefaults.desktop // {
-            themeScheme = themeSchemeFor hostDefaults.desktop.system hostDefaults.desktop.themeStyle;
-          }))
-        ];
-      specialArgs = hostDefaults.desktop;
-    } { inherit inputs outputs; };
+    desktop = mkHost
+      {
+        hostName = "desktop";
+        system = hostDefaults.desktop.system;
+        modules =
+          let
+            extra = hostDefaults.desktop.extraModules or [ ];
+          in
+          [
+            ../hosts/desktop
+          ] ++ extra ++ [
+            (mkHostSettingsModule (hostDefaults.desktop // {
+              themeScheme = themeSchemeFor hostDefaults.desktop.system hostDefaults.desktop.themeStyle;
+            }))
+          ];
+        specialArgs = hostDefaults.desktop;
+      }
+      { inherit inputs outputs; };
 
     # MY HOME SERVER
-    khadim = mkHost {
-      hostName = "khadim";
-      system = hostDefaults.khadim.system;
-      modules =
-        let
-          extra = hostDefaults.khadim.extraModules or [ ];
-        in
-        [
-          ../hosts/khadim
-        ] ++ extra ++ [
-          (mkHostSettingsModule (hostDefaults.khadim // {
-            themeScheme = themeSchemeFor hostDefaults.khadim.system hostDefaults.khadim.themeStyle;
-          }))
-        ];
-      specialArgs = hostDefaults.khadim;
-    } { inherit inputs outputs; };
+    khadim = mkHost
+      {
+        hostName = "khadim";
+        system = hostDefaults.khadim.system;
+        modules =
+          let
+            extra = hostDefaults.khadim.extraModules or [ ];
+          in
+          [
+            ../hosts/khadim
+          ] ++ extra ++ [
+            (mkHostSettingsModule (hostDefaults.khadim // {
+              themeScheme = themeSchemeFor hostDefaults.khadim.system hostDefaults.khadim.themeStyle;
+            }))
+          ];
+        specialArgs = hostDefaults.khadim;
+      }
+      { inherit inputs outputs; };
   };
 }

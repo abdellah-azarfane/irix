@@ -5,6 +5,5 @@
     ./helix.nix
     ./kakoune.nix
     ./neovide.nix
-    ./nvim.nix
   ];
 }

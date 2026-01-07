@@ -39,10 +39,12 @@ in
     homeManagerModules = self.homeModules;
     # Fix ME
     homeConfigurations = builtins.listToAttrs (
-      map (system: {
-        name = "zayron@${system}";
-        value = mkHome { inherit system; userName = "zayron"; };
-      }) supportedSystems
+      map
+        (system: {
+          name = "abosafiya@${system}";
+          value = mkHome { inherit system; userName = "abosafiya"; };
+        })
+        supportedSystems
     );
   };
 }

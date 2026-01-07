@@ -8,34 +8,34 @@
     podman = {
       enable = true;
 
-    # you can disable these when using real Docker:
+      # you can disable these when using real Docker:
 
-    dockerCompat = false;
-    dockerSocket.enable = false;
-    defaultNetwork.settings.dns_enabled = true;
+      dockerCompat = false;
+      dockerSocket.enable = false;
+      defaultNetwork.settings.dns_enabled = true;
     };
     ## LIBVIRT + KVM
     libvirtd.enable = true;
 
     ## VirtualBox host (only if you need it)
 
-    virtualbox.host.enable = false;   # CHANGE TO true if needed
+    virtualbox.host.enable = false; # CHANGE TO true if needed
     ## OPTIONAL: Docker (disabled to avoid conflicts)
     docker = {
-      enable = true;  # set to true if you REALLY need docker
+      enable = true; # set to true if you REALLY need docker
       enableOnBoot = true;
-    # gpu support: automatic with nvidia-container-toolkit
-    rootless.enable = false;
+      # gpu support: automatic with nvidia-container-toolkit
+      rootless.enable = false;
     };
   };
   ## USERS & GROUPS
-  users.groups.libvirtd.members = [ "zayron" ];
-  users.groups.kvm.members = [ "zayron" ];
-  users.extraGroups.podman.members = [ "zayron" ];
-  users.extraGroups.docker.members = [ "zayron" ];
+  users.groups.libvirtd.members = [ "abosafiya" ];
+  users.groups.kvm.members = [ "abosafiya" ];
+  users.extraGroups.podman.members = [ "abosafiya" ];
+  users.extraGroups.docker.members = [ "abosafiya" ];
 
   # Uncomment ONLY if you enable docker:
-  # users.extraGroups.docker.members = [ "zayron" ];
+  # users.extraGroups.docker.members = [ "abosafiya" ];
   ## VIRT-MANAGER
   programs.virt-manager.enable = true;
   ## ENVIRONMENT
@@ -61,7 +61,7 @@
     ## Apps
     postman
   ];
-    nixpkgs.overlays = [
+  nixpkgs.overlays = [
     (final: prev: {
       winboat = prev.winboat.override {
         makeCacheWritable = true;

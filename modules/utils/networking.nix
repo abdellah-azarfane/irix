@@ -8,8 +8,7 @@
     wirelesstools # Wireless network configuration tools
     xh # A better curl
   ];
-  programs.kdeconnect = { 
+  programs.kdeconnect = {
   enable = true;
-  package = pkgs.kdePackages.kdeconnect-kde;
   };
 }

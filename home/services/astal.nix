@@ -1,13 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 let
   cfg = config.userExtraServices.astal;
-  astalPkg = inputs.self.packages.${pkgs.system}.astal-widgets;
+  system = pkgs.stdenv.hostPlatform.system;
+  astalPkg = inputs.self.packages.${system}.astal-widgets;
 in
 {
   options.userExtraServices.astal = {

@@ -67,8 +67,13 @@ in
     hdmiAutoSwitch.enable = true;
   };
   # Username is driven by the host (passed via `home-manager.extraSpecialArgs`).
-  home.username = lib.mkDefault (if userName != null then userName else "zayron");
+  home.username = lib.mkDefault (if userName != null then userName else "abosafiya");
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
+
+  # Stylix targets: force defaults to avoid evaluation warnings.
+  stylix.targets.firefox.profileNames = lib.mkForce [ "default" ];
+  stylix.targets.librewolf.profileNames = lib.mkForce [ "default" ];
+  stylix.targets.qt.platform = lib.mkForce "qtct";
 
   home.stateVersion = "26.05";
 } // stylixSync)

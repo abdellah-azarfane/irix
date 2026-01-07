@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.home-manager.users.zayron.programs.ssh;
+  cfg = config.home-manager.users.abosafiya.programs.ssh;
 in
 {
-  options.home-manager.users.zayron.programs.ssh.matchBlocks = mkOption {
+  options.home-manager.users.abosafiya.programs.ssh.matchBlocks = mkOption {
     type = types.listOf (types.submodule {
       options = {
         host = mkOption {
@@ -24,7 +24,7 @@ in
         };
       };
     });
-    default = [];
+    default = [ ];
     description = "SSH match blocks";
   };
 }
