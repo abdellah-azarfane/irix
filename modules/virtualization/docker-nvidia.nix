@@ -29,13 +29,13 @@
     };
   };
   ## USERS & GROUPS
-  users.groups.libvirtd.members = [ "abosafiya" ];
-  users.groups.kvm.members = [ "abosafiya" ];
-  users.extraGroups.podman.members = [ "abosafiya" ];
-  users.extraGroups.docker.members = [ "abosafiya" ];
+  users.groups.libvirtd.members = [ "zayron" ];
+  users.groups.kvm.members = [ "zayron" ];
+  users.extraGroups.podman.members = [ "zayron" ];
+  users.extraGroups.docker.members = [ "zayron" ];
 
   # Uncomment ONLY if you enable docker:
-  # users.extraGroups.docker.members = [ "abosafiya" ];
+  # users.extraGroups.docker.members = [ "zayron" ];
   ## VIRT-MANAGER
   programs.virt-manager.enable = true;
   ## ENVIRONMENT

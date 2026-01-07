@@ -28,7 +28,7 @@ let
   hostDefaults = {
     laptop = {
       system = "x86_64-linux";
-      userName = "abosafiya";
+      userName = "zayron";
       desktopStyle = "hyprland";
       themeStyle = "oxocarbon";
       extraModules = [ ];
@@ -36,7 +36,7 @@ let
 
     desktop = {
       system = "x86_64-linux";
-      userName = "abosafiya";
+      userName = "zayron";
       desktopStyle = "hyprland";
       themeStyle = "gruvbox";
       extraModules = [ ];
@@ -44,7 +44,7 @@ let
 
     khadim = {
       system = "x86_64-linux";
-      userName = "abosafiya";
+      userName = "zayron";
       desktopStyle = "none";
       themeStyle = "gruvbox";
       extraModules = [ ];

@@ -67,7 +67,7 @@ in
     hdmiAutoSwitch.enable = true;
   };
   # Username is driven by the host (passed via `home-manager.extraSpecialArgs`).
-  home.username = lib.mkDefault (if userName != null then userName else "abosafiya");
+  home.username = lib.mkDefault (if userName != null then userName else "zayron");
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
   # Stylix targets: force defaults to avoid evaluation warnings.

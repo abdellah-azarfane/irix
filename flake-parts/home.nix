@@ -41,8 +41,8 @@ in
     homeConfigurations = builtins.listToAttrs (
       map
         (system: {
-          name = "abosafiya@${system}";
-          value = mkHome { inherit system; userName = "abosafiya"; };
+          name = "zayron@${system}";
+          value = mkHome { inherit system; userName = "zayron"; };
         })
         supportedSystems
     );
