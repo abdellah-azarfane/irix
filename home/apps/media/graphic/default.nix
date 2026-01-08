@@ -2,7 +2,7 @@
 {
   imports = [
     ./imv.nix
-    ./oculante.nix
+#    ./oculante.nix
     ./swayimg.nix
   ];
 

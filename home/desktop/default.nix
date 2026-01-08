@@ -11,7 +11,7 @@
     ./portals
     ./selector.nix
     ./widgets
-  #  ./wallpaper
+    ./wallpaper
     ./wm
   ];
 }
