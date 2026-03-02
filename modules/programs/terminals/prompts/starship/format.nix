@@ -1,0 +1,21 @@
+{
+  flake.modules.homeManager.terminals =
+    { pkgs, ... }:
+    {
+      programs.starship.settings =
+        let
+          hostInfo = "$username$hostname($shlvl)($cmd_duration)(\${custom.times})";
+          nixInfo = "($nix_shell)";
+          localInfo = "$directory($git_branch$git_commit$git_state$git_status$git_metrics)$all";
+          prompt = "$jobs$character";
+        in
+        {
+          format = ''
+            ${hostInfo}
+            ${localInfo} $fill ${nixInfo}
+            ${prompt}
+          '';
+          fill.symbol = " ";
+        };
+    };
+}
