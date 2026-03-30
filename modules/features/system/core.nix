@@ -1,0 +1,134 @@
+{ inputs, ...}: {
+  flake.nixosModules.core = { pkgs, config, ...}: {
+    imports = [inputs.nix-index-database.nixosModules.nix-index];
+
+    time.timeZone = "Africa/Casablanca";
+    
+    i18n = {
+      defaultLocale = "en_US.UTF-8";
+      supportedLocales = ["en_US.UTF-8/UTF-8" "ar_MA.UTF-8/UTF-8" "fr_FR.UTF-8/UTF-8"];
+      extraLocaleSettings = {
+        LC_ADDRESS = "ar_MA.UTF-8";
+        LC_IDENTIFICATION = "ar_MA.UTF-8";
+        LC_MEASUREMENT = "ar_MA.UTF-8";
+        LC_MONETARY = "ar_MA.UTF-8";
+        LC_NAME = "ar_MA.UTF-8";
+        LC_NUMERIC = "ar_MA.UTF-8";
+        LC_PAPER = "ar_MA.UTF-8";
+        LC_TELEPHONE = "ar_MA.UTF-8";
+        LC_TIME = "ar_MA.UTF-8";
+      };
+    };
+
+
+
+    console.keyMap = "us";
+    services.xserver.xkb.layout = "us";
+
+    nix.settings = {
+      experimental-features = ["nix-command" "flakes"];
+      download-buffer-size = 134217728;
+      substituters = ["https://cache.nixos.org" "https://niri.cachix.org"];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "niri.cachix.org-1:Wv0Om607Zp79cq669YntI2Zq0SrvW4N/2m097q3W08E="
+      ];
+    };
+    
+    nixpkgs.config.allowUnfree = true;
+
+    programs.nix-index-database.comma.enable = true;
+    
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+    
+    programs.appimage = {
+      enable = true;
+      binfmt = true;
+    };
+    
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.kdePackages.kdeconnect-kde;
+    };
+
+    # Desktop portals
+    # NOTE: Niri requires xdg-desktop-portal-gnome for screencasting (not wlr).
+    # The programs.niri module already adds xdg-desktop-portal-gnome and niri-portals.conf.
+    xdg.portal = {
+      enable = true;
+      # wlr.enable = true; # DISABLED: wlr portal doesn't work with Niri
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-termfilechooser # Portal for using TUIs as file pickers
+      ];
+    };
+
+    environment.systemPackages = with pkgs; [
+      # --- Nix --
+      alejandra # Opinionated formatter
+      nil # Nix language server (original)
+      nixd # Nix language server (newer)
+      nixfmt # Official formatter
+      statix # Nix linter
+      manix # Nix manual in the terminal
+      nix-inspect
+      nix-btm # Bottom-like system monitor for nix
+      nix-du # Disk usage analyzer for nix store
+      nix-melt # Ranger-like flake.lock viewer
+      nix-output-monitor # Better nix build output
+      nix-prefetch-github # Prefetch sources from github. Useful for computing commit hashes.
+      nix-search # Search nix packages
+      nix-top # Top-like process monitor for nix
+      nix-tree # Explore nix store
+      nix-update # Update nix package versions
+      nix-web # Web interface for nix store
+
+      bs-manager
+      gdb # GNU Project Debugger
+      glib
+      gsettings-desktop-schemas
+      libGL
+      libGLU
+      libva # Video acceleration API
+      mesa # Open source 3D graphics library
+
+      # --- Core System Utilities ---
+      coreutils # Basic GNU tools
+      coreutils-prefixed # Prefixed version of coreutils
+      util-linux # Includes lscpu
+      uutils-coreutils-noprefix # An improvement over coreutils
+
+      # --- Build Essentials ---
+      gnumake # Make files
+      gnutls # GNU transport layer security library
+      gcc # GNU compiler collection
+      pkg-config # Package information finder
+
+      # --- Version Control ---
+      git
+      hwinfo # Hardware detection tool from openSUSE
+
+      # --- Hardware Information Tools ---
+      dmidecode # System hardware details
+      dool # System statistics tool (dstat replacement)
+      inxi # My swiss army knife
+      lshw # List hardware
+      pciutils # lspci
+      read-edid # EDID information
+      smartmontools # S.M.A.R.T. monitoring
+      upower # D-Bus service for power management
+      usbutils # lsusb
+      evtest # Live-test keyboards
+      libinput # Handle inputs in Wayland
+
+      # --- Audio Tools ---
+      alsa-utils # ALSA utilities
+
+      # --- Hardware Testing ---
+      stress # Perform stress tests on CPU
+    ];
+  };
+}

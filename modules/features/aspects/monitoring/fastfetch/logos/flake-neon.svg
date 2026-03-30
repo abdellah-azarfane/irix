@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <path id="flake-arm" d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" stroke-linejoin="round" />
+    
+    <filter id="glow-ambient" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+    </filter>
+
+    <filter id="glow-neon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="240" height="240" fill="#1d2021" rx="24" />
+
+  <g transform="translate(120, 120)">
+    
+    <g filter="url(#glow-ambient)" opacity="0.6">
+      <use href="#flake-arm" stroke="#fb4934" stroke-width="4" fill="none" />
+      <use href="#flake-arm" stroke="#fe8019" stroke-width="4" fill="none" transform="rotate(60)" />
+      <use href="#flake-arm" stroke="#fabd2f" stroke-width="4" fill="none" transform="rotate(120)" />
+      <use href="#flake-arm" stroke="#b8bb26" stroke-width="4" fill="none" transform="rotate(180)" />
+      <use href="#flake-arm" stroke="#8ec07c" stroke-width="4" fill="none" transform="rotate(240)" />
+      <use href="#flake-arm" stroke="#d3869b" stroke-width="4" fill="none" transform="rotate(300)" />
+    </g>
+
+    <g filter="url(#glow-neon)">
+      <use href="#flake-arm" fill="#fb4934" fill-opacity="0.15" stroke="#fb4934" stroke-width="1.5" />
+      <use href="#flake-arm" fill="#fe8019" fill-opacity="0.15" stroke="#fe8019" stroke-width="1.5" transform="rotate(60)" />
+      <use href="#flake-arm" fill="#fabd2f" fill-opacity="0.15" stroke="#fabd2f" stroke-width="1.5" transform="rotate(120)" />
+      <use href="#flake-arm" fill="#b8bb26" fill-opacity="0.15" stroke="#b8bb26" stroke-width="1.5" transform="rotate(180)" />
+      <use href="#flake-arm" fill="#8ec07c" fill-opacity="0.15" stroke="#8ec07c" stroke-width="1.5" transform="rotate(240)" />
+      <use href="#flake-arm" fill="#d3869b" fill-opacity="0.15" stroke="#d3869b" stroke-width="1.5" transform="rotate(300)" />
+    </g>
+
+    <g opacity="0.9">
+      <use href="#flake-arm" fill="none" stroke="#ebdbb2" stroke-width="0.6" />
+      <use href="#flake-arm" fill="none" stroke="#ebdbb2" stroke-width="0.6" transform="rotate(60)" />
+      <use href="#flake-arm" fill="none" stroke="#ebdbb2" stroke-width="0.6" transform="rotate(120)" />
+      <use href="#flake-arm" fill="none" stroke="#ebdbb2" stroke-width="0.6" transform="rotate(180)" />
+      <use href="#flake-arm" fill="none" stroke="#ebdbb2" stroke-width="0.6" transform="rotate(240)" />
+      <use href="#flake-arm" fill="none" stroke="#ebdbb2" stroke-width="0.6" transform="rotate(300)" />
+    </g>
+
+  </g>
+</svg>

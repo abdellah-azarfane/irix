@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" fill="#282828" rx="24"/>
+
+  <g transform="translate(100, 100)">
+    
+    <g stroke="#282828" stroke-width="3" stroke-linejoin="round">
+      
+      <path d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" fill="#fb4934" />
+      
+      <path d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" fill="#fe8019" transform="rotate(60)" />
+      
+      <path d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" fill="#fabd2f" transform="rotate(120)" />
+      
+      <path d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" fill="#b8bb26" transform="rotate(180)" />
+      
+      <path d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" fill="#8ec07c" transform="rotate(240)" />
+      
+      <path d="M 12 20.785 L 28 48.497 L 60 48.497 L 52 34.641 L 36 34.641 L 28 20.785 Z" fill="#83a598" transform="rotate(300)" />
+      
+    </g>
+  </g>
+</svg>
