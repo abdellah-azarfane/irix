@@ -3,6 +3,7 @@
     imports = [
       self.nixosModules.zededitor
       self.nixosModules.emacs
+      self.nixosModules.qtcreator
     ];
   };
 }
