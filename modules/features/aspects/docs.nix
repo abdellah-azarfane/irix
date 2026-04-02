@@ -12,11 +12,8 @@
       zathura
     ];
 
-    # Configure Zathura using native Nix object generation
-    hjem.users.${user}.files.".config/zathura/zathurarc" = {
-      clobber = true;
-      text = let
-        # Your exact Home Manager options mapped here
+    home-manager.users.${user} = {
+      xdg.configFile."zathura/zathurarc".text = let
         options = {
         # --- Performance ---
         render-loading = true;

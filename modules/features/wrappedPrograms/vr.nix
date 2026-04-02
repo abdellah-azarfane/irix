@@ -15,10 +15,6 @@
       '')
     ];
 
-    persistance.cache.directories = lib.mkIf config.persistance.enable [
-      ".config/wivrn"
-    ];
-
     services.wivrn = {
       enable = true;
       openFirewall = true;
@@ -54,27 +50,31 @@
       # };
     };
 
-    hjem.users.${user} = {
-      files.".config/openxr/1/active_runtime.json".source = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
+    # Switched from hjem to home-manager
+    home-manager.users.${user} = {
+      xdg.configFile = {
+        "openxr/1/active_runtime.json".source = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
 
-      files.".config/openvr/openvrpaths.vrpath".text = let
-        steam = "/home/yurii/.local/share/Steam";
-      in
-        builtins.toJSON {
-          version = 1;
-          jsonid = "vrpathreg";
+        "openvr/openvrpaths.vrpath".text = let
+          # Fixed the hardcoded 'yurii' username here to dynamically use your username
+          steam = "/home/${user}/.local/share/Steam";
+        in
+          builtins.toJSON {
+            version = 1;
+            jsonid = "vrpathreg";
 
-          external_drivers = null;
-          config = ["${steam}/config"];
+            external_drivers = null;
+            config = ["${steam}/config"];
 
-          log = ["${steam}/logs"];
+            log = ["${steam}/logs"];
 
-          runtime = [
-            "${pkgs.xrizer}/lib/xrizer"
-            # OR
-            #"${pkgs.opencomposite}/lib/opencomposite"
-          ];
-        };
+            runtime = [
+              "${pkgs.xrizer}/lib/xrizer"
+              # OR
+              #"${pkgs.opencomposite}/lib/opencomposite"
+            ];
+          };
+      };
     };
   };
 }

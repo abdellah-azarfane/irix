@@ -23,20 +23,13 @@
       oculantePrevious
     ];
 
-    hjem.users.${user}.files = {
-      # Assumes you put the config files in the exact same folder as graphic.nix
-      ".config/oculante/config.json" = {
-        clobber = true;
-        source = ./oculante/config.json;
-      };
-      ".config/imv/config" = {
-        clobber = true;
-        source = ./imv/config;
-      };
-      ".config/swayimg/config" = {
-        clobber = true;
-        source = ./swayimg/config;
-      };
+    
+    home-manager.users.${user} = {
+       xdg.configFile = {
+         "oculante/config.json".source = ./oculante/config.json;
+         "imv/config".source = ./imv/config;
+         "swayimg/config".source = ./swayimg/config;
+       };
     };
   };
 }

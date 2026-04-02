@@ -5,9 +5,8 @@
   in {
     environment.systemPackages = [pkgs.wezterm];
 
-    hjem.users.${user}.files."wezterm/wezterm.lua" = {
-      clobber = true;
-      source = ./wezterm.lua;
+    home-manager.users.${user} = {
+      xdg.configFile = {"wezterm/wezterm.lua"source = ./wezterm.lua;
     };
   };
 }

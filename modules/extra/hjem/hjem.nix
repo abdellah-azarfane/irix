@@ -9,12 +9,12 @@
     config = {
       hjem = {
         users."${user}" = {
-          enable = true;
+          enable = false;
           directory = "/home/${user}";
           user = "${user}";
         };
 
-        clobberByDefault = true;
+        clobberByDefault = false;
       };
     };
   };
