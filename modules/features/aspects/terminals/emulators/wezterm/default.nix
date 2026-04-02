@@ -6,7 +6,9 @@
     environment.systemPackages = [pkgs.wezterm];
 
     home-manager.users.${user} = {
-      xdg.configFile = {"wezterm/wezterm.lua"source = ./wezterm.lua;
+      xdg.configFile = {
+        "wezterm/wezterm.lua".source = ./wezterm.lua;
     };
   };
+ };
 }
