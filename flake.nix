@@ -7,8 +7,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     import-tree.url = "github:vic/import-tree";
     flake-file.url = "github:vic/flake-file";
-    hjem.url = "github:feel-co/hjem";
-    hjem.inputs.nixpkgs.follows = "nixpkgs";
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     disko = {
       url = "github:nix-community/disko";

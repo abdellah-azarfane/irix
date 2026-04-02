@@ -9,7 +9,6 @@
       self.nixosModules.hardware
       self.nixosModules.nix-ld
       inputs.home-manager.nixosModules.home-manager
-      self.nixosModules.extra_hjem
     ];
 
     home-manager = {
