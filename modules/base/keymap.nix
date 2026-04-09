@@ -1,38 +1,27 @@
 {
-  flake.nixosModules.base = {
-    lib,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.base = { lib, pkgs, ... }: {
     options.preferences = {
       keymap = lib.mkOption {
         type = lib.types.lazyAttrsOf (lib.types.either lib.types.attrs lib.types.package);
         default = {};
+        description = "Define keybindings and keychords for the system.";
         example = {
-          # super + d and f keychord
+          # MERGED: super + d keychords
           "SUPER + d" = {
-            "f" = {
-              exec = "firefox";
-            };
+            "f" = { exec = "firefox"; };
           };
-           "SUPER + d" = {
-            "p" = {
-              exec = "brave";
-            };
-          };
-          # super + a and b and c keychord
+          
+          # super + a -> b -> c keychord
           "SUPER + a" = {
             "b"."c" = {
               exec = "pcmanfm";
             };
           };
-          # a
-          "a" = {
-            package = pkgs.firefox;
-          };
-          # a
-          "a" = {
-            exec = "pcmanfm";
+       
+          # You can only map "a" to one action. 
+          # You must choose either a package OR an exec string.
+          "a" = { 
+            package = pkgs.firefox; 
           };
         };
       };

@@ -27,8 +27,8 @@
         inherit pkgs;
         settings = {
           user = {
-            name = "Yurii";
-            email = "yurii@goxore.com";
+            name = "abosafiya";
+            email = "abdellahazarfane@proton.me";
           };
           aliases = {
             l = logCommand;

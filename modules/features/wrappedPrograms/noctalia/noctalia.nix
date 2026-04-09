@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  perSystem = {pkgs, ...}: {
+  perSystem = {pkgs, config,...}: {
     packages = {
       noctalia-shell = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
         inherit pkgs;
@@ -63,7 +63,7 @@
             position = "left";
             showCapsule = false;
             showOutline = false;
-            transparent = false;
+            transparent = true;
             widgets = {
               center = [];
               left = [
@@ -250,11 +250,13 @@
             allowPanelsOnScreenWithoutBar = true;
             animationDisabled = false;
             animationSpeed = 1;
-            avatarImage = ../../wallpaper/gruvbox-mountain-village.png;
+            avatarImage = "/home/abosafiya/.cache/irix/current-wallpaper";
             boxRadiusRatio = 1;
             compactLockScreen = false;
             dimmerOpacity = 0.15;
             enableShadows = true;
+            enableBlur = true;
+            blurSigma = 20;
             forceBlackScreenCorners = false;
             iRadiusRatio = 1;
             language = "";
@@ -300,7 +302,7 @@
             nightTemp = "4000";
           };
           notifications = {
-            backgroundOpacity = 1;
+            backgroundOpacity = 0.8;
             criticalUrgencyDuration = 15;
             enableKeyboardLayoutToast = true;
             enabled = true;
@@ -322,7 +324,7 @@
           };
           osd = {
             autoHideMs = 3000;
-            backgroundOpacity = 1;
+            backgroundOpacity = 0.8;
             enabled = true;
             enabledTypes = [
               0
@@ -338,7 +340,7 @@
             audioCodec = "opus";
             audioSource = "default_output";
             colorRange = "limited";
-            directory = "/home/yurii/Videos";
+            directory = "/home/abosafiya/videos";
             frameRate = 60;
             quality = "very_high";
             showCursor = true;
@@ -447,14 +449,13 @@
             fontDefaultScale = 1;
             fontFixed = "monospace";
             fontFixedScale = 1;
-            panelBackgroundOpacity = 1;
+            panelBackgroundOpacity = 0.8;
             panelsAttachedToBar = true;
             settingsPanelMode = "attached";
             tooltipsEnabled = true;
             wifiDetailsViewMode = "grid";
           };
           wallpaper = {
-            # bye bye
             enabled = false;
           };
         };

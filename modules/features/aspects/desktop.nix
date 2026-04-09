@@ -1,8 +1,9 @@
-{self, ...}: {
+{self, inputs, ...}: {
   flake.nixosModules.desktop = {pkgs, ...}: let
     selfpkgs = self.packages."${pkgs.stdenv.hostPlatform.system}";
   in {
     imports = [
+      self.nixosModules.niri
       self.nixosModules.gtk
       self.nixosModules.wallpaper
       self.nixosModules.development
@@ -20,10 +21,9 @@
     ];
 
     programs.niri.enable = true;
-    programs.niri.package = selfpkgs."niri";
+    programs.niri.package = inputs."niri-flake".packages.${pkgs.stdenv.hostPlatform.system}."niri-stable";
 
     # preferences.autostart = [selfpkgs.quickshellWrapped];
-    preferences.autostart = [selfpkgs.noctalia-shell];
 
     environment.systemPackages = [
       selfpkgs.terminal

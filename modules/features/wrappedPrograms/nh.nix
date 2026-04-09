@@ -4,7 +4,7 @@
       inherit pkgs;
       package = pkgs.nh;
       env = {
-        "NH_FLAKE" = "/home/abosafiya/dev/nixconf";
+        "NH_FLAKE" = "/home/abosafiya/dev/irix";
       };
     };
   };

@@ -48,9 +48,8 @@
     description = "Helper to build NixOS hosts with consistent defaults.";
   };
 
-
   config = {
-    flake.lib.defaultSystems = builtins.filter (lib.hasSuffix "-linux") inputs.flake-utils.lib.defaultSystems;
+    flake.lib.defaultSystems = builtins.filter (lib.hasSuffix "-linux") lib.systems.flakeExposed;
 
     flake.lib.mkNixos =
       {

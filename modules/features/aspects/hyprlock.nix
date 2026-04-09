@@ -36,7 +36,7 @@
           background = [
             {
               monitor = ""; # Empty means all monitors
-              path = "../wallpaper/gruvbox-mountain-village.png"; # Or "/path/to/image.png"
+              path = "/home/${user}/.cache/irix/current-wallpaper"; # Or "/path/to/image.png"
               color = "rgba(17, 17, 17, 1.0)"; # Fallback
 
               # Blur settings (Hyprland style)
@@ -143,7 +143,7 @@
           image = [
             {
               monitor = "edP-1"; # Show only on laptop display
-              path = "./wallpaper/gruvbox-mountain-village.png"; # Nix relative path
+              path = "/home/${user}/.cache/irix/current-wallpaper"; # Nix relative path
               size = 150; # Lesser side if not 1:1 ratio
               rounding = -1; # -1 means circle
               border_size = 4;

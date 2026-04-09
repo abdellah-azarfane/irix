@@ -4,14 +4,14 @@
     nixpkgs-25_11.url = "github:nixos/nixpkgs/nixos-25.11";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils.url = "github:numtide/flake-utils";
     import-tree.url = "github:vic/import-tree";
     flake-file.url = "github:vic/flake-file";
+    niri-flake.url = "github:sodiboo/niri-flake";
+    niri-flake.inputs.nixpkgs.follows = "nixpkgs";
+    gruvbox-wallpapers.url = "github:AngelJumbo/gruvbox-wallpapers";
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

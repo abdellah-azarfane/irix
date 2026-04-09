@@ -48,12 +48,6 @@
       };
     };
 
-    preferences.keymap = {
-      "SUPER + v".exec = ''${pkgs.alsa-utils}/bin/amixer sset Capture toggle'';
-      "SUPER + d"."s".package = pkgs.pwvucontrol;
-    };
-
-
     # Hardware Daemons
     systemd.services.supergfxd.path = [pkgs.pciutils pkgs.kmod];
     services.upower.enable = true;

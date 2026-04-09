@@ -1,18 +1,24 @@
 {
   flake.nixosModules.wallpaper = {
     pkgs,
+    inputs,
+    config,
     lib,
     ...
-  }: {
+  }:
+  let
+    user = config.preferences.user.name;
+    system = pkgs.stdenv.hostPlatform.system;
+  in {
     environment.systemPackages = [
-      pkgs.swww
+      pkgs.awww
     ];
 
-    preferences.autostart = [
-      ''
-        ${pkgs.swww}/bin/swww-daemon &
-        ${lib.getExe pkgs.swww} img ${./gruvbox-mountain-village.png} &
-      ''
-    ];
+    home-manager.users.${user} = {
+      home.file."wallpapers" = {
+        source = inputs.gruvbox-wallpapers.packages.${system}.default;
+        recursive = true;
+      };
+    };
   };
 }

@@ -5,15 +5,15 @@
         # --- Javascript / Typescript / Runtimes ---
         nodejs
         deno
-        nodePackages.typescript-language-server
+        typescript-language-server
 
         # --- Frameworks (Vue, Svelte, React) ---
         vue-language-server
         svelte-language-server
 
         # --- Web Tooling & Formatters ---
-        nodePackages.eslint
-        nodePackages.prettier
+        eslint
+        prettier
         biome
         emmet-ls
 
@@ -35,7 +35,7 @@
         lemminx # XML
 
         # --- Data & APIs ---
-        nodePackages.graphql-language-service-cli
+        graphql-language-service-cli
         prisma_6
       ];
     };

@@ -28,14 +28,15 @@
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       download-buffer-size = 134217728;
-      substituters = ["https://cache.nixos.org" "https://niri.cachix.org"];
+      substituters = ["https://cache.nixos.org"];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "niri.cachix.org-1:Wv0Om607Zp79cq669YntI2Zq0SrvW4N/2m097q3W08E="
       ];
     };
     
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+    };
 
     programs.nix-index-database.comma.enable = true;
     
