@@ -539,6 +539,11 @@ in
               cmd = "pear-desktop";
             }
             {
+              key = "p";
+              desc = "Brave Browser";
+              cmd = "brave";
+            }
+            {
               key = "s";
               desc = "Pavucontrol";
               cmd = "${lib.getExe pkgs.pavucontrol}";
