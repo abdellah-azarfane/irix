@@ -20,7 +20,19 @@
         shell = pkgs.fish;
         initialPassword = "12345";
       };
-
+      features.optionalServices = {
+        greetd = true;
+        xserver = true;
+        pipewire = true;
+        upower = true;
+        printing = true;
+        udisks2 = true;
+        blueman = true;
+        flatpak = true;
+        openrgb = true;
+        asusd = true;
+        ollama = true;
+      };
       home-manager.users.${config.preferences.user.name} = {
         home.stateVersion = "26.05";
       };

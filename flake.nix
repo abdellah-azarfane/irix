@@ -2,13 +2,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-25_11.url = "github:nixos/nixpkgs/nixos-25.11";
-
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
     flake-file.url = "github:vic/flake-file";
     niri-flake.url = "github:sodiboo/niri-flake";
     niri-flake.inputs.nixpkgs.follows = "nixpkgs";
-    gruvbox-wallpapers.url = "github:AngelJumbo/gruvbox-wallpapers";
+    gruvbox-wallpapers.url = "github:abdellah-azarfane/gruvbox-wallpapers";
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";

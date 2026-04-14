@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.info = { pkgs, config, ... }:
+  flake.nixosModules.info = { pkgs, config, lib, ... }:
    let
     user = config.preferences.user.name;
 
@@ -24,14 +24,17 @@
     in
     {
     home-manager.users.${user} = {
-      home.packages = with pkgs; [
-        random-fastfetch
-        via # GUI for adjusting RGB lighting
-        cowsay # Generate ASCII pictures using a cow
-        cmatrix # We all know what this is
-        ascii # Interactive ASCII name and symbol chart
-        trash-cli # Interact with trashcan
-      ];
+      home.packages =
+        (with pkgs; [
+          random-fastfetch
+          cowsay # Generate ASCII pictures using a cow
+          cmatrix # We all know what this is
+          ascii # Interactive ASCII name and symbol chart
+          trash-cli # Interact with trashcan
+        ])
+        ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+          pkgs.via # GUI for adjusting RGB lighting
+        ];
       xdg.configFile."fastfetch/config.jsonc" = {
         source = ../fastfetch/config.jsonc;
         force = true;

@@ -10,24 +10,37 @@ in {
     self',
     ...
   }: {
+    # Alias for convenience
     packages.terminal = self'.packages.kitty;
 
     packages.kitty =
       (self.lib.wrapperModules.kitty.apply {
         inherit pkgs;
-        settings = {
-          enable_audio_bell = "no";
+        
+        # --- Developer Mode Toggle ---
+        devMode = false; 
+      #  devSessionPath = pkgs.writeText "kitty-dev-session.conf" ''
+     #   '';
 
+        settings = {
+          # --- Performance & Feedback ---
+          enable_audio_bell = "no";
           font_size = 15;
           font_family = "JetBrainsMono Nerd Font";
-
+          cursor_trail = 3;
+          
+          # --- Development & IPC ---
+          allow_remote_control = "yes";
+          listen_on = "unix:/tmp/kitty";
+          shell_integration = "enabled";
+          allow_hyperlinks = "yes";
+          
+          # --- Visuals ---
+          background_opacity = "0.7";
+          dynamic_background_opacity = "yes";
           cursor_text_color = "background";
 
-          allow_remote_control = "yes";
-          shell_integration = "enabled";
-
-          cursor_trail = 3;
-
+          # --- Keybinds ---
           map = [
             "alt+1 goto_tab 1"
             "alt+2 goto_tab 2"
@@ -43,14 +56,12 @@ in {
             "ctrl+shift+t new_tab"
           ];
 
+          # --- Colors (Theming) ---
           background = theme.base00;
           foreground = theme.base07;
-
           cursor = theme.base07;
-
           selection_foreground = theme.base02;
           selection_background = theme.base01;
-
           active_tab_foreground = theme.base0B;
           active_tab_background = theme.base03;
           inactive_tab_background = theme.base01;
@@ -75,6 +86,7 @@ in {
       }).wrapper;
   };
 
+  # --- The Module Definition ---
   flake.lib.wrapperModules.kitty = inputs."wrapper-modules".lib.wrapModule ({
     config,
     wlib,
@@ -83,11 +95,25 @@ in {
   }: let
     inherit (lib) mkOption types;
     inherit (lib.generators) mkKeyValueDefault;
-    kittyKeyValueFormat = config.pkgs.formats.keyValue {
+
+    # Safely pull pkgs from config to ensure module scope consistency
+    pkgs = config.pkgs;
+
+    # Generator for kitty's config format
+    kittyKeyValueFormat = pkgs.formats.keyValue {
       listsAsDuplicateKeys = true;
       mkKeyValue = mkKeyValueDefault {} " ";
     };
-    writeKittyConfig = cfg: kittyKeyValueFormat.generate "kitty.conf" cfg;
+
+    # The safe way to merge a generated derivation and an extra string in Nix
+    writeKittyConfig = settings: extra: pkgs.concatTextFile {
+      name = "kitty.conf";
+      files = [
+        (kittyKeyValueFormat.generate "base-kitty.conf" settings)
+        (pkgs.writeText "extra-kitty.conf" extra)
+      ];
+    };
+
   in {
     options = {
       settings = mkOption {
@@ -100,18 +126,36 @@ in {
         default = "";
       };
 
+      devMode = mkOption {
+        type = types.bool;
+        default = false;
+      };
+
+      devSessionPath = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+      };
+
       configFile = mkOption {
-        type = wlib.types.file config.pkgs;
-        default.path = toString (writeKittyConfig config.settings) + config.extraConfig;
+        type = wlib.types.file pkgs;
       };
     };
 
     config = {
-      package = config.pkgs.kitty;
+      package = pkgs.kitty;
+      
+      # Set the default path for the config file
+      configFile.path = writeKittyConfig config.settings config.extraConfig;
 
-      flags = {
-        "-c" = config.configFile.path;
-      };
+      # Define the CLI flags passed to kitty
+      flags = lib.mkMerge [
+        { "-c" = "${config.configFile.path}"; }
+        
+        # Only inject the session flag if devMode is true AND a path is provided
+        (lib.mkIf (config.devMode && config.devSessionPath != null) {
+            "--session" = "${config.devSessionPath}";
+        })
+      ];
     };
   });
 }

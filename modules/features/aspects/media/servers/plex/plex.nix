@@ -1,8 +1,11 @@
 {...}: {
-  flake.nixosModules.plex = {pkgs, config, ...}: {
-      environment.systemPackages = with pkgs; [
+  flake.nixosModules.plex = { pkgs, lib, ... }: {
+    environment.systemPackages =
+      (with pkgs; [
         plex
-        plexamp
+      ])
+      ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+        pkgs.plexamp
       ];
-    };
+  };
 }

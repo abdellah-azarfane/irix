@@ -1,10 +1,81 @@
 { self, lib, ... }: {
-  flake.nixosModules.services = { pkgs, ... }: {
-    
+  flake.nixosModules.services = { pkgs, lib, config, ... }:
+  let
+    cfg = config.features.optionalServices;
+  in {
+    options.features.optionalServices = {
+      greetd = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable greetd login manager service";
+      };
+
+      xserver = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable X server service";
+      };
+
+      pipewire = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable PipeWire audio stack";
+      };
+
+      upower = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable UPower daemon";
+      };
+
+      printing = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable printing via CUPS";
+      };
+
+      udisks2 = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable UDisks2 device management";
+      };
+
+      blueman = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Blueman Bluetooth manager service";
+      };
+
+      flatpak = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Flatpak and auto-configure Flathub remote";
+      };
+
+      openrgb = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable OpenRGB hardware control service";
+      };
+
+      asusd = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable ASUS daemon";
+      };
+
+      ollama = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Ollama service";
+      };
+    };
+
+    config = {
     # Audio with Noise Canceling
     security.rtkit.enable = true;
     services.pipewire = {
-      enable = true;
+      enable = cfg.pipewire;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
@@ -50,15 +121,15 @@
 
     # Hardware Daemons
     systemd.services.supergfxd.path = [pkgs.pciutils pkgs.kmod];
-    services.upower.enable = true;
+    services.upower.enable = cfg.upower;
     # Abstraction for enumerating power devices
-    services.printing.enable = true; # CUPS
-    services.udisks2.enable = true;
-    services.blueman.enable = true;
+    services.printing.enable = cfg.printing; # CUPS
+    services.udisks2.enable = cfg.udisks2;
+    services.blueman.enable = cfg.blueman;
     services.udev.enable = true; # Enable device manager
-    services.flatpak.enable = true;
-    services.hardware.openrgb = {enable = true;};
-    services.asusd.enable = true;
+    services.flatpak.enable = cfg.flatpak;
+    services.hardware.openrgb = {enable = cfg.openrgb;};
+    services.asusd.enable = cfg.asusd;
     services.dbus.enable = true;
     # Required for niri wm
     services.dbus.packages = [ pkgs.nautilus ];
@@ -66,7 +137,7 @@
     
     # AI Services
     services.ollama = {
-      enable = true;
+      enable = cfg.ollama;
       package = pkgs.ollama-rocm;
       loadModels = [
           # "llama3.1"
@@ -78,6 +149,7 @@
 
     # Networking & Security
     networking.networkmanager.enable = true;
+    services.xserver.enable = cfg.xserver;
     networking.firewall = {
       enable = false;
       checkReversePath = "loose";
@@ -109,7 +181,7 @@
     ];
 
     # Flatpak Auto-Config
-    systemd.services.flatpak-repo = {
+    systemd.services.flatpak-repo = lib.mkIf cfg.flatpak {
       wantedBy = ["multi-user.target"];
       path = [pkgs.flatpak];
       script = ''flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo'';
@@ -169,5 +241,6 @@
       # --- disk ---
       duf # Yet another disk utility
     ];
+    };
   };
 }

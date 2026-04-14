@@ -1,5 +1,5 @@
 { inputs, ...}: {
-  flake.nixosModules.core = { pkgs, config, ...}: {
+  flake.nixosModules.core = { pkgs, config, lib, ...}: {
     imports = [inputs.nix-index-database.nixosModules.nix-index];
 
     time.timeZone = "Africa/Casablanca";
@@ -67,7 +67,8 @@
       ];
     };
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages =
+      (with pkgs; [
       # --- Nix --
       alejandra # Opinionated formatter
       nil # Nix language server (original)
@@ -87,7 +88,6 @@
       nix-update # Update nix package versions
       nix-web # Web interface for nix store
 
-      bs-manager
       gdb # GNU Project Debugger
       glib
       gsettings-desktop-schemas
@@ -130,6 +130,9 @@
 
       # --- Hardware Testing ---
       stress # Perform stress tests on CPU
+    ])
+    ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+      pkgs.bs-manager
     ];
   };
 }

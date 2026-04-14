@@ -7,6 +7,8 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelPackages = pkgs.linuxPackages_zen;
     boot.supportedFilesystems = [ "ntfs" ];
+    # Enable emulation so laptop can build for the Pi
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
     # Hardware Support
     hardware.uinput.enable = true;
     hardware.enableAllFirmware = true;
