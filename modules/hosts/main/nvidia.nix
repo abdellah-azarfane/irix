@@ -16,6 +16,7 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       powerManagement.enable = true;
+      dynamicBoost.enable = true;
 
       # PRIME offload (Intel + NVIDIA hybrid laptops)
       prime = {
