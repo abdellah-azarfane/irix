@@ -256,7 +256,7 @@
             dimmerOpacity = 0.15;
             enableShadows = true;
             enableBlur = true;
-            blurSigma = 20;
+            blurSigma = 50;
             forceBlackScreenCorners = false;
             iRadiusRatio = 1;
             language = "";
@@ -302,7 +302,7 @@
             nightTemp = "4000";
           };
           notifications = {
-            backgroundOpacity = 0.8;
+            backgroundOpacity = 0.9;
             criticalUrgencyDuration = 15;
             enableKeyboardLayoutToast = true;
             enabled = true;
@@ -324,7 +324,7 @@
           };
           osd = {
             autoHideMs = 3000;
-            backgroundOpacity = 0.8;
+            backgroundOpacity = 0.9;
             enabled = true;
             enabledTypes = [
               0
@@ -449,7 +449,7 @@
             fontDefaultScale = 1;
             fontFixed = "monospace";
             fontFixedScale = 1;
-            panelBackgroundOpacity = 0.8;
+            panelBackgroundOpacity = 0.9;
             panelsAttachedToBar = true;
             settingsPanelMode = "attached";
             tooltipsEnabled = true;

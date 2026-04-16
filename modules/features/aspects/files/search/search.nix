@@ -8,6 +8,10 @@
   let
     user = config.preferences.user.name;
   in  {
+    imports = [
+      self.nixosModules.env
+    ];
+
     home-manager.users.${user} = {
       home.packages = with pkgs; [
        # --- Files interactions ---

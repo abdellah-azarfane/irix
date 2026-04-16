@@ -1,102 +1,396 @@
 return {
     "nvim-lspconfig",
-    lazy = false,
+    after = function()
+        -- LSP Configuration using vim.lsp.config (Neovim 0.11+)
+        -- See :help lspconfig-nvim-0.11 for migration details
+        
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-    before = function()
-        local on_attach = function(client, bufnr)
-            local opts = { noremap = true, silent = true, buffer = bufnr }
-
-            vim.keymap.set('v', 'F', vim.lsp.buf.format, opts)
-            vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, opts)
-            vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float, opts)
-            vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-            vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, opts)
-            -- bufmap(bufnr, 'n', 'gE', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-            -- bufmap(bufnr, 'n', 'ge', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+        -- Prefer blink.cmp capabilities in this wrapper setup.
+        local ok_blink, blink = pcall(require, "blink.cmp")
+        if ok_blink and type(blink.get_lsp_capabilities) == "function" then
+          capabilities = blink.get_lsp_capabilities(capabilities)
+        else
+          -- Backward compatibility for environments still using nvim-cmp.
+          local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+          if ok_cmp and type(cmp_lsp.default_capabilities) == "function" then
+            capabilities = cmp_lsp.default_capabilities(capabilities)
+          end
         end
-
-        local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-        -- Lua LSP
-        vim.lsp.config("lua_ls", {
-            settings = {
-                Lua = {
-                    diagnostics = { globals = { "vim" } },
-                    telemetry = {
-
-                        enable = false
-                    },
-                    workspace = {
-                        checkThirdParty = "Apply"
-                    }
+        
+        -- Helper to define and enable an LSP server
+        local function setup(name, config)
+          config = config or {}
+          config.capabilities = vim.tbl_deep_extend("force", capabilities, config.capabilities or {})
+          vim.lsp.config(name, config)
+          vim.lsp.enable(name)
+        end
+        
+        -- Bash
+        setup("bashls")
+        
+        -- C/C++
+        setup("clangd")
+        
+        -- C#
+        setup("omnisharp")
+        
+        -- CMake
+        setup("cmake")
+        
+        -- Clojure
+        setup("clojure_lsp")
+        
+        -- Crystal
+        setup("crystalline")
+        
+        -- CSS
+        setup("cssls")
+        
+        -- D language
+        setup("serve_d")
+        
+        -- Deno (TypeScript/JavaScript alternative)
+        setup("denols", {
+          root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local root = vim.fs.root(fname, { "deno.json", "deno.jsonc" })
+            if root then
+              on_dir(root)
+            end
+          end,
+        })
+        
+        -- Dhall
+        setup("dhall_lsp_server")
+        
+        -- Docker
+        setup("dockerls")
+        
+        -- Elixir
+        setup("elixirls", {
+          cmd = { "elixir-ls" },
+        })
+        
+        -- Elm
+        setup("elmls")
+        
+        -- F#
+        setup("fsautocomplete")
+        
+        -- Fennel
+        setup("fennel_ls")
+        
+        -- Fish Shell
+        setup("fish_lsp", {
+          cmd = { "fish-lsp", "start" },
+          cmd_env = { fish_lsp_show_client_popups = false },
+          filetypes = { "fish" },
+        })
+        
+        -- Fortran
+        setup("fortls")
+        
+        -- Gleam
+        setup("gleam")
+        
+        -- GLSL
+        setup("glslls")
+        
+        -- Go
+        setup("gopls")
+        
+        -- GraphQL
+        setup("graphql")
+        
+        -- Haskell
+        setup("hls")
+        
+        -- HTML
+        setup("html", {
+          filetypes = { "html", "gohtmltmpl", "htmldjango", "templ" },
+          root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local root = vim.fs.root(fname, {
+              "hugo.toml",
+              "hugo.yaml",
+              "hugo.json",
+              "config.toml",
+              "config.yaml",
+              "config.json",
+              ".git",
+            })
+            if root then
+              on_dir(root)
+            end
+          end,
+          settings = {
+            html = {
+              format = {
+                templating = true,
+                wrapLineLength = 120,
+                wrapAttributes = "auto",
+              },
+              hover = {
+                documentation = true,
+                references = true,
+              },
+            },
+          },
+        })
+        
+        -- Java
+        setup("jdtls")
+        
+        -- JSON (with JSONC support)
+        setup("jsonls", {
+          filetypes = { "json", "jsonc" },
+          settings = {
+            json = {
+              schemas = (function()
+                local ok, schemastore = pcall(require, "schemastore")
+                if ok and schemastore.json and type(schemastore.json.schemas) == "function" then
+                  return schemastore.json.schemas()
+                end
+                return {}
+              end)(),
+              validate = { enable = true },
+              format = {
+                enable = true,
+              },
+            },
+          },
+          init_options = {
+            provideFormatter = true,
+          },
+        })
+        
+        -- Just
+        setup("just")
+        
+        -- Julia
+        setup("julials", {
+          on_new_config = function(new_config, new_root_dir)
+            local julia = vim.fn.expand("julia")
+            if julia and julia ~= "" then
+              new_config.cmd = {
+                julia,
+                "--startup-file=no",
+                "--history-file=no",
+                "--project=" .. new_root_dir,
+                "-e",
+                [[
+                  using Pkg;
+                  Pkg.instantiate();
+                  using LanguageServer, SymbolServer;
+                  env = dirname(Pkg.Types.Context().env.project_file);
+                  server = LanguageServer.LanguageServerInstance(stdin, stdout, env, "");
+                  server.runlinter = true;
+                  run(server);
+                ]],
+              }
+            end
+          end,
+        })
+        
+        -- Kotlin
+        setup("kotlin_language_server")
+        
+        -- LaTeX
+        setup("texlab")
+        
+        -- Lua
+        setup("lua_ls")
+        
+        -- Markdown
+        setup("marksman")
+        
+        -- Nixd (Primary Nix LSP)
+        setup("nixd", {
+          settings = {
+            nixd = {
+              flake = { enable = true },
+              nixpkgs = {
+                expr = "import <nixpkgs> { }",
+              },
+              diagnostic = {
+                suppress = { "sema-extra-with" },
+              },
+            },
+          },
+        })
+        
+        -- Nil (Alternative Nix LSP)
+        setup("nil_ls", {
+          settings = {
+            ["nil"] = {
+              flake = { autoArchive = true },
+              diagnostics = {
+                ignored = { "unused_binding", "unused_with" },
+                excludeFiles = { "*.generated.nix" },
+              },
+              nix = {
+                flake = {
+                  autoArchive = true,
                 },
+              },
             },
+          },
         })
-
-        vim.lsp.config("lua_ls", { on_attach = on_attach, capabilities = capabilities })
-        vim.lsp.enable("lua_ls")
-
-        vim.lsp.config("ts_ls", {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                suggestionActions = {
-                    enabled = false
-                }
-            }
+        
+        -- Performance optimization for Nix LSPs
+        vim.api.nvim_create_autocmd("LspAttach", {
+          callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            if client and (client.name == "nil_ls" or client.name == "nixd") then
+              client.server_capabilities.semanticTokensProvider = nil
+            end
+          end,
         })
-        vim.lsp.enable("ts_ls")
-
-        vim.lsp.config("astro", {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            init_options = {
-                typescript = {
-                    tsdk = "node_modules/typescript/lib",
-                }
+        
+        -- Nushell
+        setup("nushell", {
+          cmd = { "nu", "--lsp" },
+          filetypes = { "nu" },
+          root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local root = vim.fs.root(fname, { ".git", "flake.nix", "pyproject.toml" })
+            if root then
+              on_dir(root)
+            end
+          end,
+        })
+        
+        -- OCaml
+        setup("ocamllsp")
+        
+        -- Odin
+        setup("ols", {
+          init_options = {
+            checker_args = "-strict-style",
+            collections = {
+              { name = "shared", path = vim.fn.expand("$HOME/odin-lib") },
             },
+          },
         })
-        vim.lsp.enable("astro")
-
-        vim.lsp.config("qmlls", {
-            cmd = { "qmlls", "-E" },
-            on_attach = on_attach,
-            capabilities = capabilities
+        
+        -- Perl
+        setup("perlnavigator")
+        
+        -- PHP
+        setup("intelephense")
+        
+        -- Prisma
+        setup("prismals")
+        
+        -- Protocol Buffers
+        setup("buf_ls")
+        
+        -- Python
+        setup("pyright")
+        
+        -- R
+        setup("r_language_server")
+        
+        -- Rust
+        setup("rust_analyzer")
+        
+        -- Scala
+        setup("metals")
+        
+        -- SQL
+        setup("sqls")
+        
+        -- Svelte
+        setup("svelte")
+        
+        -- Swift
+        setup("sourcekit")
+        
+        -- EmmetLS (HTML expansion)
+        setup("emmet_ls", {
+          filetypes = {
+            "html",
+            "gohtmltmpl",
+            "css",
+            "scss",
+            "sass",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "vue",
+            "svelte",
+          },
+          init_options = {
+            html = {
+              options = {
+                ["bem.enabled"] = true,
+              },
+            },
+          },
         })
-        vim.lsp.enable("qmlls")
-
-        vim.lsp.config("rust_analyzer", { on_attach = on_attach, capabilities = capabilities })
-        vim.lsp.enable("rust_analyzer")
-
-        vim.lsp.config("nixd", {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            cmd = { "nixd" },
-            settings = {
-                nixd = {
-                    nixpkgs = {
-                        expr = "import <nixpkgs> { }",
-                    },
-                    formatting = {
-                        command = { "alejandra" },
-                    },
+        
+        -- Jinja2
+        setup("jinja_lsp", {
+          filetypes = { "jinja", "jinja2", "j2", "html.jinja", "html.j2" },
+        })
+        
+        -- Tailwind CSS
+        setup("tailwindcss", {
+          filetypes = {
+            "html",
+            "gohtmltmpl",
+            "css",
+            "scss",
+            "sass",
+            "javascript",
+            "typescript",
+            "vue",
+            "svelte",
+          },
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  "class[\\s]*=[\\s]*[\"']([^\"']*)[\"']",
+                  'class[\\s]*=[\\s]*"([^"]*)"',
+                  "class[\\s]*=[\\s]*'([^']*)'",
                 },
+              },
             },
+          },
         })
-        vim.lsp.enable("nixd")
+        
+        -- Terraform
+        setup("terraformls")
+        
+        -- TOML
+        setup("taplo")
+        
+        -- TypeScript/JavaScript
+        setup("ts_ls")
+        
+        -- Typst
+        setup("tinymist", {
+          settings = {
+            formatterMode = "typstyle",
+            exportPdf = "never",
+            semanticTokens = "disable",
+          },
+        })
+        
+        -- Vue (Volar for Vue 3)
+        setup("volar")
+        
+        -- XML
+        setup("lemminx")
+        
+        -- YAML
+        setup("yamlls")
+        
+        -- Zig
+        setup("zls")
 
-        vim.lsp.config("gleam", { on_attach = on_attach, capabilities = capabilities })
-        vim.lsp.enable("gleam")
-
-        -- ============================= VJXL ============================= --
-
-        vim.lsp.config['parser4'] = {
-            cmd = { '/home/yurii/Videos/parser4/target/release/parser4', 'lsp' },
-            filetypes = { 'vjxl' },
-            root_markers = { '.git' },
-            root_dir = vim.fn.getcwd(),
-        }
-        vim.lsp.config("parser4", { on_attach = on_attach, capabilities = capabilities })
-        vim.lsp.enable('parser4')
-    end,
+    end
 }

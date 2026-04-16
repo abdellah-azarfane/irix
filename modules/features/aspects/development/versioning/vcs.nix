@@ -2,6 +2,7 @@
   flake.nixosModules.vcs = { pkgs, config, ... }: let
     user = config.preferences.user.name;
     difft = lib.getExe pkgs.difftastic;
+    deltaExe = lib.getExe pkgs.delta;
   in {
     home-manager.users.${user} = {
       
@@ -100,8 +101,8 @@
             pager = true;
           };
           pager = {
-            show = "diff-so-fancy | less --tabs=1,5 -RFX";
-            diff = "diff-so-fancy | less --tabs=4 -RFXS --pattern '^(Date|added|deleted|modified): '";
+            show = deltaExe;
+            diff = lib.mkForce deltaExe;
           };
           commit.gpgsign = true;
           diff = {

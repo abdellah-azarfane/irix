@@ -60,6 +60,15 @@
       pkgs.alejandra
       pkgs.ffmpeg-full
       selfpkgs.vjxl-format
+
+      # --- External System Tools for Plugins ---
+      pkgs.ripgrep        # Needed for Snacks/Telescope grep
+      pkgs.fd             # Needed for Snacks/Telescope file finding
+      pkgs.yazi           # Needed for yazi-nvim
+      pkgs.zathura        # Viewer for vimtex
+      pkgs.texliveMedium  # LaTeX compiler (use texliveFull if needed)
+      pkgs.typst          # Compiler for typst-preview
+      pkgs.imagemagick    # Needed for image-nvim
     ];
 
     config.specs.start = let
@@ -81,12 +90,61 @@
       p.lspkind-nvim
       p.colorful-menu-nvim
       p.blink-cmp
+      p.friendly-snippets
 
       # misc
       p.snacks-nvim
       p.oil-nvim
-      p.lualine-nvim
       p.luasnip
+
+      # --- UI & Visuals ---
+      p.catppuccin-nvim
+      p.tokyonight-nvim
+      p.bufferline-nvim
+      p.lualine-nvim
+      p.noice-nvim
+      p.nui-nvim # Dependency for noice
+      p.dashboard-nvim
+      p.indent-blankline-nvim
+      p.nvim-colorizer-lua
+      p.tiny-inline-diagnostic-nvim
+      p.vim-illuminate
+
+      # --- Editor & Navigation ---
+      p.flash-nvim
+      p.multicursors-nvim
+      p.harpoon
+      p.aerial-nvim
+      p.trouble-nvim
+      p.todo-comments-nvim
+      p.which-key-nvim
+      p.yazi-nvim
+      p.zen-mode-nvim
+      p.marks-nvim
+      p.nvim-spectre
+      p.comment-nvim
+      p.conform-nvim # For formatting
+
+      # --- Languages, Math & Note-taking ---
+      p.vimtex
+      p.render-markdown-nvim
+      p.markdown-preview-nvim
+      p.typst-preview-nvim
+      p.molten-nvim # Jupyter notebooks in nvim
+      p.image-nvim  # For viewing images inside nvim
+      p.vim-nix
+      p.vim-go
+
+      # --- Git / Version Control ---
+      p.octo-nvim
+      p.gitsigns-nvim
+
+      # --- Treesitter Extras ---
+      p.nvim-treesitter-context
+      p.nvim-treesitter-textobjects
+      
+      # --- KMonad ---
+      p.kmonad-vim
     ];
 
     config.specs.opt = let
@@ -123,7 +181,7 @@
     packages.neovimDynamic = pkgs.writeShellApplication {
       name = "nvim";
       text = ''
-        if [ -d ~/nixconf/modules/wrappedPrograms/neovim/lua ]; then
+        if [ -d ~/irix/modules/features/wrappedPrograms/neovim/lua ]; then
             # start dev mode
             ${lib.getExe self'.packages.devMode} "$@"
         else
@@ -158,12 +216,5 @@
             --language vjxl \
             --skip-idempotence
       '';
-    # todo:
-    # pkgs.writeShellScriptBin "format-vjxl" ''
-    #   TOPIARY_LANGUAGE_DIR=${./topiary-queries} \
-    #   awk '{ gsub(/  +/, " "); print }' | \
-    #   ${pkgs.topiary}/bin/topiary --config ${config} format --language vjxl --skip-idempotence | \
-    #   awk '{ gsub(/  +/, " "); print }'
-    # '';
   };
 }

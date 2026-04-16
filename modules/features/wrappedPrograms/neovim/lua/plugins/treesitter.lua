@@ -1,11 +1,18 @@
 return {
     "nvim-treesitter",
     after = function()
-        -- fixes vjxl highlighting
-        vim.api.nvim_create_autocmd("FileType", {
-            callback = function()
-                pcall(vim.treesitter.start)
-            end,
-        })
+        local ok, configs = pcall(require, "nvim-treesitter.configs")
+        if ok then
+            configs.setup({
+              ensure_installed = {},
+              auto_install = false,
+              highlight = { enable = true },
+              indent = { enable = true },
+            })
+        end
+        
+        -- ✅ Tell Tree-sitter to use the 'go-template' parser for Hugo template files
+        -- vim.treesitter.language.register("gotmpl", "gohtmltmpl")
+
     end
 }

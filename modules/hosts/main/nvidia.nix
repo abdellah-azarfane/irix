@@ -21,8 +21,8 @@
       # PRIME offload (Intel + NVIDIA hybrid laptops)
       prime = {
         offload = {
-          enable = true;
-          enableOffloadCmd = true;
+          enable = false;
+          enableOffloadCmd = false;
         };
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";

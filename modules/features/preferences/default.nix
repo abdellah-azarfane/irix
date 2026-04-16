@@ -5,6 +5,18 @@
       user.name = "abosafiya";
       theme = self.lib.theme;
 
+      apps = {
+        browser = "brave";
+        editor = "nvim";
+        terminal = "kitty";
+        imageViewer = "imv";
+        videoPlayer = "mpv";
+        audioPlayer = "mpv";
+        pdfViewer = "zathura";
+        wm = "niri";
+        pager = "most";
+      };
+
       autostart = [
         ''
           ${pkgs.bash}/bin/bash ${../wallpaper/rotate-wallpaper.sh} "$HOME/wallpapers" "$HOME/.cache/irix/current-wallpaper"

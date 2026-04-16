@@ -36,7 +36,7 @@ in {
           allow_hyperlinks = "yes";
           
           # --- Visuals ---
-          background_opacity = "0.7";
+          background_opacity = "0.85";
           dynamic_background_opacity = "yes";
           cursor_text_color = "background";
 
