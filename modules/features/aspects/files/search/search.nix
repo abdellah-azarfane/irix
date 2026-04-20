@@ -1,9 +1,5 @@
+{ self, ...}: 
 {
-  inputs,
-  self,
-  lib,
-  ...
-}: {
   flake.nixosModules.files = {pkgs, config, ...}:
   let
     user = config.preferences.user.name;
@@ -42,6 +38,8 @@
         thunar
         thunar-volman
         thunar-archive-plugin
+        kdePackages.dolphin
+        kdePackages.dolphin-plugins
         glow
         desktop-file-utils # Command line utilities for working with .desktop files
         most # Pager

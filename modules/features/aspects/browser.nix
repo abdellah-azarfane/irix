@@ -4,16 +4,10 @@
    system = pkgs.stdenv.hostPlatform.system;
   in
   {
-    
-    programs.firefox.enable = true;
-
+    programs.ladybird.enable = true;
     environment.systemPackages = with pkgs; [
-      inputs.helium.packages.${system}.default
-      librewolf
-      brave
-      ungoogled-chromium 
+      inputs.helium.packages.${system}.default 
       tor
-      w3m
     ];
   };
 }

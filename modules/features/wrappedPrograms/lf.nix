@@ -47,16 +47,15 @@
         map g~ cd
         map gh cd
         map g/ /
-        map gd cd ~/Downloads
+        map gd cd ~/downloads
         map gt cd /tmp
-        map gv cd ~/Videos
-        map go cd ~/Documents
+        map gv cd ~/videos
+        map go cd ~/documents
         map gc cd ~/.config
-        map gn cd ~/nixconf
-        map gp cd ~/Projects
+        map gn cd ~/irix
+        map gp cd ~/projects
         map gs cd ~/.local/share
         map gm cd /run/media
-        map gH cd /persist/users/$HOME
 
         map eE $ $EDITOR "$f"
         map ee $ ${lib.getExe pkgs.direnv} exec . $EDITOR "$f"

@@ -520,8 +520,14 @@ in
             }
             {
               key = "f";
-              desc = "Firefox";
-              cmd = "firefox";
+              desc = "File Manager";
+              cmd = "dolphin";
+            }
+
+            {
+              key = "y";
+              desc = "Tui fileManager";
+              cmd = "yazi";
             }
             {
               key = "t";
@@ -540,8 +546,8 @@ in
             }
             {
               key = "p";
-              desc = "Brave Browser";
-              cmd = "brave";
+              desc = "Helium Browser";
+              cmd = "helium";
             }
             {
               key = "s";
