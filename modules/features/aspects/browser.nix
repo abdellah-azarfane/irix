@@ -1,5 +1,9 @@
-{ lib, inputs, ... }: {
-  flake.nixosModules.browsers = { pkgs, inputs, ... }: {
+{ ... }: {
+  flake.nixosModules.browsers = { pkgs, inputs, ... }:
+  let 
+   system = pkgs.stdenv.hostPlatform.system;
+  in
+  {
     
     programs.firefox.enable = true;
 
