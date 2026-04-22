@@ -17,6 +17,14 @@
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
+      settings = {
+      General = {
+        # Forces standard Bluetooth, ignoring buggy Low Energy handshakes
+        ControllerMode = "bredr"; 
+        # Optional but recommended for better codec support
+        Experimental = true;      
+      };
+      };
     };
     hardware.logitech.wireless = {
       enable = true;
