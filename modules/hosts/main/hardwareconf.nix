@@ -8,11 +8,19 @@
       modulesPath,
       ...
     }:
-    {
-      imports = [
-        (modulesPath + "/installer/scan/not-detected.nix")
-      ];
-      boot.initrd.availableKernelModules = [
+    let
+      facterReport = builtins.fromJSON (builtins.readFile ./facter.json);
+      hasFacterReport = facterReport != { };
+    in {
+      # Keep scanner fallback until facter.json contains real detected data.
+      imports = lib.optional (!hasFacterReport) (modulesPath + "/installer/scan/not-detected.nix");
+
+      # Enable nix-facter by pointing to a host-local report file.
+      # Replace this placeholder JSON with real output from nixos-facter.
+      hardware.facter.reportPath = ./facter.json;
+
+      # Keep these as defaults so facter can override with higher-priority values.
+      boot.initrd.availableKernelModules = lib.mkDefault [
         "xhci_pci"
         "thunderbolt"
         "vmd"
@@ -25,7 +33,7 @@
         "splash"
         "intel_pstate=active" # Modern Intel scaling for Zen
       ];
-      boot.kernelModules = [
+      boot.kernelModules = lib.mkDefault [
         "binder_linux"
         "ashmem_linux"
         "kvm-intel"

@@ -33,6 +33,17 @@
         asusd = true;
         ollama = true;
       };
+
+      # Keep disk swap for hibernation, and use zram as a fast compression tier.
+      zramSwap = {
+        enable = true;
+        memoryPercent = 50;
+        algorithm = "zstd";
+      };
+
+      # Match the disko swap partition name for reliable hibernate resume.
+      boot.resumeDevice = "/dev/disk/by-partlabel/swap";
+
       home-manager.users.${config.preferences.user.name} = {
         home.stateVersion = "26.05";
       };
