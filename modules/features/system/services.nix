@@ -240,6 +240,7 @@
 
       # --- disk ---
       duf # Yet another disk utility
+      ventoy-full-gtk
     ];
     };
   };
