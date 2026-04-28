@@ -16,16 +16,15 @@
     hardware.cpu.intel.updateMicrocode = true;
     hardware.bluetooth = {
       enable = true;
-      powerOnBoot = true;
-      settings = {
-      General = {
-        # Forces standard Bluetooth, ignoring buggy Low Energy handshakes
-        ControllerMode = "bredr"; 
-        # Optional but recommended for better codec support
-        Experimental = true;      
-      };
-      };
+       powerOnBoot = true;
+         settings = {
+           General = {
+            Experimental = true; # Needed for modern headset battery/mic features
+            Enable = "Source,Sink,Media,Socket";
+            ControllerMode = "dual"; # CRITICAL: Allows both BR/EDR and LE
+          };
     };
+  };
     hardware.logitech.wireless = {
       enable = true;
       enableGraphical = true; # NOTE: Adds solaar

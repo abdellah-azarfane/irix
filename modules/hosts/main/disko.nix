@@ -6,7 +6,7 @@
     disko.devices = {
       disk.main = {
         # Stable ID avoids accidental targeting if disk ordering changes later.
-        device = "/dev/disk/by-id/nvme-eui.e8238fa6bf530001001b448b4a3f3601";
+        device = "/dev/nvme0n1";
         type = "disk";
         content = {
           type = "gpt";
@@ -29,21 +29,12 @@
               size = "20G";
               content = {
                 type = "swap";
-                # Keep a stable swap mapping for hibernate/resume support.
-                resumeDevice = true;
               };
             };
 
             root = {
               name = "root";
               size = "100%";
-              content = {
-                type = "luks";
-                name = "crypted_nixos";
-                settings = {
-                  # Keep NVMe TRIM support through LUKS for long-term SSD health.
-                  allowDiscards = true;
-                };
                 content = {
                   type = "btrfs";
                   # Mount top-level tree to simplify snapshot/imperm workflows.
@@ -78,6 +69,5 @@
           };
         };
       };
-    };
   };
 }

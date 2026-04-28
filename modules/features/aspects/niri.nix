@@ -571,6 +571,7 @@ in
     # ============================================================================
       spawn-at-startup = [
         { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
+        { command = [ "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" ]; }
       ] ++ autostartEntries;
     };
   };

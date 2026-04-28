@@ -37,6 +37,28 @@
     nixpkgs.config = {
       allowUnfree = true;
     };
+    # 1. Install OBS with necessary plugins
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs           # For Wayland screen capture 
+    ];
+  };
+
+  # 2. Enable the Virtual Camera kernel module
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+  
+  boot.kernelModules = [ "v4l2loopback" ];
+
+  # 3. Configure the virtual device
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
+  '';
+
+  # 4. Ensure your user has permissions for the video device
+  users.users.abosafiya.extraGroups = [ "video" "render" ];
 
     programs.nix-index-database.comma.enable = true;
     

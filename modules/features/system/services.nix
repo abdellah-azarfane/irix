@@ -80,43 +80,6 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
-
-      extraConfig = {
-        # cooler denoising
-        pipewire."99-input-denoising" = {
-          "context.modules" = [
-            {
-              "name" = "libpipewire-module-filter-chain";
-              "args" = {
-                "node.description" = "DeepFilter Noise Cancelling Source";
-                "media.name" = "DeepFilter Noise Cancelling Source";
-                "filter.graph" = {
-                  "nodes" = [
-                    {
-                      "type" = "ladspa";
-                      "name" = "DeepFilter Mono";
-                      "plugin" = "${pkgs.deepfilternet}/lib/ladspa/libdeep_filter_ladspa.so";
-                      "label" = "deep_filter_mono";
-                      # "control" = {
-                      #   "Attenuation Limit (dB)" = cfg.source.attenuation;
-                      # };
-                    }
-                  ];
-                };
-                "audio.rate" = 48000;
-                "capture.props" = {
-                  "node.name" = "deep_filter_mono_input";
-                  "node.passive" = true;
-                };
-                "playback.props" = {
-                  "node.name" = "deep_filter_mono_output";
-                  "media.class" = "Audio/Source";
-                };
-              };
-            }
-          ];
-        };
-      };
     };
 
     # Hardware Daemons
@@ -126,11 +89,24 @@
     services.printing.enable = cfg.printing; # CUPS
     services.udisks2.enable = cfg.udisks2;
     services.blueman.enable = cfg.blueman;
+
+  # 3. Prevent the Kernel from "autosuspending" your Bluetooth USB controller
+  boot.kernelParams = [ "btusb.enable_autosuspend=n" ];
+
+  # 4. WirePlumber Codec Whitelist (Fixes the "PipeWire 1.x LDAC bug")
+  services.pipewire.wireplumber.extraConfig."10-bluetooth-policy" = {
+    "monitor.bluez.properties" = {
+       "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" ]; # Only use the most stable codecs
+       "bluez5.enable-msbc" = true; # Better mic quality for headsets
+       "bluez5.enable-hw-volume" = true;
+    };
+  };
     services.udev.enable = true; # Enable device manager
     services.flatpak.enable = cfg.flatpak;
     services.hardware.openrgb = {enable = cfg.openrgb;};
     services.asusd.enable = cfg.asusd;
     services.dbus.enable = true;
+    services.dbus.implementation = "broker";
     # Required for niri wm
     services.dbus.packages = [ pkgs.nautilus ];
     # Required by xdg-desktop-portal-gnome for file chooser dialogs
@@ -240,7 +216,6 @@
 
       # --- disk ---
       duf # Yet another disk utility
-      ventoy-full-gtk
     ];
     };
   };

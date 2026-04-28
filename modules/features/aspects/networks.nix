@@ -40,5 +40,10 @@
       bitwarden-desktop
       bitwarden-cli 
       ];
+    programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses; # Or pkgs.pinentry-qt / pkgs.pinentry-gnome if on Desktop
+    enableSSHSupport = true;
+    };
     };
   }

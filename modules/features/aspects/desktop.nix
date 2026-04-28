@@ -14,7 +14,7 @@
       self.nixosModules.monitoring
       self.nixosModules.browsers
       self.nixosModules.docs
-      self.nixosModules.gaming
+#      self.nixosModules.gaming
       self.nixosModules.hyprlock
       self.nixosModules.networks
       self.nixosModules.office
