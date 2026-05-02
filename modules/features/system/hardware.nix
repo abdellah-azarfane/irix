@@ -14,15 +14,30 @@
     hardware.enableAllFirmware = true;
     hardware.enableRedistributableFirmware = true;
     hardware.cpu.intel.updateMicrocode = true;
+    /*
     hardware.bluetooth = {
       enable = true;
-       powerOnBoot = true;
-         settings = {
-           General = {
-            Experimental = true; # Needed for modern headset battery/mic features
-            Enable = "Source,Sink,Media,Socket";
-            ControllerMode = "dual"; # CRITICAL: Allows both BR/EDR and LE
-          };
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true; # Needed for modern headset battery/mic features
+          Enable = "Source,Sink,Media,Socket";
+          ControllerMode = "bredr"; # CRITICAL: Allows both BR/EDR and LE
+          FastConnectable = true;
+        };
+      };
+    };
+   };
+  */
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        ControllerMode = "bredr";
+        # Explicitly blacklist the LE Audio plugins crashing the connection
+        DisablePlugins = "bap,bass,mcp,vcp,micp,ccp,csis";
+      };
     };
   };
     hardware.logitech.wireless = {
@@ -31,18 +46,6 @@
     };
 
     # Power & Thermal Management
-    services.auto-cpufreq.enable = true;
-    services.auto-cpufreq.settings = {
-      battery = {
-        governor = "powersave";
-        turbo = "never";
-      };
-      charger = {
-        governor = "performance";
-        turbo = "auto";
-      };
-    };
     powerManagement.powertop.enable = true;
-    services.tlp.enable = true;
     };
 }

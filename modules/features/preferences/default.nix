@@ -6,7 +6,7 @@
       theme = self.lib.theme;
 
       apps = {
-        browser = "brave";
+        browser = "helium";
         editor = "nvim";
         terminal = "kitty";
         imageViewer = "imv";
@@ -26,8 +26,8 @@
       keymap = {
         "SUPER + v".exec = ''${pkgs.alsa-utils}/bin/amixer sset Capture toggle'';
         "SUPER + d"."s".package = pkgs.pwvucontrol;
-        "SUPER + d"."f".package = pkgs.firefox;
-        "SUPER + d"."p".package = pkgs.brave;
+        "SUPER + d"."p".package = pkgs.helium;
+        "SUPER + d"."y".package = pkgs.yazi;
       };
 
       monitors = {

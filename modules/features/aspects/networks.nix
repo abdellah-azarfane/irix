@@ -23,7 +23,7 @@
       gping # Better ping (includes graph)
       doggo # Command line dns client
       netscanner # TUI network scanner
-      termshark # Terminal UI for tshark/Wireshark
+     # termshark # Terminal UI for tshark/Wireshark
       trippy # Network diagnostic tool like mtr with TUI
       xev
       wdisplays
@@ -38,12 +38,7 @@
       proton-vpn
       # --- Bitwarden ---
       bitwarden-desktop
-      bitwarden-cli 
+      bitwarden-cli
       ];
-    programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-curses; # Or pkgs.pinentry-qt / pkgs.pinentry-gnome if on Desktop
-    enableSSHSupport = true;
-    };
     };
   }

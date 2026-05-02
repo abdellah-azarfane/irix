@@ -25,6 +25,8 @@
         xserver = true;
         pipewire = true;
         upower = true;
+        ppd = true;
+        tuned = false;
         printing = true;
         udisks2 = true;
         blueman = true;
@@ -43,7 +45,7 @@
       home-manager.users.${config.preferences.user.name} = {
         home.stateVersion = "26.05";
       };
-   
+
         # Removed duplicate autostart entry for noctalia-shell
     };
 }

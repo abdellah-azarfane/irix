@@ -35,7 +35,7 @@ with lib;
       # --- Network Analysis And Sniffing ---
       kismet # Wireless network detector/sniffer
       snort # Network intrusion detection system
-      wireshark # Network protocol analyzer with deep inspection
+     # wireshark # Network protocol analyzer with deep inspection
 
       # --- Penetration Testing Tools ---
       burpsuite # Web vulnerability scanner and intercepting proxy

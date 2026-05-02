@@ -14,15 +14,14 @@
       self.nixosModules.monitoring
       self.nixosModules.browsers
       self.nixosModules.docs
-#      self.nixosModules.gaming
-      self.nixosModules.hyprlock
+      self.nixosModules.gaming
       self.nixosModules.networks
       self.nixosModules.office
       self.nixosModules.productivity
     ];
 
     programs.niri.enable = true;
-    programs.niri.package = inputs."niri-flake".packages.${pkgs.stdenv.hostPlatform.system}."niri-stable";
+    programs.niri.package = inputs."niri-flake".packages.${pkgs.stdenv.hostPlatform.system}."niri-unstable";
 
     # preferences.autostart = [selfpkgs.quickshellWrapped];
 

@@ -14,10 +14,10 @@
           };
           theme = {
            mode = "system";
-           light = "Gruvbox Light";
-           dark = "Gruvbox Dark";
+           light = "Dayfox - opaque";
+           dark = "Carbonfox - opaque";
           };
-          icon_theme = "Catppuccin Mocha";
+          icon_theme = "Catppuccin Latte";
 
           buffer_font_size = 15;
           buffer_font_weight = 300;

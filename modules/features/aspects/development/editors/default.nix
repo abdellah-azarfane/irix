@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.nixosModules.editors = { ... }: {
+  flake.nixosModules.editors = { pkgs, ... }: {
     imports = [
       self.nixosModules.zededitor
       self.nixosModules.emacs

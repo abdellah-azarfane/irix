@@ -27,6 +27,17 @@
         default = true;
         description = "Enable UPower daemon";
       };
+      ppd = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Power Profiles Daemon";
+      };
+
+      tuned = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Tuned";
+      };
 
       printing = lib.mkOption {
         type = lib.types.bool;
@@ -85,6 +96,9 @@
     # Hardware Daemons
     systemd.services.supergfxd.path = [pkgs.pciutils pkgs.kmod];
     services.upower.enable = cfg.upower;
+    services.power-profiles-daemon.enable = cfg.ppd;
+    services.tuned.enable = cfg.tuned;
+
     # Abstraction for enumerating power devices
     services.printing.enable = cfg.printing; # CUPS
     services.udisks2.enable = cfg.udisks2;
@@ -93,14 +107,19 @@
   # 3. Prevent the Kernel from "autosuspending" your Bluetooth USB controller
   boot.kernelParams = [ "btusb.enable_autosuspend=n" ];
 
-  # 4. WirePlumber Codec Whitelist (Fixes the "PipeWire 1.x LDAC bug")
-  services.pipewire.wireplumber.extraConfig."10-bluetooth-policy" = {
-    "monitor.bluez.properties" = {
-       "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" ]; # Only use the most stable codecs
-       "bluez5.enable-msbc" = true; # Better mic quality for headsets
-       "bluez5.enable-hw-volume" = true;
+  services.pipewire = {
+    wireplumber = {
+      enable = true;
+      # Tell WirePlumber to only use A2DP (Stereo Audio) and ignore HFP/HSP (Microphone)
+      extraConfig = {
+        "10-bluez-disable-hfp" = {
+          "monitor.bluez.properties" = {
+            "bluez5.roles" = [ "a2dp_sink" "a2dp_source" ];
+          };
+        };
+       };
     };
-  };
+    };
     services.udev.enable = true; # Enable device manager
     services.flatpak.enable = cfg.flatpak;
     services.hardware.openrgb = {enable = cfg.openrgb;};
@@ -109,9 +128,7 @@
     services.dbus.implementation = "broker";
     # Required for niri wm
     services.dbus.packages = [ pkgs.nautilus ];
-    # Required by xdg-desktop-portal-gnome for file chooser dialogs
-    
-    # AI Services
+        # AI Services
     services.ollama = {
       enable = cfg.ollama;
       package = pkgs.ollama-rocm;
@@ -131,7 +148,7 @@
       checkReversePath = "loose";
     };
     security.polkit.enable = true;
-    
+
     security.pam.services = {
       login.enableGnomeKeyring = true;
       # Enable Gnome keyring on login # FIX: This is flimsy. Sometimes it unlocks, sometimes it does not.
@@ -163,7 +180,7 @@
       script = ''flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo'';
     };
 
-    environment.systemPackages = with pkgs; [ 
+    environment.systemPackages = with pkgs; [
       # --- System Packages ---
       brightnessctl # Read & control device brightness
       ddcutil # Gamma & temperature set fallback for hardware control

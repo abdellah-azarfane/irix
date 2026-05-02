@@ -15,6 +15,8 @@
   in {
     imports = [wlib.wrapperModules.neovim];
 
+    # REMOVED the crashing config.nixpkgs.config... line from here.
+
     options.settings.test_mode = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -142,7 +144,7 @@
       # --- Treesitter Extras ---
       p.nvim-treesitter-context
       p.nvim-treesitter-textobjects
-      
+
       # --- KMonad ---
       p.kmonad-vim
     ];
@@ -163,15 +165,25 @@
   };
 
   perSystem = {
+    system, # <-- ADDED 'system' so inputs.nixpkgs can use it
     pkgs,
     self',
     ...
   }: {
+    # --- THE FIX: Instantiate pkgs globally for all perSystem outputs ---
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+      config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+        "wezterm.nvim"
+        "vimplugin-wezterm.nvim"
+      ];
+    };
+    # --------------------------------------------------------------------
+
     packages.neovim = inputs.wrapper-modules.wrappers.neovim.wrap {
       inherit pkgs;
       imports = [self.lib.nvimWrapper];
     };
-
     packages.devMode = inputs.wrapper-modules.wrappers.neovim.wrap {
       inherit pkgs;
       settings.test_mode = true;
