@@ -61,7 +61,6 @@
       programs.atuin = {
         enable = true;
         enableFishIntegration = true;
-        enableZshIntegration = true;
         settings = {
           auto_sync = false;
           sync_enabled = false;
@@ -85,7 +84,6 @@
       programs.fzf = {
         enable = true;
         enableBashIntegration = true;
-        enableZshIntegration = true;
 
         # Default command for file finding
         defaultCommand = "fd --type f --strip-cwd-prefix";
@@ -123,6 +121,7 @@
       programs.mcfly = {
         enable = true;
         fzf.enable = true;
+        enableFishIntegration = true;
       };
       programs.skim = {
         enable = true;
@@ -131,7 +130,6 @@
       programs.television = {
         enable = true;
 
-        enableZshIntegration = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
 

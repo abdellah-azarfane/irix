@@ -3,7 +3,7 @@
     imports = [inputs.nix-index-database.nixosModules.nix-index];
 
     time.timeZone = "Africa/Casablanca";
-    
+
     i18n = {
       defaultLocale = "en_US.UTF-8";
       supportedLocales = ["en_US.UTF-8/UTF-8" "ar_MA.UTF-8/UTF-8" "fr_FR.UTF-8/UTF-8"];
@@ -28,12 +28,13 @@
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       download-buffer-size = 134217728;
-      substituters = ["https://cache.nixos.org"];
+      substituters = ["https://cache.nixos.org" "https://noctalia.cachix.org" ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       ];
     };
-    
+
     nixpkgs.config = {
       allowUnfree = true;
     };
@@ -41,7 +42,7 @@
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
-      wlrobs           # For Wayland screen capture 
+      wlrobs           # For Wayland screen capture
     ];
   };
 
@@ -49,7 +50,7 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
-  
+
   boot.kernelModules = [ "v4l2loopback" ];
 
   # 3. Configure the virtual device
@@ -61,17 +62,17 @@
   users.users.abosafiya.extraGroups = [ "video" "render" ];
 
     programs.nix-index-database.comma.enable = true;
-    
+
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
-    
+
     programs.appimage = {
       enable = true;
       binfmt = true;
     };
-    
+
     programs.kdeconnect = {
       enable = true;
       package = pkgs.kdePackages.kdeconnect-kde;

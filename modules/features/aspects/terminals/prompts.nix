@@ -56,7 +56,6 @@
         enable = true;
 
         # Enables Starship integration for al shells
-        enableZshIntegration = true;
         enableNushellIntegration = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
@@ -441,7 +440,7 @@
             style = "white dimmed";
             disabled = true;
             fish_indicator = "󰈺 ";
-            zsh_indicator = "󰬡 ";
+          #  zsh_indicator = "󰬡 ";
             nu_indicator = "󰿈 ";
           };
 

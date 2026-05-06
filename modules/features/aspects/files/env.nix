@@ -1,6 +1,6 @@
-{ ... }:
+{ lib, ... }:
 {
-  flake.nixosModules.env = { config, ... }:
+  flake.nixosModules.env = { lib, config, ... }:
   let
     user = config.preferences.user.name;
     appPrefs = config.preferences.apps;
@@ -23,6 +23,9 @@
       shareApps = "${homeDir}/.nix-profile/share/applications";
     };
 
+    fishHistoryFile = "${homeDir}/.local/share/fish/fish_history";
+    mcflyHistoryDb = "${homeDir}/.local/share/mcfly/history.db";
+
     derivedDirs = {
       # Dev
       devIrix = "${dirs.dev}/irix";
@@ -31,6 +34,11 @@
       # Obsidian vaults
       vaultsSelf = "${dirs.vaults}/self";
       vaultsToDo = "${dirs.vaults}/ToDo";
+      
+      # Academic
+      academicNotes = "${dirs.academic}/notes";
+      university = "${dirs.academic}/university";
+      docs = "${dirs.academic}/docs";
 
       # User binaries
       userBinDocker = "${xdgDirs.binHome}/docker";
@@ -71,6 +79,11 @@
         DEV_UTILS = derivedDirs.devUtils;
         IRIX = derivedDirs.devIrix;
 
+        # Academic dirs
+        ACADEMIC_NOTES = derivedDirs.academicNotes;
+        UNIVERSITY = derivedDirs.university;
+        DOCS = derivedDirs.docs;
+        
         # Vaults
         HOME_VAULTS_SELF = derivedDirs.vaultsSelf;
         HOME_VAULTS_TODO = derivedDirs.vaultsToDo;
@@ -91,7 +104,9 @@
         USERBIN_UTILS = derivedDirs.userBinUtils;
 
         # App-specific histories
-        HISTFILE = "${config.home-manager.users.${user}.xdg.cacheHome}/zsh/.zsh_history";
+        HISTFILE = fishHistoryFile;
+        MCFLY_HISTFILE = mcflyHistoryDb;
+
         NODE_REPL_HISTORY = "${config.home-manager.users.${user}.xdg.cacheHome}/node/.node_repl_history";
         PYTHON_HISTORY = "${config.home-manager.users.${user}.xdg.cacheHome}/python/.python_history";
         LESSHISTFILE = "/dev/null";
@@ -108,11 +123,18 @@
         "${homeDir}/.config/emacs/bin"
       ];
 
+      # Ensure shell history + mcfly DB paths exist before shell startup
+      systemd.user.tmpfiles.rules = [
+        "d %h/.local/share/fish 0700 - - -"
+        "f %h/.local/share/fish/fish_history 0600 - - -"
+        "d %h/.local/share/mcfly 0700 - - -"
+      ];
+
       xdg = {
         enable = true;
         userDirs = {
           enable = true;
-          createDirectories = false;
+          createDirectories = true;
 
           publicShare = null;
           templates = null;

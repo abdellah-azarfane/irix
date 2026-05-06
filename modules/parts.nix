@@ -30,6 +30,18 @@
     description = "Helper function to build which-key wrapper executables.";
   };
 
+  options.flake.lib.mkShellAliases = lib.mkOption {
+    type = lib.types.raw;
+    default = null;
+    description = "Shared shell alias builder exported by the flake.";
+  };
+
+  options.flake.lib.mkFishShellInit = lib.mkOption {
+    type = lib.types.raw;
+    default = null;
+    description = "Shared fish shell initialization snippet exported by the flake.";
+  };
+
   options.flake.lib.diskoConfigurations = lib.mkOption {
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};

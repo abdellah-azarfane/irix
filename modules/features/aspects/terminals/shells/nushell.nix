@@ -1,12 +1,14 @@
 { self, lib, ... }: {
   flake.nixosModules.nushell = { pkgs, config, ... }: let
     user = config.preferences.user.name;
+    myAliases = self.lib.mkShellAliases { inherit pkgs lib; };
   in {
     environment.systemPackages = [pkgs.nushell];
 
     home-manager.users.${user} = {
       programs.nushell = {
         enable = true;
+        shellAliases = myAliases;
         
         # From shells2/nushell.nix
         settings = {
