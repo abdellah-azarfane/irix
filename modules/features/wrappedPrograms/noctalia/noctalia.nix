@@ -586,13 +586,13 @@
             };
 
             colorSchemes = {
-              useWallpaperColors = false;
-              predefinedScheme = "Noctalia (default)";
+              useWallpaperColors = true;
+            #  predefinedScheme = "Noctalia (default)"; # use wallpapers colors
               darkMode = true;
               schedulingMode = "off";
               manualSunrise = "06:30";
               manualSunset = "18:30";
-              generationMethod = "tonal-spot";  # NEW
+              generationMethod = "M3-Content";  # NEW
               monitorForColors = "";  # NEW
               syncGsettings = true;  # NEW
             };
@@ -648,13 +648,13 @@
             # };
 
             desktopWidgets = {
-              enabled = false;
+              enabled = true;
               overviewEnabled = true;
               gridSnap = false;
               # gridSnapScale = false;  # NEW
               monitorWidgets = [
                 {
-                  name = "HDMI-A-1";
+                  name = "DP-1";
                   widgets = [
                     {
                       hideMode = "visible";

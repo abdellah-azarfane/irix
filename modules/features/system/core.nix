@@ -28,38 +28,23 @@
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       download-buffer-size = 134217728;
-      substituters = ["https://cache.nixos.org" "https://noctalia.cachix.org" ];
+      substituters = [
+       "https://cache.nixos.org"
+       "https://noctalia.cachix.org"
+       "https://niri.cachix.org"
+       ];
       trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+   
       ];
     };
-
+    
     nixpkgs.config = {
       allowUnfree = true;
     };
-    # 1. Install OBS with necessary plugins
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs           # For Wayland screen capture
-    ];
-  };
 
-  # 2. Enable the Virtual Camera kernel module
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
-  ];
-
-  boot.kernelModules = [ "v4l2loopback" ];
-
-  # 3. Configure the virtual device
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
-  '';
-
-  # 4. Ensure your user has permissions for the video device
-  users.users.abosafiya.extraGroups = [ "video" "render" ];
+   users.users.abosafiya.extraGroups = [ "video" "render" ];
 
     programs.nix-index-database.comma.enable = true;
 

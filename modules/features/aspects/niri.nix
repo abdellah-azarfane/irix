@@ -145,50 +145,13 @@ in
     # Window Rules
     # ============================================================================
     window-rules = [
-      # Firefox Picture-in-Picture
       {
-        matches = [
-          {
-            app-id = "firefox$";
-            title = "^Picture-in-Picture$";
-          }
-        ];
-        open-floating = true;
-        focus-ring = {
-          enable = true;
-          width = 1;
-          active = {
-            gradient = {
-              # Gruvbox Red to Yellow gradient for the active floating window
-              from = "#cc241d";
-              to = "#d79921";
-              angle = 45;
-              relative-to = "workspace-view";
-            };
-          };
-          inactive = {
-            gradient = {
-              # Gruvbox bg1 to gray for when the PiP window is unfocused
-              from = "#3c3836";
-              to = "#928374";
-              angle = 45;
-              relative-to = "workspace-view";
-            };
-          };
-        };
-        shadow = {
-          enable = true;
-          softness = 40;
-          spread = 5;
-          offset = {
-            x = 0;
-            y = 5;
-          };
-          draw-behind-window = true;
-          # Changed from pure black (#000000) to Gruvbox Dark Background (#282828)
-          # with an 80 (hex) opacity for a warmer, softer shadow.
-          color = "#28282880"; 
-        };
+        matches = [ { is-active = true; } ];
+        opacity = 0.6;
+      }
+      {
+        matches = [ { is-active = false; } ];
+        opacity = 0.8;
       }
     ];
     

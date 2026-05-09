@@ -18,9 +18,7 @@
       };
 
       autostart = [
-        ''
-          ${pkgs.bash}/bin/bash ${../wallpaper/rotate-wallpaper.sh} "$HOME/wallpapers" "$HOME/.cache/irix/current-wallpaper"
-        ''
+       # SCripts
       ];
 
       keymap = {
