@@ -24,8 +24,9 @@ in
 
       # --- Language Models ---
       (binOnly pkgs.llama-cpp) # Avoid include/ collisions in  buildEnv
-      pkgs.ollama # Run large language models locally
-
+      # Run large language models locally
+      pkgs.ollama
+   #   pkgs.lmstudio
       # --- Model Tools ---
       # --- NLP Frameworks ---
 

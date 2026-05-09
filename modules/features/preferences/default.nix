@@ -30,6 +30,10 @@
         "SUPER + d"."y".package = pkgs.yazi;
       };
 
+      optionalServices = {
+        greetd = true;
+      };
+
       monitors = {
         "eDP-1" = {
           primary = true;
@@ -40,13 +44,22 @@
           x = 0;
           y = 0;
         };
+        "DP-1" = {
+          primary = false;
+          width = 1600;
+          height = 900;
+          scale = 1.0;
+          refreshRate = 75.0;
+          x = 1920;
+          y = 0;
+        };
         "HDMI-A-1" = {
           primary = false;
           width = 1920;
           height = 1080;
           scale = 1.0;
           refreshRate = 60.0;
-          x = 2560;
+          x = 3520; 
           y = 0;
         };
       };
