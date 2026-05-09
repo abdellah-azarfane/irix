@@ -5,6 +5,20 @@
         type = lib.types.str;
         default = "abosafiya";
       };
+
+      optionalServices = lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            greetd = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Enable greetd login manager.";
+            };
+          };
+        };
+        default = {};
+        description = "Optional system services configuration.";
+      };
     };
   };
 }

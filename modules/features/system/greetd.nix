@@ -11,7 +11,7 @@
     niriSessionExe = lib.getExe' niriPackage "niri-session";
   in {
     services.greetd = {
-      enable = lib.mkDefault (config.preferences.optionalServices.greetd or true);
+      enable = lib.mkDefault config.preferences.optionalServices.greetd;
       settings = {
         default_session = {
           command = "${tuigreetExe} --time --cmd ${niriSessionExe}";
