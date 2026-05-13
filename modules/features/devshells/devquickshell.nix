@@ -11,8 +11,7 @@
       # Tools required ONLY when working on your shell
       buildInputs = with pkgs; [
         quickshell
-        qt6.qtdeclarative # Provides qml tools
-        qmlls             # QML Language Server for your editor
+        qt6.qtdeclarative # Provides qml tools (includes qmlls)
         python3
         nodejs
       ];

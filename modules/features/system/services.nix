@@ -95,9 +95,9 @@
 
     # Hardware Daemons
     systemd.services.supergfxd.path = [pkgs.pciutils pkgs.kmod];
-    services.upower.enable = cfg.upower;
-    services.power-profiles-daemon.enable = cfg.ppd;
-    services.tuned.enable = cfg.tuned;
+    services.upower.enable = lib.mkDefault cfg.upower;
+    services.power-profiles-daemon.enable = lib.mkDefault cfg.ppd;
+    services.tuned.enable = lib.mkDefault cfg.tuned;
 
     # Abstraction for enumerating power devices
     services.printing.enable = cfg.printing; # CUPS
