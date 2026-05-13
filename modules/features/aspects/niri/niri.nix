@@ -42,6 +42,7 @@ in
     # Required for xwayland-satellite X11 app compatibility
     environment = {
       DISPLAY = ":0";
+      QT_QPA_PLATFORMTHEME = "qt6ct";
     };
   
      # ============================================================================
@@ -147,11 +148,11 @@ in
     window-rules = [
       {
         matches = [ { is-active = true; } ];
-        opacity = 0.6;
+        opacity = 1.0;
       }
       {
         matches = [ { is-active = false; } ];
-        opacity = 0.8;
+        opacity = 0.6;
       }
     ];
     
@@ -249,54 +250,50 @@ in
           color = "#665c54";
         };
         };  
+        
         border = {
-          enable = true;
-          width = 1;
-          active = {
-           gradient = {
-             from = "#cc241d";
-             to = "#d79921";
-             angle = 45;
-             relative-to = "workspace-view";
-           };
-         };
-         inactive = {
-           color = "#3c3836";
+        enable = true;
+        width = 1;
+        active = {
+          gradient = {
+            from = "#090E13";
+            to = "#1a1a1a";
+            angle = 45;
+            relative-to = "workspace-view";
           };
         };
+        inactive = {
+          color = "#090D12";
+        };
+      };
+
         tab-indicator = {
         place-within-column = true;
         gap = 5;
         width = 4;
         length = { total-proportion = 1.0; };
         position = "left";
-        gaps-between-tabs = 2;     
-        corner-radius = 4; 
-
+        gaps-between-tabs = 2;
+        corner-radius = 0;
         active = {
           gradient = {
-            # Gruvbox Bright Yellow to Bright Orange
-            from = "#fabd2f";
-            to = "#fe8019";
+            from = "#c4b28a";
+            to = "#c4746e";
             angle = 45;
           };
         };
-        
         inactive = {
           gradient = {
-            # Gruvbox bg1 (Dark Brown/Gray) to Standard Gray
-            from = "#3c3836";
-            to = "#928374";
+            from = "#0d0c0c";
+            to = "#808080";
             angle = 45;
             relative-to = "workspace-view";
           };
         };
-        
         urgent = {
           gradient = {
-            # Gruvbox Bright Red to Bright Yellow
-            from = "#fb4934";
-            to = "#fabd2f";
+            from = "#E46876";
+            to = "#c4746e";
             angle = 45;
           };
         };
@@ -395,6 +392,7 @@ in
         "Mod+Escape".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call lockScreen lock" ];
         "Mod+P".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call sessionMenu toggle" ];
         "Mod+Alt+E".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call launcher emoji" ];
+        "Mod+W".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call plugin:wallcards toggle" ];
 
 
       # Mouse & Trackpad Scroll Bindings

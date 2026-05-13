@@ -69,10 +69,12 @@
     xdg.portal = {
       enable = true;
       # wlr.enable = true; # DISABLED: wlr portal doesn't work with Niri
+         # CRITICAL: This allows Noctalia and GTK4 apps to communicate
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-termfilechooser # Portal for using TUIs as file pickers
-      ];
+      ];  
+      config.common.default = [ "gtk" ]; # Force 'gtk' portal for settings
     };
 
     environment.systemPackages =

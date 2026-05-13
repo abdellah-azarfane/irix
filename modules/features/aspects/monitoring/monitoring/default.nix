@@ -37,7 +37,9 @@
         timg # Terminal image viewer with sixel support
         exiftool # Read and write metadata from and to images
         ffmpegthumbnailer # For video previews
+        ffmpeg-full # For video previews
         imagemagick # Image manipulation toolkit
+        mpvpaper # Set videos as wallpapers
         libwebp # Tools for WebP images
         ueberzugpp # Write images on terminal on wayland (kitty, etc)
       ];

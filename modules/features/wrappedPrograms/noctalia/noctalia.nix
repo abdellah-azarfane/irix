@@ -598,7 +598,12 @@
             };
 
             templates = {
-              activeTemplates = [ ];  # NEW (migrated from individual booleans)
+              activeTemplates = [
+                { id = "gtk3"; active = true; }
+                { id = "gtk4"; active = true; }
+                { id = "qt5ct"; active = true; }
+                { id = "qt6ct"; active = true; }
+               ];  # NEW (migrated from individual booleans)
               enableUserTheming = false;  # NEW
               # Legacy key retained for compatibility with existing setup.
               # enableUserTemplates = false;  # Deprecated
@@ -615,8 +620,8 @@
             };
 
             hooks = {
-              enabled = false;
-              wallpaperChange = "";
+              enabled = true;
+              wallpaperChange = "./scripts/themechng.sh";
               darkModeChange = "";
               screenLock = "";
               screenUnlock = "";
@@ -627,10 +632,26 @@
               colorGeneration = "";
             };
 
-            # plugins = {  # NEW SECTION
-            #   autoUpdate = false;
-            #   notifyUpdates = true;
-            # };
+            plugins = {
+               autoUpdate = true;
+               notifyUpdates = true;
+               sources = [
+              {
+                enabled = true;
+                name = "Official Noctalia Plugins";
+                url = "https://github.com/noctalia-dev/noctalia-plugins";
+                }
+              ];
+              Launcher = {
+                wallcards = {
+                enabled = true;
+                sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins/tree/main/wallcards";
+             };
+           };
+         };
+          pluginSettings = {
+
+            };
 
             # idle = {  # NEW SECTION
             #   enabled = false;

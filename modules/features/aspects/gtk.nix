@@ -1,52 +1,77 @@
-{self, ...}: {
-  flake.nixosModules.gtk = {
-    pkgs,
-    config,
-    lib,
-    ...
-  }: let
-    #  Define your custom Gruvbox overrides
-    theme-name = "Gruvbox-Green-Dark-Medium";
-    theme-package = pkgs.gruvbox-gtk-theme.override {
-      colorVariants = ["dark"];
-      sizeVariants = ["standard"];
-      themeVariants = ["green"];
-      tweakVariants = ["medium" "macos"];
-    };
-
-    icon-theme-name = "Gruvbox-Plus-Dark";
-    icon-theme-package = pkgs.gruvbox-plus-icons;
+{ self, ... }: {
+  flake.nixosModules.gtk = { pkgs, config, lib, ... }:
+  let
+    theme-name = "adw-gtk3";
+    theme-package = pkgs.adw-gtk3;
+    icon-theme-name = "Papirus-Dark";
+    icon-theme-package = pkgs.papirus-icon-theme;
+    username = config.preferences.user.name;
   in {
-    # dconf MUST be enabled at the system level for Home Manager to interact with it
     programs.dconf.enable = true;
 
-    # Setting the global environment variable
     environment.variables = {
-      GTK_THEME = theme-name;
+      GTK_THEME = "${theme-name}:dark";
+      # Force Qt apps to use Wayland natively and respect qt5ct/qt6ct
+      QT_QPA_PLATFORM = "wayland;xcb";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     };
-    home-manager.users.${config.preferences.user.name} = {
+
+    home-manager.users.${username} = { config, ... }: {
+      xdg.enable = true;
+      home.packages = with pkgs; [
+        adw-gtk3
+        nwg-look
+        kdePackages.qt6ct
+        kdePackages.qtstyleplugin-kvantum
+        kdePackages.breeze-icons # CRITICAL FOR DOLPHIN
+        libsForQt5.qt5ct
+        libsForQt5.qtstyleplugin-kvantum
+      ];
       gtk = {
         enable = true;
         theme = {
-          name = theme-name;
+          name = "${theme-name}-dark"; # Force -dark variant for GTK3 apps
           package = theme-package;
         };
-
         iconTheme = {
           name = icon-theme-name;
           package = icon-theme-package;
         };
-
+        # Safety flags for legacy apps
         gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
         gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
       };
+      qt = {
+        enable = true;
+        platformTheme.name = "qtct";
+      };
 
-      # Set the system color scheme preference in dconf
-      dconf.settings = {
+     dconf.settings = {
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
+          gtk-theme = "${theme-name}-dark";
+          icon-theme = icon-theme-name;
         };
       };
+    # Lock qt5ct and qt6ct to the file Noctalia just generated via the IDs above.
+    xdg.configFile."qt6ct/qt6ct.conf".text = ''
+      [Appearance]
+      color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/noctalia.conf
+      custom_palette=true
+      standard_dialogs=default
+      style=kvantum
+    '';
+
+    xdg.configFile."qt5ct/qt5ct.conf".text = ''
+      [Appearance]
+      color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/noctalia.conf
+      custom_palette=true
+      standard_dialogs=default
+      style=kvantum
+    '';
+    home.file.".local/share/icons/Papirus-Dark".source =
+        "${icon-theme-package}/share/icons/Papirus-Dark";
     };
   };
 }

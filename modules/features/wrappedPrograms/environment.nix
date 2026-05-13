@@ -26,7 +26,6 @@
 
         pkgs.sshfs
         pkgs.tree-sitter
-        pkgs.ffmpeg-full
         pkgs.yt-dlp
 
         # wrapped
