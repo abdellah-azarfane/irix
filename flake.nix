@@ -13,8 +13,17 @@
     affinity-nix.url = "github:mrshmllow/affinity-nix";
     helium.inputs.nixpkgs.follows = "nixpkgs";
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    preservation.url = "github:nix-community/preservation";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell/v5";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

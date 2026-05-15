@@ -8,7 +8,7 @@
         example = {
           # MERGED: super + d keychords
           "SUPER + d" = {
-            "f" = { exec = "firefox"; };
+        #    "f" = { exec = ""; };
           };
           
           # super + a -> b -> c keychord
@@ -21,7 +21,7 @@
           # You can only map "a" to one action. 
           # You must choose either a package OR an exec string.
           "a" = { 
-            package = pkgs.firefox; 
+           # package =; 
           };
         };
       };

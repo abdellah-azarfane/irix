@@ -6,7 +6,7 @@
           options = {
             browser = lib.mkOption {
               type = lib.types.str;
-              default = "firefox";
+              default = "helium";
               description = "Default browser command used by session variables.";
             };
 
