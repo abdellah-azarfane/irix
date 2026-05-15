@@ -11,7 +11,7 @@
         telemetry_enabled = false;                # anonymous startup ping
         polkit_agent = false;                     # register Noctalia's native polkit authentication agent
         password_style = "default";               # default | random
-        avatar_path = "~/Pictures/avatar.png";
+        avatar_path = "~/wallpapers/avatar.png";
         settings_show_advanced = false;           # show advanced settings by default in Settings
         middle_click_opens_widget_settings = true;# middle-click bar widgets to open their Settings entry
         show_location = true;                     # show weather location text in shell UI
@@ -33,7 +33,7 @@
 
         panel = {
           background_blur = true;                 # request compositor blur behind panels via ext-background-effect-v1
-          transparency_mode = "solid";            # solid | soft | glass; controls detached panel opacity and card translucency
+          transparency_mode = "glass";            # solid | soft | glass; controls detached panel opacity and card translucency
           attach_launcher = false;                # attach launcher to the bar when a suitable bar is available
           attach_clipboard = false;               # attach clipboard history to the bar when a suitable bar is available
           attach_control_center = true;           # attach Control Center to the bar when a suitable bar is available

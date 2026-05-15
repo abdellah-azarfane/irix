@@ -133,7 +133,48 @@
         }
 
       ];
+   # [wallpaper] Configuration
 
+            wallpaper = {
+              enabled = true;
+              fill_mode = "crop";            # center | crop | fit | stretch | repeat
+              fill_color = "#111111";        # optional fallback/fill color; image wallpapers take priority
+
+              # array of effects picked at random each transition (omit to use all)
+              transition = [ "fade" "wipe" "disc" "stripes" "zoom" "honeycomb" ];
+
+              transition_duration = 1500;    # milliseconds
+              edge_smoothness = 0.3;         # 0.0 – 1.0
+
+              # Directory browsed by the wallpaper picker panel
+              # NOTE: You should change 'user' to your actual username
+              directory = "/home/abosafiya/wallpapers";
+
+              # When separate_light_dark_directories is true, Light/Dark theme modes use these:
+             # separate_light_dark_directories = false;
+            #  directory_light = "/home/abosafiya/Wallpapers/Light";
+            #  directory_dark = "/home/abosafiya/Wallpapers/Dark";
+
+              # [wallpaper.automation]
+              automation = {
+                enabled = true;
+                interval_minutes = 30;       # 0 = disable automation
+                order = "random";            # random | alphabetical
+                recursive = true;            # scan subdirectories when selecting random wallpapers
+              };
+
+              # Per-monitor overrides — same match rules as bar monitor overrides
+            #  monitor = {
+                # Quoted because of the hyphen
+            #    "DP-1" = {
+            #      enabled = false;
+            #      fill_color = "#202020";
+            #      directory = "/home/abosafiya/Wallpapers/Vertical";
+            #      directory_light = "/home/abosafiya/Wallpapers/Vertical/Light";
+            #      directory_dark = "/home/abosafiya/Wallpapers/Vertical/Dark";
+            #   };
+           #   };
+            };
     };
   };
 }

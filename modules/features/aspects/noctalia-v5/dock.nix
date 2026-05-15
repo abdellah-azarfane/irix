@@ -34,7 +34,7 @@
         show_instance_count = true;     # badge with window count when an app has 2+ windows
 
         # Desktop entry IDs, StartupWMClass, or human-readable names
-        pinned = [ "helium" "zedetor" "kitty" ];
+        pinned = [ "helium" "zeditor" "kitty" ];
       };
     };
   };

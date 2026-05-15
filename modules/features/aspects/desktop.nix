@@ -16,6 +16,7 @@
       self.nixosModules.docs
       self.nixosModules.gaming
       self.nixosModules.networks
+      self.nixosModules.noctalia
       self.nixosModules.office
       self.nixosModules.productivity
     ];

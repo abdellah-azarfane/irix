@@ -8,7 +8,8 @@
 let
   user = config.preferences.user.name;
   selfpkgs = self.packages."${pkgs.stdenv.hostPlatform.system}";
-  noctaliaExe = lib.getExe selfpkgs.noctalia-shell;
+ # noctaliaExe = lib.getExe selfpkgs.noctalia-shell;
+  noctaliaExe = lib.getExe inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
   autostartEntries = map
     (item:
       if builtins.isString item
@@ -17,7 +18,7 @@ let
     )
     config.preferences.autostart;
 in
-{ 
+{
   home-manager.users.${user} = {
   imports = [ inputs."niri-flake".homeModules.niri ];
 
@@ -35,7 +36,7 @@ in
       size = 24;
       hide-after-inactive-ms = 2000;
     };
-    
+
     # ============================================================================
     # Environment
     # ============================================================================
@@ -44,7 +45,7 @@ in
       DISPLAY = ":0";
       QT_QPA_PLATFORMTHEME = "qt6ct";
     };
-  
+
      # ============================================================================
      # Outputs
      # ============================================================================
@@ -60,7 +61,7 @@ in
           y = monitor.y;
         };
       }) (lib.filterAttrs (_: monitor: monitor.enabled) config.preferences.monitors);
-   
+
     # ============================================================================
     # Input
     # ============================================================================
@@ -68,11 +69,11 @@ in
         keyboard = {
           xkb = {
             layout = "us,fr,ara";
-            options = "grp:alt_shift_toggle,caps:escape";
+            options = "grp:alt_shift_toggle";
           };
         repeat-delay = 300;
         repeat-rate = 90;
-        numlock = true;        
+        numlock = true;
         };
 
       touchpad = {
@@ -91,15 +92,15 @@ in
         accel-profile = "adaptive";
         scroll-factor = 0.9;
         middle-emulation = true;
-      };        
+      };
       focus-follows-mouse = {
           enable = true;
           max-scroll-amount = "90%";
         };
       workspace-auto-back-and-forth = true;
       };
-     
-      
+
+
     # ============================================================================
     # Gestures
     # ============================================================================
@@ -116,7 +117,7 @@ in
       };
       hot-corners.enable = false;
     };
-       
+
     # ============================================================================
     # Layer Rules
     # ============================================================================
@@ -126,8 +127,12 @@ in
         place-within-backdrop = true;
       }
       {
+        matches = [ { namespace = "^noctalia-backdrop$"; } ];
+        place-within-backdrop = true;
+      }
+      {
         # Changed the regex to target anything starting with "noctalia"
-        matches = [ { namespace = "^noctalia"; } ]; 
+        matches = [ { namespace = "^noctalia"; } ];
         shadow = {
           enable = true;
           softness = 40;
@@ -137,8 +142,7 @@ in
             y = 5;
           };
           draw-behind-window = true;
-          # Our Gruvbox bg0 (#282828) with 50 (hex) alpha transparency 
-          color = "#28282850"; 
+          color = "#28282850";
         };
       }
     ];
@@ -147,36 +151,66 @@ in
     # ============================================================================
     window-rules = [
       {
+        geometry-corner-radius = {
+          top-left = 20.0;
+          top-right = 20.0;
+          bottom-left = 20.0;
+          bottom-right = 20.0;
+        };
+        clip-to-geometry = true;
+      }
+      {
         matches = [ { is-active = true; } ];
         opacity = 1.0;
+      }
+      #{
+      #   background-effect = {
+      #    blur = true;
+      #    xray = false;
+      #   };
+      # }
+      {
+        matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
+        open-floating = true;
+        default-column-width = { fixed = 1080; };
+        default-window-height = { fixed = 920; };
       }
       {
         matches = [ { is-active = false; } ];
         opacity = 0.6;
       }
     ];
-    
-        # ============================================================================
-        # Animations
-        # ============================================================================
-        animations = {
-          slowdown = 0.8;
 
-          window-open.kind.easing = {
-            duration-ms = 150;
-            curve = "ease-out-expo";
-          };
+    # ============================================================================
+    # Debug
+    # ============================================================================
 
-          window-close.kind.easing = {
-            duration-ms = 150;
-            curve = "ease-out-quad";
-          };
+    debug = {
+      honor-xdg-activation-with-invalid-serial = true;
+    };
 
-          horizontal-view-movement.kind.spring = {
-            damping-ratio = 1.0;
-            stiffness = 800;
-            epsilon = 0.0001;
-          };
+    # ============================================================================
+    # Animations
+    # ============================================================================
+
+    animations = {
+      slowdown = 0.8;
+
+      window-open.kind.easing = {
+        duration-ms = 150;
+        curve = "ease-out-expo";
+        };
+
+      window-close.kind.easing = {
+        duration-ms = 150;
+        curve = "ease-out-quad";
+      };
+
+      horizontal-view-movement.kind.spring = {
+        damping-ratio = 1.0;
+        stiffness = 800;
+        epsilon = 0.0001;
+      };
 
           window-movement.kind.spring = {
             damping-ratio = 1.0;
@@ -249,8 +283,8 @@ in
           inactive = {
           color = "#665c54";
         };
-        };  
-        
+        };
+
         border = {
         enable = true;
         width = 1;
@@ -304,7 +338,7 @@ in
         # Keybindings
         # ============================================================================
         binds = with lib; {
-        "Mod+Return".action.spawn = "kitty"; 
+        "Mod+Return".action.spawn = "kitty";
 
 
         # Focus Navigation
@@ -317,7 +351,7 @@ in
         "Mod+K".action.focus-window-up = [ ];
         "Mod+J".action.focus-window-down = [ ];
         "Mod+Tab".action.focus-workspace-previous = [ ];
-        "Alt+Tab".action.focus-window-previous = [ ]; 
+        "Alt+Tab".action.focus-window-previous = [ ];
 
         # Move Column
         "Mod+Ctrl+Left".action.move-column-left = [ ];
@@ -332,7 +366,7 @@ in
         # Move Window
         "Mod+Ctrl+S".action.move-window-up-or-to-workspace-up = [ ];
         "Mod+Ctrl+A".action.move-window-down-or-to-workspace-down = [ ];
-        
+
         # Maximize & Resize
         "Mod+F".action.maximize-column = [ ];
         "Mod+Shift+F".action.fullscreen-window = [ ];
@@ -346,7 +380,7 @@ in
         "Mod+Equal".action.set-column-width = "+10%";
         "Mod+Shift+Minus".action.set-window-height = "-10%";
         "Mod+Shift+Equal".action.set-window-height = "+10%";
-        
+
         # Monitor Navigation
         "Mod+Alt+Left".action.focus-monitor-left = [ ];
         "Mod+Alt+Right".action.focus-monitor-right = [ ];
@@ -380,19 +414,21 @@ in
         "Mod+Shift+8".action.move-column-to-workspace = 8;
         "Mod+Shift+9".action.move-column-to-workspace = 9;
         "Mod+Shift+0".action.move-column-to-workspace = 10;
-        
+
 
         # Overview
         "Mod+X".action.toggle-overview = [ ];
 
-        # --- CLI Commands & Scripts (Noctalia-shell mainly) ---        
-        "Mod+S".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call launcher toggle" ];
-        "Mod+comma".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call launcher settings" ];
-        "Mod+space".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call launcher command"];
-        "Mod+Escape".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call lockScreen lock" ];
-        "Mod+P".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call sessionMenu toggle" ];
-        "Mod+Alt+E".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call launcher emoji" ];
-        "Mod+W".action.spawn = [ "sh" "-c" "${noctaliaExe} ipc call plugin:wallcards toggle" ];
+        # --- CLI Commands & Scripts (Noctalia-shell mainly) ---
+        "Mod+S".action.spawn = [ "noctalia" "msg" "panel-toggle" "launcher" ];
+        "Mod+comma".action.spawn = [ "noctalia" "msg" "launcher" "settings" ];
+        "Mod+space".action.spawn = [ "noctalia" "msg" "launcher" "command" ];
+        "Mod+Escape".action.spawn = [ "noctalia" "msg" "screen-lock" ];
+        "Mod+P".action.spawn = [ "noctalia" "msg" "panel-toggle" "session" ];
+        "Mod+Alt+E".action.spawn = [ "noctalia" "msg" "launcher" "emoji" ];
+        "Mod+N".action.spawn = [ "noctalia" "msg" "nightlight-enable" ];
+        "Mod+Alt+N".action.spawn = [ "noctalia" "msg" "nightlight-disable" ];
+        "Mod+Shift+N".action.spawn = [ "noctalia" "msg" "caffeine-toggle" ];
 
 
       # Mouse & Trackpad Scroll Bindings
@@ -458,7 +494,7 @@ in
        # ============================================================================
         "Mod+Alt+S".action.spawn = [ "sh" "-c" "${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy" ];
         "Mod+Shift+E".action.spawn = [ "sh" "-c" "${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -" ];
-        
+
         "Mod+Shift+S".action.spawn = [ (lib.getExe (pkgs.writeShellApplication {
           name = "screenshot";
           text = ''
@@ -467,7 +503,7 @@ in
           '';
         })) ];
 
-        
+
           "Mod+d".action.spawn = [ (self.mkWhichKeyExe pkgs [
             {
               key = "b";
@@ -517,8 +553,8 @@ in
             }
           ]) ];
       };
-     
-     
+
+
     # ============================================================================
     # Overview
     # ============================================================================
@@ -526,7 +562,7 @@ in
       zoom = 0.6;
       workspace-shadow.enable = false;
     };
-     
+
     # ============================================================================
     # Startup Programs
     # ============================================================================
