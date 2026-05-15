@@ -425,15 +425,15 @@ in
         "Mod+X".action.toggle-overview = [ ];
 
         # --- CLI Commands & Scripts (Noctalia-shell mainly) ---
-        "Mod+S".action.spawn = [ "noctalia" "msg" "panel-toggle" "launcher" ];
-        "Mod+comma".action.spawn = [ "noctalia" "msg" "launcher" "settings" ];
-        "Mod+space".action.spawn = [ "noctalia" "msg" "launcher" "command" ];
-        "Mod+Escape".action.spawn = [ "noctalia" "msg" "screen-lock" ];
-        "Mod+P".action.spawn = [ "noctalia" "msg" "panel-toggle" "session" ];
-        "Mod+Alt+E".action.spawn = [ "noctalia" "msg" "launcher" "emoji" ];
-        "Mod+N".action.spawn = [ "noctalia" "msg" "nightlight-enable" ];
-        "Mod+Alt+N".action.spawn = [ "noctalia" "msg" "nightlight-disable" ];
-        "Mod+Shift+N".action.spawn = [ "noctalia" "msg" "caffeine-toggle" ];
+        "Mod+S".action.spawn = [ noctaliaExe "msg" "panel-toggle" "launcher" ];
+        "Mod+comma".action.spawn = [ noctaliaExe "msg" "launcher" "settings" ];
+        "Mod+space".action.spawn = [ noctaliaExe "msg" "launcher" "command" ];
+        "Mod+Escape".action.spawn = [ noctaliaExe "msg" "screen-lock" ];
+        "Mod+P".action.spawn = [ noctaliaExe "msg" "panel-toggle" "session" ];
+        "Mod+Alt+E".action.spawn = [ noctaliaExe "msg" "launcher" "emoji" ];
+        "Mod+N".action.spawn = [ noctaliaExe "msg" "nightlight-enable" ];
+        "Mod+Alt+N".action.spawn = [ noctaliaExe "msg" "nightlight-disable" ];
+        "Mod+Shift+N".action.spawn = [ noctaliaExe "msg" "caffeine-toggle" ];
 
 
       # Mouse & Trackpad Scroll Bindings

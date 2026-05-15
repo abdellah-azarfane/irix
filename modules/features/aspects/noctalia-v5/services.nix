@@ -50,9 +50,9 @@
 
       # [weather] Configuration
       weather = {
-        enabled = false;
-        auto_locate = false;          # resolve coordinates from IP address when true
-        address = "Toronto, ON";      # geocoded when auto_locate = false
+        enabled = true;
+        auto_locate = true;          # resolve coordinates from IP address when true
+        address = "";      # geocoded when auto_locate = false
         refresh_minutes = 30;
         unit = "metric";              # metric | imperial
       };
