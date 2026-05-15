@@ -3,7 +3,7 @@
       nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
       environment.systemPackages = with pkgs; [
         figma-linux
-     #   affinity-v3
+        affinity-v3
         inkscape
         gimp3-with-plugins
         blender
