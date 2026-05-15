@@ -36,10 +36,9 @@
       trusted-public-keys = [
        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-   
       ];
     };
-    
+
     nixpkgs.config = {
       allowUnfree = true;
     };
@@ -73,7 +72,7 @@
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-termfilechooser # Portal for using TUIs as file pickers
-      ];  
+      ];
       config.common.default = [ "gtk" ]; # Force 'gtk' portal for settings
     };
 

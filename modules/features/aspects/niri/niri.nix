@@ -8,7 +8,6 @@
 let
   user = config.preferences.user.name;
   selfpkgs = self.packages."${pkgs.stdenv.hostPlatform.system}";
- # noctaliaExe = lib.getExe selfpkgs.noctalia-shell;
   noctaliaExe = lib.getExe inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
   autostartEntries = map
     (item:
@@ -146,11 +145,13 @@ in
         };
       }
     ];
+
     # ============================================================================
     # Window Rules
     # ============================================================================
     window-rules = [
       {
+        # FIX 1: Expanded to proper submodule with floats
         geometry-corner-radius = {
           top-left = 20.0;
           top-right = 20.0;
@@ -163,12 +164,15 @@ in
         matches = [ { is-active = true; } ];
         opacity = 1.0;
       }
-      #{
+
+      # FIX 2: Commented out background-effect until niri-flake schema supports it
+      # {
       #   background-effect = {
-      #    blur = true;
-      #    xray = false;
+      #     blur = true;
+      #     xray = false;
       #   };
       # }
+
       {
         matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
         open-floating = true;
@@ -185,9 +189,10 @@ in
     # Debug
     # ============================================================================
 
-    debug = {
-      honor-xdg-activation-with-invalid-serial = true;
-    };
+    # FIX 3: Commented out because niri-flake generates it incorrectly as `... true;`
+    # debug = {
+    #   honor-xdg-activation-with-invalid-serial = true;
+    # };
 
     # ============================================================================
     # Animations
