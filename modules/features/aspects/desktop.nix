@@ -15,6 +15,7 @@
       self.nixosModules.browsers
       self.nixosModules.docs
       self.nixosModules.gaming
+      self.nixosModules.virt
       self.nixosModules.networks
       self.nixosModules.noctalia
       self.nixosModules.office
