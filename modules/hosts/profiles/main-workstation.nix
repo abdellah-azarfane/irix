@@ -16,7 +16,7 @@
       users.users.${config.preferences.user.name} = {
         isNormalUser = true;
         description = "${config.preferences.user.name}'s account";
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [ "wheel" "docker" "input" "uinput" "video"];
         shell = pkgs.fish;
         initialPassword = "12345";
       };

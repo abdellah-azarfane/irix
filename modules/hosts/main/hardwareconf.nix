@@ -24,6 +24,7 @@
         "quiet"
         "splash"
         "intel_pstate=active" # Modern Intel scaling for Zen
+        "nvidia-drm.fbdev=1"
       ];
       boot.kernelModules = [
         "binder_linux"

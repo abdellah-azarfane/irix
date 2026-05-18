@@ -10,9 +10,8 @@
 
     # NVIDIA drivers
     hardware.nvidia = {
-      open = false;
-      # Now config.boot works perfectly!
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       modesetting.enable = true;
       nvidiaSettings = true;
       powerManagement.enable = true;
@@ -72,7 +71,7 @@
     ];
 
     # Session / environment variables
-    environment.sessionVariables = {   
+    environment.sessionVariables = {
       NVD_BACKEND = "direct";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       NIXOS_OZONE_WL = "1";
