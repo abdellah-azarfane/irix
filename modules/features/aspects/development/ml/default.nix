@@ -19,7 +19,7 @@
       # --- Speech Recognition ---
       whisper-cpp # Avoid include/ collisions in HM buildEnv
       # Open source speech recognition toolkit
-      openclaw
+      # openclaw # BROKEN
       # Open source code generation toolkit
       opencode
       opencode-desktop # Desktop app for opencode
