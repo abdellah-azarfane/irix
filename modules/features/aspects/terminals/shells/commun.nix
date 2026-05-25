@@ -17,8 +17,8 @@
     cat = "${getExe pkgs.bat} --paging=never";
     more = "${getExe pkgs.bat} --paging=always";
     y = "${getExe pkgs.yazi}";
-    v = "${getExe selfpkgs.neovimDynamic}";
-    nv = "${getExe selfpkgs.neovimDynamic}";
+    #v = "${getExe }";
+    #nv = "${getExe }";
     lg = "${getExe pkgs.lazygit}";
 
     # Git
