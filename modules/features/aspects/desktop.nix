@@ -3,7 +3,6 @@
     selfpkgs = self.packages."${pkgs.stdenv.hostPlatform.system}";
   in {
     imports = [
-      self.nixosModules.niri
       self.nixosModules.gtk
       self.nixosModules.wallpaper
       self.nixosModules.development
@@ -22,14 +21,17 @@
       self.nixosModules.productivity
     ];
 
-    programs.niri.enable = true;
-    programs.niri.package = inputs."niri-flake".packages.${pkgs.stdenv.hostPlatform.system}."niri-unstable";
-
+    programs.niri = {
+        enable = true;
+        package = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+      };
     # preferences.autostart = [selfpkgs.quickshellWrapped];
 
     environment.systemPackages = [
+      pkgs.xwayland-satellite
       selfpkgs.terminal
       pkgs.pcmanfm
+      pkgs.bibata-cursors
     ];
 
     fonts.packages = with pkgs; [

@@ -13,8 +13,8 @@ with lib;
       hashcat # Advanced GPU-based password recovery utility
       hydra # Fast and flexible network logon cracker
       hydra-cli # Command-line interface for Hydra
-      john # John the Ripper password security auditing
-      johnny # GUI frontend for John the Ripper
+      #john # John the Ripper password security auditing
+     # johnny # GUI frontend for John the Ripper
       thc-hydra # THC version of Hydra network authentication cracker
 
       # --- Browser ---

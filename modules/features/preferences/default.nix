@@ -7,7 +7,7 @@
 
       apps = {
         browser = "helium";
-        editor = "nvim";
+        editor = "zeditor";
         terminal = "kitty";
         imageViewer = "imv";
         videoPlayer = "mpv";
@@ -57,7 +57,7 @@
           height = 1080;
           scale = 1.0;
           refreshRate = 60.0;
-          x = 3520; 
+          x = 3520;
           y = 0;
         };
       };

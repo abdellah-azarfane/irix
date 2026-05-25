@@ -18,11 +18,6 @@
           pynvim pyperclip matplotlib numpy pandas wcwidth black pyflakes pipenv pytest grip
         ]))
 
-        # --- Nix ---
-        nil
-        nixd
-        nixfmt
-
         # --- Functional (Clojure, Haskell, OCaml, Elixir, Elm, Lisp) ---
         clojure-lsp cljfmt clj-kondo
         sbcl # Common Lisp

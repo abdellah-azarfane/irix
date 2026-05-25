@@ -10,10 +10,11 @@
         cmake-format
 
         # --- Rust ---
-        rustup
-        bacon
-        cargo-info
-        rusty-man
+        rustup # Rust toolchain
+        bacon # Rust build tool
+        cargo-info # Cargo package manager
+        rusty-man # Rust tr
+        rust-analyzer # Rust lsp
 
         # --- Go ---
         go
