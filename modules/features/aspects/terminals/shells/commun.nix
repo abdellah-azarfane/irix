@@ -112,7 +112,6 @@ in
       };
 
       home.packages = with pkgs; [
-        selfpkgs.neovimDynamic
         carapace-bridge
         vivid
         python3Packages.sparklines # Used for your custom clear-screen script
