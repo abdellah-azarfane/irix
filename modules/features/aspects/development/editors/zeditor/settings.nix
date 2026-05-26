@@ -6,7 +6,7 @@
       programs.zed-editor = {
           # Everything inside of these brackets are Zed options
           userSettings = {
-            assistant = {
+            agent = {
               enabled = true;
               version = "2";
               default_open_ai_model = null;

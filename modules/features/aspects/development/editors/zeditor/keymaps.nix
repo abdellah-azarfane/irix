@@ -4,7 +4,6 @@
   in {
     home-manager.users.${user} = {
       programs.zed-editor = {
-        userSettings = {
           userKeymaps = [
             {
               context = "Workspace";
@@ -37,6 +36,5 @@
           ];
         };
       };
-    };
   };
 }
