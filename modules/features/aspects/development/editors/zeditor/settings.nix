@@ -37,7 +37,7 @@
             auto_indent_on_paste = true;
             auto_signature_help = true;
             cursor_blink = false;
-            hide_mouse = "on_typing_and_movement";
+            hide_mouse = "on_typing_and_action";
             hover_popover_delay = 350;
             hover_popover_enabled = true;
             middle_click_paste = true;

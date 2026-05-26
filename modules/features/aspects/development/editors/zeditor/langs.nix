@@ -20,7 +20,7 @@
 
             Nix = {
               language_servers = [ "nil" ];
-              formatter.external = {
+              formatter.on = {
                 command = "nixpkgs-fmt";
                 arguments = [ ];
               };
@@ -30,7 +30,7 @@
             "Elixir" = {
               language_servers = [ "!lexical" "elixir-ls" "!next-ls" ];
               format_on_save = {
-                external = {
+                on = {
                   command = "mix";
                   arguments = [ "format" "--stdin-filename" "{buffer_path}" "-" ];
                 };
@@ -40,7 +40,7 @@
             "HEEX" = {
               language_servers = [ "!lexical" "elixir-ls" "!next-ls" ];
               format_on_save = {
-                external = {
+                on = {
                   command = "mix";
                   arguments = [ "format" "--stdin-filename" "{buffer_path}" "-" ];
                 };
