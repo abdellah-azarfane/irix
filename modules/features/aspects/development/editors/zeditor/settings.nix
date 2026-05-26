@@ -4,7 +4,6 @@
   in {
     home-manager.users.${user} = {
       programs.zed-editor = {
-        userSettings = {
           # Everything inside of these brackets are Zed options
           userSettings = {
             assistant = {
@@ -56,9 +55,9 @@
             auto_update = false;
 
             # --- Features And Telemetry ---
-            features = {
-              copilot = true;
-            };
+            edit_predictions = {
+                provider = "copilot";
+                 };
 
             telemetry = {
               diagnostics = false;
@@ -79,5 +78,4 @@
         };
       };
     };
-  };
 }
