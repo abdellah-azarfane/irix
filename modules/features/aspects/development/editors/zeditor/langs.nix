@@ -1,48 +1,80 @@
 {
-  flake.nixosModules.zedlangs = { pkgs, config, inputs, lib,... }: let
-    user = config.preferences.user.name;
-  in {
-    home-manager.users.${user} = {
-      programs.zed-editor = {
-        userSettings = {
-          languages = {
-            Python = {
-              tab_size = 4;
-              formatter = "language_server";
-              format_on_save = "on";
-            };
-
-            Lua = {
-              tab_size = 2;
-              formatter = "language_server";
-              format_on_save = "on";
-            };
-
-            Nix = {
-              language_servers = [ "nil" ];
-              formatter.on = {
-                command = "nixpkgs-fmt";
-                arguments = [ ];
+  flake.nixosModules.zedlangs =
+    {
+      pkgs,
+      config,
+      inputs,
+      lib,
+      ...
+    }:
+    let
+      user = config.preferences.user.name;
+    in
+    {
+      home-manager.users.${user} = {
+        programs.zed-editor = {
+          userSettings = {
+            languages = {
+              Python = {
+                tab_size = 4;
+                formatter = "language_server";
+                format_on_save = "on";
               };
-              format_on_save = "on";
-            };
 
-            "Elixir" = {
-              language_servers = [ "!lexical" "elixir-ls" "!next-ls" ];
-              format_on_save = {
-                on = {
-                  command = "mix";
-                  arguments = [ "format" "--stdin-filename" "{buffer_path}" "-" ];
+              Lua = {
+                tab_size = 2;
+                formatter = "language_server";
+                format_on_save = "on";
+              };
+
+              Nix = {
+                language_servers = [ "nil" ];
+                format_on_save = "on";
+                formatter = {
+                  external = {
+                    command = "nixpkgs-fmt";
+                    arguments = [ ];
+                  };
                 };
               };
-            };
 
-            "HEEX" = {
-              language_servers = [ "!lexical" "elixir-ls" "!next-ls" ];
-              format_on_save = {
-                on = {
-                  command = "mix";
-                  arguments = [ "format" "--stdin-filename" "{buffer_path}" "-" ];
+              "Elixir" = {
+                language_servers = [
+                  "!lexical"
+                  "elixir-ls"
+                  "!next-ls"
+                ];
+                format_on_save = "on";
+                formatter = {
+                  external = {
+                    command = "mix";
+                    arguments = [
+                      "format"
+                      "--stdin-filename"
+                      "{buffer_path}"
+                      "-"
+                    ];
+                  };
+                };
+              };
+
+              "HEEX" = {
+                language_servers = [
+                  "!lexical"
+                  "elixir-ls"
+                  "!next-ls"
+                ];
+                format_on_save = "on";
+                formatter = {
+                  external = {
+                    command = "mix";
+                    arguments = [
+                      "format"
+                      "--stdin-filename"
+                      "{buffer_path}"
+                      "-"
+                    ];
+                  };
                 };
               };
             };
@@ -50,5 +82,4 @@
         };
       };
     };
-  };
 }

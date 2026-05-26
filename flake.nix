@@ -6,7 +6,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
     flake-file.url = "github:vic/flake-file";
-    gruvbox-wallpapers.url = "github:abdellah-azarfane/gruvbox-wallpapers";
+    gruvbox-wallpapers.url = "github:abdellah-azarfane/wallpapers";
     helium.url = "github:schembriaiden/helium-browser-nix-flake";
     helium.inputs.nixpkgs.follows = "nixpkgs";
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
@@ -28,9 +28,9 @@
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-        inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
