@@ -1,9 +1,17 @@
 {
-  flake.nixosModules.zedsettings = { pkgs, config, inputs, lib,... }: let
-    user = config.preferences.user.name;
-  in {
-    home-manager.users.${user} = {
-      programs.zed-editor = {
+  flake.nixosModules.zedsettings =
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
+    let
+      user = config.preferences.user.name;
+    in
+    {
+      home-manager.users.${user} = {
+        programs.zed-editor = {
           # Everything inside of these brackets are Zed options
           userSettings = {
             agent = {
@@ -50,14 +58,13 @@
             vim_mode = true;
             wrap_guides = [ ];
 
-
             hour_format = "hour24";
             auto_update = false;
 
             # --- Features And Telemetry ---
             edit_predictions = {
-                provider = "copilot";
-                 };
+              provider = "copilot";
+            };
 
             telemetry = {
               diagnostics = false;
@@ -74,7 +81,7 @@
             # Tell Zed to use direnv and direnv can use a flake.nix environment
             load_direnv = "shell_hook";
             base_keymap = "VSCode";
-         };
+          };
         };
       };
     };
