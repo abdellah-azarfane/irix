@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.emacs : { pkgs, config, ... }:
+  flake.nixosModules.emacs = { pkgs, config, ... }:
 let
   user = config.preferences.user.name;
 in {
