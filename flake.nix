@@ -13,7 +13,6 @@
     preservation.url = "github:nix-community/preservation";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-    zed.url = "github:zed-industries/zed";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell/v5";
       inputs.nixpkgs.follows = "nixpkgs";

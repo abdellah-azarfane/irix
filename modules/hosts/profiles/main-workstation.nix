@@ -16,7 +16,13 @@
       users.users.${config.preferences.user.name} = {
         isNormalUser = true;
         description = "${config.preferences.user.name}'s account";
-        extraGroups = [ "wheel" "docker" "input" "uinput" "video"];
+        extraGroups = [
+          "wheel"
+          "docker"
+          "input"
+          "uinput"
+          "video"
+        ];
         shell = pkgs.fish;
         initialPassword = "12345";
       };
@@ -46,6 +52,6 @@
         home.stateVersion = "26.05";
       };
 
-        # Removed duplicate autostart entry for noctalia-shell
+      # Removed duplicate autostart entry for noctalia-shell
     };
 }
