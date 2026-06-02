@@ -131,14 +131,17 @@
         # AI Services
     services.ollama = {
       enable = cfg.ollama;
-      package = pkgs.ollama-rocm;
+      package = pkgs.ollama-cuda;
       loadModels = [
           # "llama3.1"
           # "mistral"
         ];
     };
-    # Flatpak app installation is not managed by the built-in NixOS flatpak module.
-    # Keep remote setup below; install apps with `flatpak install` or a dedicated module.
+    systemd.services.ollama.serviceConfig = {
+        MemorySwapMax = "0";
+        MemoryMax = "6G";
+        OOMScoreAdjust = 1000;
+      };
 
     # Networking & Security
     networking.networkmanager.enable = true;

@@ -24,7 +24,7 @@
       home-manager.users.${user} = {
         programs.zed-editor = {
           enable = true;
-          package = inputs.zed.packages.${pkgs.stdenv.hostPlatform.system}.default;
+         # package = inputs.zed.packages.${pkgs.stdenv.hostPlatform.system}.default;
         };
       };
     };

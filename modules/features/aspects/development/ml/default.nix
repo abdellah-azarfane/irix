@@ -10,9 +10,8 @@
 
       # --- Language Models ---
       llama-cpp
-      # Run large language models locally
-      ollama
-      lmstudio
+
+      lmstudio # just to play arround with LLMs, not for production use
       # --- Model Tools ---
       # --- NLP Frameworks ---
 
@@ -28,5 +27,6 @@
       ggml # General-purpose machine learning library
 
     ];
+
  };
  }

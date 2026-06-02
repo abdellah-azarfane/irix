@@ -6,6 +6,7 @@
         discordo
         vesktop
         tut
+        zoom-us
         element-call
         element-desktop
         signal-desktop
