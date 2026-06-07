@@ -2,9 +2,7 @@
   flake.nixosModules.emacs = { pkgs, config, ... }:
 let
   user = config.preferences.user.name;
-in
-  let
-  # The auto-bootstrapping Doom Emacs wrapper
+
   doomWrapper = pkgs.writeShellApplication {
     name = "doom";
     runtimeInputs = with pkgs; [
@@ -38,9 +36,8 @@ in {
      programs.emacs = {
        enable = true;
        package = pkgs.emacs-pgtk;
-     }
-         home-manager.users.${user} = {
-           xdg.configFile = {
+     };
+     xdg.configFile = {
              # --- init.el ---
              "doom/init.el".text = ''
                (doom! :input
@@ -137,7 +134,6 @@ in {
                       :desc "Start Pomodoro Timer"     "p" #'org-pomodoro))
              '';
            };
-         };
      services.emacs = {
        enable = true;
        client.enable = true;
