@@ -10,18 +10,19 @@
           "SUPER + d" = {
         #    "f" = { exec = ""; };
           };
-          
+
           # super + a -> b -> c keychord
           "SUPER + a" = {
             "b"."c" = {
-              exec = "pcmanfm";
+              exec = "yazi";
+
             };
           };
-       
-          # You can only map "a" to one action. 
+
+          # You can only map "a" to one action.
           # You must choose either a package OR an exec string.
-          "a" = { 
-           # package =; 
+          "a" = {
+           # package =;
           };
         };
       };

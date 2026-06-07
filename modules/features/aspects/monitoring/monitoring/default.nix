@@ -14,28 +14,21 @@
       programs.bottom.enable = true;
 
       home.packages = with pkgs; [
+
         # Monitoring
         bottom # Better htop alternative
         btop # Better htop alternative
         mesa-demos # OpenGL & Mesa tools (glxinfo, glxgears, etc.)
         hyperfine # Command-line benchmarking tool
-        nmon # System monitoring tool
         psmisc # killall, pstree, etc.
         lm_sensors # Tools for reading hardware sensors
         procs # Rustified ps
-        htop # Classic process viewer
-        glances # Swiss Army knife monitor with web dashboard
-        zenith # System monitor with zoomable charts
         lnav # Logfile navigator
         pv # Monitor progress using bars
         ts # Task spooler
-        bandwhich # Display network utilization
-        bmon # Network bandwidth monitor
+
         # --- visuals ---
-        chafa # Terminal image viewer (ANSI/text art)
         librsvg # Small library to render SVG images to Cairo surfaces
-        timg # Terminal image viewer with sixel support
-        exiftool # Read and write metadata from and to images
         ffmpegthumbnailer # For video previews
         ffmpeg-full # For video previews
         imagemagick # Image manipulation toolkit

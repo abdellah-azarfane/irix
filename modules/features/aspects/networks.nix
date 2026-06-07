@@ -13,16 +13,11 @@
       blueman # GUI bluetooth manager
       bluez # Official linux protocol bluetooth stack
       bluez-tools # Set of tools to manage bluetooth devices for linux
-      curl # Command line HTTP client
-      dig # DNS lookup utility
       ipfetch # Neofetch for IP addresses
       wget # Web file downloader
-      wirelesstools # Wireless network configuration tools
       xh # A better curl
       acpi # Battery/temperature info\
-      gping # Better ping (includes graph)
       doggo # Command line dns client
-      netscanner # TUI network scanner
      # termshark # Terminal UI for tshark/Wireshark
       trippy # Network diagnostic tool like mtr with TUI
       xev
@@ -37,8 +32,8 @@
       sops
       proton-vpn
       # --- Bitwarden ---
-      bitwarden-desktop
-      bitwarden-cli
+#      bitwarden-desktop
+#      bitwarden-cli
       ];
     };
   }

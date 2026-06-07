@@ -30,7 +30,6 @@
     environment.systemPackages = [
       pkgs.xwayland-satellite
       selfpkgs.terminal
-      pkgs.pcmanfm
       pkgs.bibata-cursors
     ];
 

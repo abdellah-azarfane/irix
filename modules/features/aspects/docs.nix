@@ -3,10 +3,6 @@
     user = config.preferences.user.name;
   in {
     environment.systemPackages = with pkgs; [
-      joplin
-      joplin-desktop
-      appflowy
-      kdePackages.okular
       obsidian
       standardnotes
       zathura

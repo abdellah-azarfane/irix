@@ -6,10 +6,6 @@
         element
         calcure
         taskwarrior3
-        taskwarrior-tui
-        uair
-        pom
-        openpomodoro-cli
         yad
       ];
     };

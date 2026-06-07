@@ -20,7 +20,7 @@
         supercollider
         tidal-dl
         tidal-hifi
-        vcv-rack
+#        vcv-rack
         termusic
         cmus
         haskellPackages.tidal

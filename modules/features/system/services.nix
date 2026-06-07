@@ -140,7 +140,7 @@
     systemd.services.ollama.serviceConfig = {
         MemorySwapMax = "0";
         MemoryMax = "6G";
-        OOMScoreAdjust = 1000;
+        OOMScoreAdjust = 500;
       };
 
     # Networking & Security
@@ -181,6 +181,10 @@
       wantedBy = ["multi-user.target"];
       path = [pkgs.flatpak];
       script = ''flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo'';
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
     };
 
     environment.systemPackages = with pkgs; [
@@ -225,11 +229,8 @@
       wikiman # Offline search engine for Linux packages
 
       # --- Misc ---
-      bc # CLI calculator
       binutils # Tools for manipulating binaries
       just # Handy way to save and run project-specific commands
-      mask # CLI task runner defined by a simple markdown file
-      mprocs # TUI tool to run multiple commands in parallel and show the output of each command separately
       presenterm # Terminal based slideshow tool
       hstr # Shell history suggest box (bound to <C-H> on Shell)
       ispell # Interactive spell checker (used by Doom Emacs)
