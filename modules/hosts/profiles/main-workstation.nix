@@ -51,7 +51,5 @@
       home-manager.users.${config.preferences.user.name} = {
         home.stateVersion = "26.05";
       };
-
-      # Removed duplicate autostart entry for noctalia-shell
     };
 }

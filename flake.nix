@@ -15,8 +15,8 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     zed.url = "github:zed-industries/zed";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/v5";
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hjem = {

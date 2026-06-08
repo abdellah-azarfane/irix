@@ -41,8 +41,6 @@
           thunar
           thunar-volman
           thunar-archive-plugin
-          kdePackages.dolphin
-          kdePackages.dolphin-plugins
           glow
           desktop-file-utils # Command line utilities for working with .desktop files
           most # Pager

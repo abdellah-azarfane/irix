@@ -7,9 +7,7 @@
       pkgs,
       ...
     }:
-    let
-      noctaliaExe = lib.getExe inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    in
+
     {
       # Custom options for this module
       options.terminal = lib.mkOption {
@@ -90,29 +88,20 @@
           # Rules
           # ============================================================================
           layer-rules = [
-            {
-              matches = [ { namespace = "^wallpaper$"; } ];
-              place-within-backdrop = true;
-            }
-            {
-              matches = [ { namespace = "^noctalia-backdrop$"; } ];
-              place-within-backdrop = true;
-            }
-            {
-              matches = [ { namespace = "^noctalia"; } ];
-              shadow = {
-                softness = 40;
-                spread = 5;
-                offset = _: {
-                  props = {
-                    x = 0;
-                    y = 5;
-                  };
-                };
-                draw-behind-window = true;
-                color = "#28282850";
-              };
-            }
+            layer-rules = [
+              {
+                matches = [ { namespace = "^wallpaper$"; } ];
+                place-within-backdrop = true;
+              }
+              {
+               matches = [ { namespace = "^quickshell$"; } ];
+               place-within-backdrop = true;
+              }
+              {
+               matches = [ { namespace = "dms:blurwallpaper"; } ];
+               place-within-backdrop = true;
+              }
+                 ];
           ];
 
           window-rules = [
@@ -120,16 +109,7 @@
               geometry-corner-radius = 20.0;
               clip-to-geometry = true;
             }
-            {
-              matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
-              open-floating = true;
-              default-column-width = {
-                fixed = 1080;
-              };
-              default-window-height = {
-                fixed = 920;
-              };
-            }
+
             {
               matches = [ { app-id = "dev.zed.Zed"; } ];
               opacity = 0.85;
@@ -254,7 +234,7 @@
               "WAYLAND_DISPLAY"
               "XDG_CURRENT_DESKTOP"
             ]
-            [ "noctalia" ]
+            [ "dms" "run" ]
           ];
 
           # ============================================================================
@@ -341,56 +321,69 @@
             "Mod+X".toggle-overview = _: { };
 
             # Noctalia Shell Commands
-            "Mod+S".spawn = [
-              noctaliaExe
-              "msg"
-              "panel-toggle"
-              "launcher"
-            ];
-            "Mod+comma".spawn = [
-              noctaliaExe
-              "msg"
-              "launcher"
-              "settings"
-            ];
-            "Mod+space".spawn = [
-              noctaliaExe
-              "msg"
-              "launcher"
-              "command"
-            ];
-            "Mod+Escape".spawn = [
-              noctaliaExe
-              "msg"
-              "screen-lock"
-            ];
-            "Mod+P".spawn = [
-              noctaliaExe
-              "msg"
-              "panel-toggle"
-              "session"
-            ];
-            "Mod+Alt+E".spawn = [
-              noctaliaExe
-              "msg"
-              "launcher"
-              "emoji"
-            ];
-            "Mod+N".spawn = [
-              noctaliaExe
-              "msg"
-              "nightlight-enable"
-            ];
-            "Mod+Alt+N".spawn = [
-              noctaliaExe
-              "msg"
-              "nightlight-disable"
-            ];
-            "Mod+Shift+N".spawn = [
-              noctaliaExe
-              "msg"
-              "caffeine-toggle"
-            ];
+                        "Mod+S".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "spotlight"
+                          "toggle"
+                        ];
+                        "Mod+comma".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "settings"
+                          "toggle"
+                        ];
+                        "Mod+space".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "spotlight"
+                          "toggle"
+                        ];
+                        "Mod+Escape".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "lock"
+                          "lock"
+                        ];
+                        "Mod+P".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "dashboard"
+                          "toggle"
+                        ];
+                        "Mod+Alt+E".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "emoji"
+                          "toggle"
+                        ];
+                        "Mod+N".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "nightlight"
+                          "enable"
+                        ];
+                        "Mod+Alt+N".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "nightlight"
+                          "disable"
+                        ];
+                        "Mod+Shift+N".spawn = [
+                          "dms"
+                          "ipc"
+                          "call"
+                          "caffeine"
+                          "toggle"
+                        ];
 
             # Mouse Scroll Bindings
             "Mod+WheelScrollDown" = _: {
@@ -565,12 +558,12 @@
                 {
                   key = "b";
                   desc = "Bluetooth";
-                  cmd = "${noctaliaExe} ipc call bluetooth togglePanel";
+                  cmd = "dms ipc call bluetooth togglePanel";
                 }
                 {
                   key = "w";
                   desc = "Wifi";
-                  cmd = "${noctaliaExe} ipc call wifi togglePanel";
+                  cmd = "dms ipc call wifi togglePanel";
                 }
                 {
                   key = "f";

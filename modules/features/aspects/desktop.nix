@@ -16,7 +16,7 @@
       self.nixosModules.gaming
       self.nixosModules.virt
       self.nixosModules.networks
-      self.nixosModules.noctalia
+      self.nixosModules.dms
       self.nixosModules.office
       self.nixosModules.productivity
     ];
