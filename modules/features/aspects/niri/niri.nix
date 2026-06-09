@@ -88,7 +88,6 @@
           # Rules
           # ============================================================================
           layer-rules = [
-            layer-rules = [
               {
                 matches = [ { namespace = "^wallpaper$"; } ];
                 place-within-backdrop = true;
@@ -101,7 +100,6 @@
                matches = [ { namespace = "dms:blurwallpaper"; } ];
                place-within-backdrop = true;
               }
-                 ];
           ];
 
           window-rules = [
@@ -227,7 +225,7 @@
           # Startup
           # ============================================================================
           xwayland-satellite.path = lib.getExe config.pkgs.xwayland-satellite;
-          spawn-at-startup = [
+       /*   spawn-at-startup = [
             [
               "dbus-update-activation-environment"
               "--systemd"
@@ -236,7 +234,7 @@
             ]
             [ "dms" "run" ]
           ];
-
+          */
           # ============================================================================
           # Keybindings
           # ============================================================================

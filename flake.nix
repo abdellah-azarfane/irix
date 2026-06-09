@@ -6,6 +6,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
     flake-file.url = "github:vic/flake-file";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     wallpapers.url = "github:abdellah-azarfane/wallpapers";
     helium.url = "github:schembriaiden/helium-browser-nix-flake";
     helium.inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +19,10 @@
     zed.url = "github:zed-industries/zed";
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dgop = {
+      url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hjem = {

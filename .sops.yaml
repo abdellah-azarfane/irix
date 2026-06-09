@@ -1,0 +1,10 @@
+keys:
+  - &user_abosafiya age1zhxyh2eedj2dk7l09qlmtpmyxxmdj5f7nua6302jvmcdk5ys6pqqsjyn9k
+  - &host_main age1tvk7wjwnuddp4ds7usc8e6cpw7k8authy55jwgqurnkvw38d0dlqmlxr2l
+
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *user_abosafiya
+          - *host_main

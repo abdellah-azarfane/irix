@@ -20,5 +20,10 @@
         description = "Optional system services configuration.";
       };
     };
+    sops.secrets."ssh_private_key" = {
+          owner = "abosafiya";
+          mode = "0600";
+          path = "/home/abosafiya/.ssh/id_rsa_managed";
+        };
   };
 }
