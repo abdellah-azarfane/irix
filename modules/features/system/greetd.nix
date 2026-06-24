@@ -19,8 +19,8 @@
         inputs.dms.nixosModules.greeter
       ];
       # ----------------------------------------------------------------------
-      services.greetd = {
-        enable = lib.mkDefault config.preferences.optionalServices.greetd;
+      services.greetd = lib.mkDefault config.preferences.optionalServices.greetd {
+        enable = true;
         settings = {
           default_session = {
             command = "${tuigreetExe} --time --cmd ${niriSessionExe}";
@@ -29,8 +29,8 @@
         };
       };
       # ----------------------------------------------------------------------
-      services.displayManager.dms-greeter = {
-        enable = lib.mkDefault config.preferences.optionalServices.dmsgreetd;
+      services.displayManager.dms-greeter = lib.mkDefault config.preferences.optionalServices.dmsgreetd {
+        enable = true;
         compositor = {
           name = "niri"; # Required. Can be also "hyprland" or "sway"
           customConfig = ''
