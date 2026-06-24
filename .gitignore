@@ -1,0 +1,12 @@
+# Emacs native compilation cache
+emacs-module/config/eln-cache/
+
+# Emacs straight package manager
+emacs-module/config/straight/
+
+# direnv
+.envrc
+
+# Result symlinks from nix build
+result
+result-*

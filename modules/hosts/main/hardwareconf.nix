@@ -27,16 +27,10 @@
         "nvidia-drm.fbdev=1"
       ];
       boot.kernelModules = [
-        "binder_linux"
-        "ashmem_linux"
         "kvm-intel"
         "asus-nb-wmi"
         "asus_armoury"
       ];
-      boot.extraModprobeConfig = ''
-        options binder_linux
-        options ashmem_linux
-      '';
       boot.extraModulePackages = [ ];
       networking.useDHCP = lib.mkDefault true;
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

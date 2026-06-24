@@ -1,5 +1,5 @@
-{
-  flake.nixosModules.base = {lib, ...}: {
+{ self, lib, ... }: {
+  flake.nixosModules.start = { lib, ... }: {
     options.preferences = {
       apps = lib.mkOption {
         type = lib.types.submodule {
@@ -72,7 +72,15 @@
       autostart = lib.mkOption {
         type = lib.types.listOf (lib.types.either lib.types.str lib.types.package);
         default = [];
+        description = "List of programs/commands to autostart with the desktop session.";
       };
     };
   };
+
+  flake.lib.mkAutostartEntries = autostartList:
+    map (entry:
+      if lib.isString entry
+      then [ (lib.getBin entry) ]
+      else [ (lib.getExe entry) ]
+    ) autostartList;
 }

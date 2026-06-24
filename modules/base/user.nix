@@ -25,10 +25,22 @@
         description = "Optional system services configuration.";
       };
     };
+    options.preferences.sops.sshKeyPath = lib.mkOption {
+      type = lib.types.str;
+      default = "/home/abosafiya/.ssh/id_rsa_managed";
+      description = "Path to store the SOPS-managed SSH private key.";
+    };
+
+    options.preferences.sops.sshdKeyPath = lib.mkOption {
+      type = lib.types.str;
+      default = "/etc/ssh/ssh_host_ed25519_key";
+      description = "Path to the SSH host key used for SOPS age decryption.";
+    };
+
     config.sops.secrets."ssh_private_key" = {
-      owner = "abosafiya";
+      owner = config.preferences.user.name;
       mode = "0600";
-      path = "/home/abosafiya/.ssh/id_rsa_managed";
+      path = config.preferences.sops.sshKeyPath;
     };
   };
 }

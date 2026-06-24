@@ -162,8 +162,11 @@
         networking.networkmanager.enable = true;
         services.xserver.enable = cfg.xserver;
         networking.firewall = {
-          enable = false;
+          enable = true;
           checkReversePath = "loose";
+          # Open ports for services as needed. Examples:
+          # allowedTCPPorts = [ 22 80 443 ];
+          # allowedUDPPorts = [ 51820 ];
         };
         security.polkit.enable = true;
 
@@ -171,6 +174,7 @@
           login.enableGnomeKeyring = true;
           # Enable Gnome keyring on login # FIX: This is flimsy. Sometimes it unlocks, sometimes it does not.
           hyprlock.enableGnomeKeyring = true; # Enable unlocking keyring on unlock lockscreen
+          greetd.enableGnomeKeyring = true;   # Ensure keyring daemon is ready before greetd session
         };
 
         security.pam.loginLimits = [

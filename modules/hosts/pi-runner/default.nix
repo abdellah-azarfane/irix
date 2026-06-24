@@ -7,8 +7,6 @@
       inputs.nixos-hardware.nixosModules.raspberry-pi-3
 
       ({ config, lib, pkgs, ... }: {
-        nixpkgs.config.allowUnfree = true;
-
         fileSystems."/" = {
           device = "/dev/disk/by-label/NIXOS_SD";
           fsType = "ext4";

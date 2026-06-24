@@ -24,7 +24,8 @@
           "video"
         ];
         shell = pkgs.fish;
-        initialPassword = "12345";
+        initialHashedPassword = "$6$mhUXobPRIxAenNMe$EjE8vQ2kbr5Ia1W1g/vltxOo.fz1wwsDVPMvsiG1gvC/mGFms92ZdDuwhLiqbadOW/k2x8gGOSx/kQtK5FLZ3/";
+        # NOTE: change this password on first login via `passwd`
       };
       features.optionalServices = {
         greetd = true;
@@ -48,6 +49,7 @@
         memoryPercent = 50;
         algorithm = "zstd";
       };
+      boot.resumeDevice = "/dev/nvme0n1p2";
       home-manager.users.${config.preferences.user.name} = {
         home.stateVersion = "26.05";
       };

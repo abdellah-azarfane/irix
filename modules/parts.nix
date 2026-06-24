@@ -30,6 +30,24 @@
     description = "Helper function to build which-key wrapper executables.";
   };
 
+  options.flake.lib.mkNiriBinds = lib.mkOption {
+    type = lib.types.raw;
+    default = null;
+    description = "Helper to convert keymap preferences to Niri bind format.";
+  };
+
+  options.flake.lib.mkNiriOutputs = lib.mkOption {
+    type = lib.types.raw;
+    default = null;
+    description = "Helper to convert monitor preferences to Niri output format.";
+  };
+
+  options.flake.lib.mkAutostartEntries = lib.mkOption {
+    type = lib.types.raw;
+    default = null;
+    description = "Helper to convert autostart preferences to systemd service entries.";
+  };
+
   options.flake.lib.mkShellAliases = lib.mkOption {
     type = lib.types.raw;
     default = null;
@@ -81,5 +99,9 @@
       };
 
     systems = lib.mkDefault config.flake.lib.defaultSystems;
+
+    flake.checks = builtins.mapAttrs
+      (name: cfg: cfg.config.system.build.toplevel)
+      config.flake.nixosConfigurations;
   };
 }
