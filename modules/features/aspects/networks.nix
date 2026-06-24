@@ -21,7 +21,6 @@
      # termshark # Terminal UI for tshark/Wireshark
       trippy # Network diagnostic tool like mtr with TUI
       xev
-      wdisplays
       # --- openssl ---
       openssl
       # --- Pass & Gnupg ---
@@ -29,7 +28,6 @@
       pass
       gnupg
       age
-      sops
       proton-vpn
       # --- Bitwarden ---
 #      bitwarden-desktop

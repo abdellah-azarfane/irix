@@ -3,25 +3,24 @@
     user = config.preferences.user.name;
     myAliases = self.lib.mkShellAliases { inherit pkgs lib; };
   in {
-    environment.systemPackages = [pkgs.nushell];
 
     home-manager.users.${user} = {
       programs.nushell = {
         enable = true;
         shellAliases = myAliases;
-        
+
         # From shells2/nushell.nix
         settings = {
           history.file_format = "sqlite";
           show_banner = false;
           edit_mode = "vi";
           rm.always_trash = true;
-          
+
           cursor_shape = {
             vi_insert = "line";
             vi_normal = "block";
           };
-          
+
           table = {
             trim = {
               methodology = "wrapping";

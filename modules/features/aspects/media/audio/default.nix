@@ -11,7 +11,6 @@
         clementine
         easyeffects
         crosspipe
-        playerctl
         cavalier
         maxlib
         puredata

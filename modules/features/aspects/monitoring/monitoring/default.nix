@@ -10,14 +10,10 @@
     imports = [ self.nixosModules.info ];
 
     home-manager.users.${user} = {
-
-      programs.bottom.enable = true;
-
       home.packages = with pkgs; [
 
         # Monitoring
         bottom # Better htop alternative
-        btop # Better htop alternative
         mesa-demos # OpenGL & Mesa tools (glxinfo, glxgears, etc.)
         hyperfine # Command-line benchmarking tool
         psmisc # killall, pstree, etc.

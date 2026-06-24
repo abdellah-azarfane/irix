@@ -8,7 +8,6 @@
     environment.systemPackages = with pkgs; [
       inputs.helium.packages.${system}.default
       librewolf
-      tor
     ];
   };
 }

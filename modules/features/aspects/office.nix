@@ -3,7 +3,6 @@
       environment.systemPackages = with pkgs; [
         onlyoffice-desktopeditors
         libreoffice
-        zoom-us
       ];
     };
 }

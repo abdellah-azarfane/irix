@@ -13,13 +13,13 @@
     in
     {
       imports = [
-        self.nixosModules.zedsettings
-        self.nixosModules.zedkeymaps
-        self.nixosModules.zedappearance
-        self.nixosModules.zedextensions
-        self.nixosModules.zedlsp
-        self.nixosModules.zedlangs
-        self.nixosModules.zedterminal
+  #      self.nixosModules.zedsettings
+#        self.nixosModules.zedkeymaps
+#        self.nixosModules.zedappearance
+ #       self.nixosModules.zedextensions
+ #       self.nixosModules.zedlsp
+ #       self.nixosModules.zedlangs
+   #     self.nixosModules.zedterminal
       ];
       home-manager.users.${user} = {
         programs.zed-editor = {

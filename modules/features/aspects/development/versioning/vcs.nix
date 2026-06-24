@@ -5,9 +5,8 @@
     deltaExe = lib.getExe pkgs.delta;
   in {
     home-manager.users.${user} = {
-      
+
       home.packages = with pkgs; [
-        delta
         diff-so-fancy
         git-extras
         commitizen # Commit rules for projects
@@ -20,8 +19,8 @@
       # ==========================================
       programs.git = {
         enable = true;
-        
-        # Globally ignored files 
+
+        # Globally ignored files
         ignores = [
           # Editor files
           "*~"
@@ -131,7 +130,7 @@
       };
 
       # ==========================================
-      # Delta 
+      # Delta
       # ==========================================
       programs.delta = {
         enable = true;
@@ -217,7 +216,7 @@
       programs.lazyworktree = {
         enable = true;
       };
-      
+
     };
   };
 }

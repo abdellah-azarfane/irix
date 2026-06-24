@@ -18,18 +18,19 @@
       };
 
       autostart = [
-       # SCripts
+        # SCripts
       ];
 
       keymap = {
-        "SUPER + v".exec = ''${pkgs.alsa-utils}/bin/amixer sset Capture toggle'';
+        "SUPER + v".exec = "${pkgs.alsa-utils}/bin/amixer sset Capture toggle";
         "SUPER + d"."s".package = pkgs.pwvucontrol;
         "SUPER + d"."p".package = pkgs.helium;
         "SUPER + d"."y".package = pkgs.yazi;
       };
 
       optionalServices = {
-        greetd = true;
+        greetd = false;
+        dmsgreetd = true;
       };
 
       monitors = {

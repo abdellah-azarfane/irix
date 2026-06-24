@@ -25,9 +25,6 @@
       extraPackages = [
 
         pkgs.sshfs
-        pkgs.tree-sitter
-        pkgs.yt-dlp
-
         # wrapped
         self'.packages.qalc
         self'.packages.lf

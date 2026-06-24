@@ -6,6 +6,8 @@
         element
         calcure
         taskwarrior3
+        gnome-solanum
+        blanket
         yad
       ];
     };

@@ -39,14 +39,14 @@
 
         # --- DevOps, Configs, & Infrastructure ---
         dockerfile-language-server dockfmt
-        terraform-ls
         sqlfluff sqlite sqls
         dhall dhall-lsp-server
         jinja-lsp jinja2-cli
         taplo # TOML
         yaml-language-server
         kdlfmt
-        just just-lsp
+        just
+        just-lsp
 
         # --- General Utilities ---
         devenv

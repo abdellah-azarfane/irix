@@ -6,6 +6,11 @@
       obsidian
       standardnotes
       zathura
+      zotero
+      stirling-pdf
+      pandoc
+      foliate
+      handy
     ];
 
     home-manager.users.${user} = {

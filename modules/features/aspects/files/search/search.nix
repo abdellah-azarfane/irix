@@ -34,8 +34,6 @@
           fselect # Find files with SQL-like queries
           plocate # A much faster locate
           repgrep # Interactive find & replace within files
-          file
-          sd # Sed alternative
           filezilla
           celeste
           thunar
@@ -52,7 +50,6 @@
           csvkit # Toolkit for tabular file processing
           xlsx2csv # Lightweight toolkit for tabular file processing
           duckdb # Embeddable SQL OLAP database (required for yazi duckdb plugin)
-          ranger # VIM-inspired file manager
           xplr # Hackable, minimal file explorer
           visidata # Terminal spreadsheet multitool for tabular data
         ];
@@ -80,8 +77,6 @@
           };
         };
 
-        ### Eza & fzf
-        programs.eza.enable = true;
         programs.fzf = {
           enable = true;
           enableBashIntegration = true;
@@ -116,9 +111,6 @@
           };
         };
 
-        ### Others ...
-        programs.jq.enable = true;
-        programs.ripgrep.enable = true;
         programs.mcfly = {
           enable = true;
           fzf.enable = true;

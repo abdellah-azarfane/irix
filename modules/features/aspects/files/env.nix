@@ -34,7 +34,7 @@
       # Obsidian vaults
       vaultsSelf = "${dirs.vaults}/self";
       vaultsToDo = "${dirs.vaults}/ToDo";
-      
+
       # Academic
       academicNotes = "${dirs.academic}/notes";
       university = "${dirs.academic}/university";
@@ -83,7 +83,7 @@
         ACADEMIC_NOTES = derivedDirs.academicNotes;
         UNIVERSITY = derivedDirs.university;
         DOCS = derivedDirs.docs;
-        
+
         # Vaults
         HOME_VAULTS_SELF = derivedDirs.vaultsSelf;
         HOME_VAULTS_TODO = derivedDirs.vaultsToDo;
@@ -135,7 +135,6 @@
         userDirs = {
           enable = true;
           createDirectories = true;
-
           publicShare = null;
           templates = null;
           desktop = null;

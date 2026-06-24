@@ -7,10 +7,14 @@
         home.packages = with pkgs; [
           # --- C / C++ / Build Systems ---
           clang-tools # Includes clang-format
-          gcc
-          gnumake
+          gcc # GNU compiler collection
           cmake-language-server
           cmake-format
+          gnumake # Make files
+          gnutls # GNU transport layer security library
+          pkg-config # Package information finder
+
+
 
           # --- Rust ---
           rustup # Rust toolchain

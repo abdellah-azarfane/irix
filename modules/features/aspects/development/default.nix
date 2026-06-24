@@ -14,8 +14,11 @@
       ###
       self.nixosModules.misc
       self.nixosModules.ml
+      self.nixosModules.hermes
       self.nixosModules.opsec
       self.nixosModules.vcs
+      self.nixosModules.virt
+      self.nixosModules.sops
     ];
   };
 }

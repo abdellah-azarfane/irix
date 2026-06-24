@@ -88,34 +88,22 @@
           # Rules
           # ============================================================================
           layer-rules = [
-              {
-                matches = [ { namespace = "^wallpaper$"; } ];
-                place-within-backdrop = true;
-              }
-              {
-               matches = [ { namespace = "^quickshell$"; } ];
-               place-within-backdrop = true;
-              }
-              {
-               matches = [ { namespace = "dms:blurwallpaper"; } ];
-               place-within-backdrop = true;
-              }
+            {
+              matches = [ { namespace = "^wallpaper$"; } ];
+              place-within-backdrop = true;
+            }
+            {
+              matches = [ { namespace = "^quickshell$"; } ];
+              place-within-backdrop = true;
+            }
+            {
+              matches = [ { namespace = "dms:blurwallpaper"; } ];
+              place-within-backdrop = true;
+            }
           ];
 
           window-rules = [
-            {
-              geometry-corner-radius = 20.0;
-              clip-to-geometry = true;
-            }
 
-            {
-              matches = [ { app-id = "dev.zed.Zed"; } ];
-              opacity = 0.85;
-            }
-            {
-              matches = [ { is-active = false; } ];
-              opacity = 0.7;
-            }
           ];
 
           # ============================================================================
@@ -225,21 +213,30 @@
           # Startup
           # ============================================================================
           xwayland-satellite.path = lib.getExe config.pkgs.xwayland-satellite;
-       /*   spawn-at-startup = [
+          spawn-at-startup = [
             [
               "dbus-update-activation-environment"
               "--systemd"
               "WAYLAND_DISPLAY"
               "XDG_CURRENT_DESKTOP"
             ]
-            [ "dms" "run" ]
+            [
+              "dms"
+              "run"
+            ]
           ];
-          */
+
           # ============================================================================
           # Keybindings
           # ============================================================================
           binds = {
             "Mod+Return".spawn = config.terminal;
+            # APPS
+            "Mod+E".spawn = [
+              "emacsclient"
+              "-c"
+              "-a"
+            ];
 
             # Focus Navigation
             "Mod+Left".focus-column-left = _: { };
@@ -318,70 +315,70 @@
             # Overview
             "Mod+X".toggle-overview = _: { };
 
-            # Noctalia Shell Commands
-                        "Mod+S".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "spotlight"
-                          "toggle"
-                        ];
-                        "Mod+comma".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "settings"
-                          "toggle"
-                        ];
-                        "Mod+space".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "spotlight"
-                          "toggle"
-                        ];
-                        "Mod+Escape".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "lock"
-                          "lock"
-                        ];
-                        "Mod+P".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "dashboard"
-                          "toggle"
-                        ];
-                        "Mod+Alt+E".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "emoji"
-                          "toggle"
-                        ];
-                        "Mod+N".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "nightlight"
-                          "enable"
-                        ];
-                        "Mod+Alt+N".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "nightlight"
-                          "disable"
-                        ];
-                        "Mod+Shift+N".spawn = [
-                          "dms"
-                          "ipc"
-                          "call"
-                          "caffeine"
-                          "toggle"
-                        ];
+            # Dms Shell Commands
+            "Mod+S".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "spotlight"
+              "toggle"
+            ];
+            "Mod+comma".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "settings"
+              "toggle"
+            ];
+            "Mod+space".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "spotlight"
+              "toggle"
+            ];
+            "Mod+Escape".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "lock"
+              "lock"
+            ];
+            "Mod+P".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "dashboard"
+              "toggle"
+            ];
+            "Mod+Alt+E".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "emoji"
+              "toggle"
+            ];
+            "Mod+N".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "nightlight"
+              "enable"
+            ];
+            "Mod+Alt+N".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "nightlight"
+              "disable"
+            ];
+            "Mod+Shift+N".spawn = [
+              "dms"
+              "ipc"
+              "call"
+              "caffeine"
+              "toggle"
+            ];
 
             # Mouse Scroll Bindings
             "Mod+WheelScrollDown" = _: {
