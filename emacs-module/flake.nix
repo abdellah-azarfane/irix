@@ -34,18 +34,31 @@
         # Wrap the daemon to ensure config symlink is ready before Emacs starts,
         # and pass flags so it loads the right init directory from the start.
         # This avoids the race between home-manager activation and service start.
-        systemd.user.services.emacs = {
-          Unit = {
-            After = [ "graphical-session.target" ];
-            PartOf = [ "graphical-session.target" ];
+       systemd.user.services.emacs = {
+        Unit = {
+        Description = "Emacs daemon";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        Requires = [ "graphical-session.target" ];
           };
-          Service = {
-            ExecStartPre = [
-              "${pkgs.bash}/bin/bash -c 'T=\"${emacsConfigDir}\"; L=\"%h/.config/emacs\"; if [ ! -L \"$L\" ] || [ \"$(readlink \"$L\")\" != \"$T\" ]; then rm -rf \"$L\" 2>/dev/null; ln -sfn \"$T\" \"$L\"; fi'"
-            ];
-          };
-        };
+       Service = {
+        Type = "notify";
+        ExecStart = "${config.programs.emacs.finalPackage}/bin/emacs --fg-daemon";
+        ExecStop = "${config.programs.emacs.finalPackage}/bin/emacsclient --eval '(kill-emacs)'";
+        Restart = "on-failure";
+        PassEnvironment = [
+           "WAYLAND_DISPLAY"
+           "XDG_RUNTIME_DIR"
+           "DISPLAY"
+           ];
+           Environment = [
+          "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
+          "GDK_BACKEND=wayland"
 
+      ];
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };       
         home.packages = with pkgs; [
           git
           ripgrep

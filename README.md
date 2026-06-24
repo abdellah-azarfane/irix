@@ -1,6 +1,6 @@
 # Irix — NixOS Flake Configuration
 
-Personal NixOS configuration for an ASUS ROG Zephyrus G14 (main workstation) and a Raspberry Pi 3 GitLab runner.
+Personal NixOS configuration for an ASUS TUF F17 M-2023 (main workstation) and a Raspberry Pi 3 GitLab runner.
 
 ## Structure
 
