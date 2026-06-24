@@ -36,7 +36,7 @@
         ];
 
         xdg.configFile."emacs".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/irix/emacs/config";
+          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/irix/emacs-module/config";
 
       };
   };
