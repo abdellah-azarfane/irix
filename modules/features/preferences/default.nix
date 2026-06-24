@@ -29,8 +29,8 @@
       };
 
       optionalServices = {
-        greetd = false;
-        dmsgreetd = true;
+        greetd = true;
+        dmsgreetd = false; # issues
       };
 
       monitors = {
