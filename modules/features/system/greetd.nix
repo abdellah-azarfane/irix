@@ -18,8 +18,10 @@
       imports = [
         inputs.dms.nixosModules.greeter
       ];
+
       # ----------------------------------------------------------------------
-      services.greetd = lib.mkDefault config.preferences.optionalServices.greetd {
+
+      services.greetd = lib.mkIf config.preferences.optionalServices.greetd {
         enable = true;
         settings = {
           default_session = {
@@ -28,8 +30,10 @@
           };
         };
       };
+
       # ----------------------------------------------------------------------
-      services.displayManager.dms-greeter = lib.mkDefault config.preferences.optionalServices.dmsgreetd {
+
+      services.displayManager.dms-greeter = lib.mkIf config.preferences.optionalServices.dmsgreetd {
         enable = true;
         compositor = {
           name = "niri"; # Required. Can be also "hyprland" or "sway"
@@ -38,7 +42,7 @@
           '';
         };
 
-        # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
+        # Sync your user's DankMaterialShell theme with the greeter.
         configHome = "/home/${user}";
 
         # Custom config files for non-standard config locations
