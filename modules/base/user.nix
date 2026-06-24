@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {lib, config, ...}: {
+  flake.nixosModules.base = { lib, config, ... }: {
     options.preferences = {
       user.name = lib.mkOption {
         type = lib.types.str;
@@ -14,16 +14,21 @@
               default = true;
               description = "Enable greetd login manager.";
             };
+            dmsgreetd = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Enable dmsgreetd login manager.";
+            };
           };
         };
-        default = {};
+        default = { };
         description = "Optional system services configuration.";
       };
     };
     config.sops.secrets."ssh_private_key" = {
-          owner = "abosafiya";
-          mode = "0600";
-          path = "/home/abosafiya/.ssh/id_rsa_managed";
-        };
+      owner = "abosafiya";
+      mode = "0600";
+      path = "/home/abosafiya/.ssh/id_rsa_managed";
+    };
   };
 }
