@@ -15,7 +15,7 @@
 - [[#org-mode--knowledge-base][Org Mode & Knowledge Base]]
   - [[#basic-settings][Basic Settings]]
   - [[#headers-1][Headers]]
-  - [[#workflow--capture-templates][workflow & capture templates]]
+  - [[#todo-workflow--capture-templates][TODO workflow & capture templates]]
   - [[#org-roam-zettelkasten-knowledge-base][Org-roam: Zettelkasten knowledge base]]
   - [[#org-pomodoro-1201030][Org-Pomodoro (120/10/30)]]
   - [[#org-super-agenda][org-super-agenda]]
@@ -101,7 +101,7 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)   ;; Turn line numbers on
 (setq confirm-kill-emacs nil)        ;; Don't confirm on exit
-;;(setq initial-buffer-choice 'eshell) ;; Eshell is initial buffer
+(setq initial-buffer-choice 'eshell) ;; Eshell is initial buffer
 
 ;; Use bash for internal Emacs processes
 (setq shell-file-name (executable-find "bash"))
@@ -128,7 +128,6 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 (map! :leader
       :desc "Comment line" "-" #'comment-line)
 
-;;Toggle binds
 (map! :leader
       (:prefix ("t" . "toggle")
        :desc "Toggle eshell split"            "e" #'+eshell/toggle
