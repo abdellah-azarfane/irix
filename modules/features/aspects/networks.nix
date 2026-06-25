@@ -30,7 +30,7 @@
       age
       proton-vpn
       # --- Bitwarden ---
-      bitwarden-desktop
+   #   bitwarden-desktop
       bitwarden-cli
       ];
     };
