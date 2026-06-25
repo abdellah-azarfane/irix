@@ -23,9 +23,6 @@
 
     wallpapers.url = "github:abdellah-azarfane/wallpapers";
 
-    helium.url = "github:schembriaiden/helium-browser-nix-flake";
-    helium.inputs.nixpkgs.follows = "nixpkgs";
-
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     hermes-agent.url = "github:NousResearch/hermes-agent";
     preservation.url = "github:nix-community/preservation";

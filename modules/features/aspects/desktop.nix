@@ -27,7 +27,6 @@
         enable = true;
         package = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
       };
-      # preferences.autostart = [selfpkgs.quickshellWrapped];
 
       environment.systemPackages = [
         pkgs.xwayland-satellite

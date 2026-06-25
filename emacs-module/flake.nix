@@ -14,18 +14,22 @@
         pkgs,
         ...
       }:
+      let
+        emacsConfigDir = "${config.home.homeDirectory}/dev/irix/emacs-module/doom-config";
+        emacsPkg = pkgs.emacs-pgtk;
+      in
       {
         programs.emacs = {
           enable = true;
-          package = pkgs.emacs-pgtk; # Native Wayland support
+          package = emacsPkg; # Native Wayland support
           extraPackages = epkgs: [ epkgs.vterm ]; # Pre-compile vterm module for faster builds
         };
 
         services.emacs = {
           enable = true;
           client.enable = true;
-          #    defaultEditor = true;
-          #   startWithUserSession = "graphical"; # Wait for Wayland to start before launching
+          startWithUserSession = "graphical";
+          startWithUserSession = "graphical"; # Wait for Wayland to start before launching
         };
 
         home.packages = with pkgs; [
@@ -36,8 +40,26 @@
           findutils
         ];
 
+        systemd.user.services.emacs = {
+         Unit = {
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
+          };
+        Service = {
+          PassEnvironment = [
+          "WAYLAND_DISPLAY"
+          "XDG_RUNTIME_DIR"
+          "DISPLAY"
+          ];
+        Environment = [
+          "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
+          "GDK_BACKEND=wayland"
+              ];
+            };
+          };
+
         xdg.configFile."doom".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/irix/emacs-module/doom-config";
+          config.lib.file.mkOutOfStoreSymlink emacsConfigDir;
 
         home.activation.installDoomEmacs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           export EMACSDIR="${config.home.homeDirectory}/.config/emacs"

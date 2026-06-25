@@ -113,9 +113,6 @@
         KEYTIMEOUT = "1";
         MOZ_ENABLE_WAYLAND = "1";
 
-        # External dotconfigs
-        DOOMDIR = "${xdgDirs.configHome}/doom";
-        DOTCONFIG_DOOM = "${xdgDirs.configHome}/doom";
       };
 
       home.sessionPath = [
@@ -138,7 +135,7 @@
           publicShare = null;
           templates = null;
           desktop = null;
-          documents = null;
+          documents = true;
           download = dirs.downloads;
           music = null;
           videos = null;

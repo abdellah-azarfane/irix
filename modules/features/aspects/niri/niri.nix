@@ -12,7 +12,7 @@
       # Custom options for this module
       options.terminal = lib.mkOption {
         type = lib.types.str;
-        default = "kitty";
+        default = "ghostty";
       };
 
       config = {

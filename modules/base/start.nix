@@ -6,19 +6,19 @@
           options = {
             browser = lib.mkOption {
               type = lib.types.str;
-              default = "helium";
+              default = "librewolf";
               description = "Default browser command used by session variables.";
             };
 
             editor = lib.mkOption {
               type = lib.types.str;
-              default = "nvim";
+              default = "emacsclient -c";
               description = "Default editor command used by EDITOR/VISUAL.";
             };
 
             terminal = lib.mkOption {
               type = lib.types.str;
-              default = "kitty";
+              default = "ghostty";
               description = "Default terminal command.";
             };
 
@@ -45,6 +45,7 @@
               default = "zathura";
               description = "Default PDF viewer command.";
             };
+
 
             wm = lib.mkOption {
               type = lib.types.str;

@@ -24,7 +24,7 @@
       keymap = {
         "SUPER + v".exec = "${pkgs.alsa-utils}/bin/amixer sset Capture toggle";
         "SUPER + d"."s".package = pkgs.pwvucontrol;
-        "SUPER + d"."p".package = pkgs.helium;
+        "SUPER + d"."p".package = pkgs.librewolf;
         "SUPER + d"."y".package = pkgs.yazi;
       };
 
