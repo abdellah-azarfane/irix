@@ -39,24 +39,6 @@
           findutils
         ];
 
-        systemd.user.services.emacs = {
-         Unit = {
-          After = [ "graphical-session.target" ];
-          PartOf = [ "graphical-session.target" ];
-          };
-        Service = {
-          PassEnvironment = [
-          "WAYLAND_DISPLAY"
-          "XDG_RUNTIME_DIR"
-          "DISPLAY"
-          ];
-        Environment = [
-          "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
-          "GDK_BACKEND=wayland"
-              ];
-            };
-          };
-
         xdg.configFile."doom".source =
           config.lib.file.mkOutOfStoreSymlink emacsConfigDir;
 
