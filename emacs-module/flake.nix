@@ -28,7 +28,6 @@
         services.emacs = {
           enable = true;
           client.enable = true;
-          startWithUserSession = "graphical";
           startWithUserSession = "graphical"; # Wait for Wayland to start before launching
         };
 
