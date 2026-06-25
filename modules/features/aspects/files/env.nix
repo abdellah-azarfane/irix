@@ -7,15 +7,17 @@
     homeDir = config.home-manager.users.${user}.home.homeDirectory;
     docsDir = "${homeDir}/documents";
 
-    # Added lowercase pictures folder nested inside documents
+    # Added lowercase org folder inside documents
     dirs = {
       academic     = "${docsDir}/academic";
       dev          = "${homeDir}/dev";
       downloads    = "${homeDir}/downloads";
+      org          = "${docsDir}/org"; # Added here
       pendings     = "${homeDir}/pendings";
-      pictures     = "${docsDir}/pictures"; # Force lowercase pictures
+      pictures     = "${docsDir}/pictures";
       professional = "${docsDir}/professional";
-      projects     = "${docsDir}/projects";
+      projects     = "${homeDir}/projects";
+      screenshots  = "${docsDir}/screenshots";
       vaults       = "${docsDir}/vaults";
     };
 
@@ -65,9 +67,11 @@
 
         HOME_ACADEMIC = dirs.academic;
         HOME_DOWNLOADS = dirs.downloads;
-        HOME_PICTURES = dirs.pictures; # Exposed environment variable
+        HOME_ORG = dirs.org; # Exposed environment variable for your Org-mode workflows
+        HOME_PICTURES = dirs.pictures;
         HOME_PROJECTS = dirs.projects;
         HOME_PROFESSIONAL = dirs.professional;
+        HOME_SCREENSHOTS = dirs.screenshots;
         HOME_VAULTS = dirs.vaults;
 
         DEV_UTILS = derivedDirs.devUtils;
@@ -119,10 +123,12 @@
         "d ${derivedDirs.devUtils} 0755 - - -"
 
         "d ${dirs.downloads} 0755 - - -"
+        "d ${dirs.org} 0755 - - -" # Creates org at ~/documents/org
         "d ${dirs.pendings} 0755 - - -"
-        "d ${dirs.pictures} 0755 - - - " # Auto-creates the pictures folder
+        "d ${dirs.pictures} 0755 - - -"
         "d ${dirs.professional} 0755 - - -"
         "d ${dirs.projects} 0755 - - -"
+        "d ${dirs.screenshots} 0755 - - -"
         "d ${dirs.vaults} 0755 - - -"
         "d ${derivedDirs.vaultsSelf} 0755 - - -"
         "d ${derivedDirs.vaultsToDo} 0755 - - -"
