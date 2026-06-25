@@ -582,8 +582,8 @@
                 }
                 {
                   key = "p";
-                  desc = "Helium Browser";
-                  cmd = "helium";
+                  desc = "LibreWolf Browser";
+                  cmd = "librewolf";
                 }
                 {
                   key = "s";
