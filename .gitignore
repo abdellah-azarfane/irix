@@ -1,11 +1,36 @@
-# Emacs native compilation cache
+# ---------------------------------------------------
+# Emacs Package Managers & Caches
+# ---------------------------------------------------
+# Native compilation cache
 emacs-module/config/eln-cache/
 
-# Emacs straight package manager
-emacs-module/config/straight/
+# Elpaca package manager (Replaces straight)
+emacs-module/config/elpaca/
 
+# Tree-sitter grammars
+emacs-module/config/tree-sitter/
+
+# ---------------------------------------------------
+# Emacs Generated & Compiled Files
+# ---------------------------------------------------
+# Tangled output from config.org
+emacs-module/config/config.el
+
+# Byte-compiled cache files
+emacs-module/config/*.elc
+
+# Emacs custom variables (kept out of init files)
+emacs-module/config/custom-vars.el
+
+# LSP Mode session tracking
+emacs-module/config/.lsp-session
+
+# ---------------------------------------------------
+# Nix & Environment
+# ---------------------------------------------------
 # direnv
 .envrc
+.direnv/
 
 # Result symlinks from nix build
 result

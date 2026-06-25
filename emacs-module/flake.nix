@@ -31,42 +31,59 @@
           startWithUserSession = "graphical";
         };
 
-        # Wrap the daemon to ensure config symlink is ready before Emacs starts,
-        # and pass flags so it loads the right init directory from the start.
-        # This avoids the race between home-manager activation and service start.
-       systemd.user.services.emacs = {
-        Unit = {
-        Description = "Emacs daemon";
-        After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
-        Requires = [ "graphical-session.target" ];
-          };
-       Service = {
-        Type = "notify";
-        ExecStart = "${config.programs.emacs.finalPackage}/bin/emacs --fg-daemon";
-        ExecStop = "${config.programs.emacs.finalPackage}/bin/emacsclient --eval '(kill-emacs)'";
-        Restart = "on-failure";
-        PassEnvironment = [
-           "WAYLAND_DISPLAY"
-           "XDG_RUNTIME_DIR"
-           "DISPLAY"
-           ];
-           Environment = [
-          "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
-          "GDK_BACKEND=wayland"
-
-      ];
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };       
+        # Wrap the daemon to pass flags so it loads the right init directory from the start.
+                # We use lib.mkForce on the entire service definition to override the defaults.
+                systemd.user.services.emacs = lib.mkForce {
+                  Unit = {
+                    Description = "Emacs daemon";
+                    After = [ "graphical-session.target" ];
+                    PartOf = [ "graphical-session.target" ];
+                    Requires = [ "graphical-session.target" ];
+                  };
+                  Service = {
+                    Type = "notify";
+                    ExecStart = "${config.programs.emacs.finalPackage}/bin/emacs --fg-daemon --init-directory=${emacsConfigDir}";
+                    ExecStop = "${config.programs.emacs.finalPackage}/bin/emacsclient --eval '(kill-emacs)'";
+                    Restart = "on-failure";
+                    PassEnvironment = [
+                      "WAYLAND_DISPLAY"
+                      "XDG_RUNTIME_DIR"
+                      "DISPLAY"
+                    ];
+                    Environment = [
+                      "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
+                      "GDK_BACKEND=wayland"
+                    ];
+                  };
+                  Install = {
+                    WantedBy = [ "graphical-session.target" ];
+                  };
+                };
         home.packages = with pkgs; [
           git
           ripgrep
           fd
           findutils
         ];
+        # Bootstrap Activation Script
+              # Clones the engine only if it is missing.
+              # Strictly avoids running 'doom sync' to prevent Home Manager activation crashes.
+              home.activation.installDoomEmacs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                export EMACSDIR="${config.home.homeDirectory}/.config/emacs"
 
-        xdg.configFile."emacs".source =
+                # Clean up corrupted or empty engine folders
+                if [ -d "$EMACSDIR" ] && [ ! -f "$EMACSDIR/bin/doom" ]; then
+                  rm -rf "$EMACSDIR"
+                fi
+
+                # Clone the pristine Doom framework
+                if [ ! -d "$EMACSDIR" ]; then
+                  echo "🚀 Bootstrapping Doom Emacs engine..."
+                  ${pkgs.git}/bin/git clone --depth 1 https://github.com/doomemacs/doomemacs "$EMACSDIR"
+                  echo "✅ Doom Emacs downloaded. Remember to run 'doom install' or 'doom sync' manually."
+                fi
+              '';
+        xdg.configFile."doom".source =
           config.lib.file.mkOutOfStoreSymlink emacsConfigDir;
 
       };
