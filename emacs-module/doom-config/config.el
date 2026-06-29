@@ -1,4 +1,4 @@
-(setq user-full-name "aboasfiya"
+(setq user-full-name "Azarfane Abdellah"
       user-mail-address "abdellahazrfane@proton.me")
 
 (setq display-line-numbers-type t)   ;; Turn line numbers on

@@ -30,7 +30,7 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    zed.url = "github:zed-industries/zed";
+#    zed.url = "github:zed-industries/zed";
 
     hjem.url = "github:feel-co/hjem";
     hjem.inputs.nixpkgs.follows = "nixpkgs";

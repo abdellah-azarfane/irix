@@ -15,7 +15,7 @@
 - [[#org-mode--knowledge-base][Org Mode & Knowledge Base]]
   - [[#basic-settings][Basic Settings]]
   - [[#headers-1][Headers]]
-  - [[#todo-workflow--capture-templates][TODO workflow & capture templates]]
+  - [[#workflow--capture-templates][workflow & capture templates]]
   - [[#org-roam-zettelkasten-knowledge-base][Org-roam: Zettelkasten knowledge base]]
   - [[#org-pomodoro-1201030][Org-Pomodoro (120/10/30)]]
   - [[#org-super-agenda][org-super-agenda]]
@@ -93,7 +93,7 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 
 * Identity
 #+begin_src emacs-lisp
-(setq user-full-name "aboasfiya"
+(setq user-full-name "Azarfane Abdellah"
       user-mail-address "abdellahazrfane@proton.me")
 #+end_src
 

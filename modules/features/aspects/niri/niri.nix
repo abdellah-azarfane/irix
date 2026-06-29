@@ -232,6 +232,7 @@
           binds = {
             "Mod+Return".spawn = config.terminal;
             # APPS
+            "Mod+E".spawn = [ "emacsclient" "-c" "-a" "" ];
 
             # Focus Navigation
             "Mod+Left".focus-column-left = _: { };

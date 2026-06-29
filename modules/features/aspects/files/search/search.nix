@@ -39,6 +39,7 @@
           thunar
           thunar-volman
           thunar-archive-plugin
+          gvfs # A library for thunar
           glow
           desktop-file-utils # Command line utilities for working with .desktop files
           most # Pager
