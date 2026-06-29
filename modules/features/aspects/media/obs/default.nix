@@ -11,7 +11,6 @@ let
           obs-pipewire-audio-capture # For PipeWire audio capture
           wlrobs # For Wayland screen capture
           obs-vkcapture # For Vulkan screen capture
-          aitum-stream-suite # For Aitum stream suite
           obs-multi-rtmp # For multi RTMP output
           obs-backgroundremoval # For background removal
           obs-move-transition # For move transition
