@@ -19,17 +19,13 @@ let
         ];
       };
 
-  obsWrapped = inputs.wrapper-modules.lib.wrapProgram {
+  obsWrapped = inputs.wrapper-modules.lib.wrapPackage {
     inherit pkgs;
-    modules = [
-      {
-        package = obsBase;
-        env.LD_LIBRARY_PATH = "/run/opengl-driver/lib"; # for nvidia and nixos i hate this
-      }
-    ];
+    package = obsBase;
+    env.LD_LIBRARY_PATH = "/run/opengl-driver/lib"; # for nvidia and nixos i hate this
   };
 in
 {
   environment.systemPackages = [ obsWrapped ];
- };
+};
 }
