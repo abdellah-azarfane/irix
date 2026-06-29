@@ -1,5 +1,4 @@
-flake.nixosModules.obs =
-{ pkgs, inputs, ... }:
+{ flake.nixosModules.obs = { pkgs, inputs, ... }:
 
 let
   obsBase =
@@ -32,5 +31,5 @@ let
 in
 {
   environment.systemPackages = [ obsWrapped ];
-}
+ };
 }
