@@ -21,6 +21,7 @@
         protonup-qt
         lsfg-vk
         lsfg-vk-ui
+        quickemu
       ];
       # Ensure graphics drivers are actually enabled
       hardware.graphics.enable = lib.mkDefault true;

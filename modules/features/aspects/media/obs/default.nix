@@ -21,6 +21,7 @@ let
     inherit pkgs;
     package = obsBase;
     env.LD_LIBRARY_PATH = "/run/opengl-driver/lib"; # for nvidia and nixos i hate this
+    env.OBS_USE_EGL = "1";
   };
 in
 {
