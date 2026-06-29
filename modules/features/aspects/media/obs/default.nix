@@ -1,5 +1,4 @@
-{
-  flake.nixosModules.obs =
+flake.nixosModules.obs =
     { pkgs, inputs, ... }:
 
     let
@@ -21,7 +20,7 @@
             ];
           };
 
-      obsWrapped = inputs.wrapper-modules.lib.wrap {
+      obsWrapped = inputs.wrapper-modules.lib.wrapPackage {
         inherit pkgs;
         modules = [
           {
@@ -34,4 +33,3 @@
     {
       environment.systemPackages = [ obsWrapped ];
     };
-}
