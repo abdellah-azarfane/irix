@@ -14,7 +14,6 @@ let
           obs-multi-rtmp # For multi RTMP output
           obs-backgroundremoval # For background removal
           obs-move-transition # For move transition
-          obs-3d-effects # For 3D effects
         ];
       };
 
