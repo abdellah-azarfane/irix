@@ -23,6 +23,7 @@
         lsfg-vk-ui
         quickemu
         spice-gtk
+        swtpm
       ];
       # Ensure graphics drivers are actually enabled
       hardware.graphics.enable = lib.mkDefault true;
