@@ -30,7 +30,7 @@
 
       optionalServices = {
         greetd = true;
-        dmsgreetd = false; # issues
+        noctalia-greeter = false; # issues
       };
 
       monitors = {

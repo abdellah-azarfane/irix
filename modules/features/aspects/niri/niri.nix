@@ -25,6 +25,10 @@
           hotkey-overlay.skip-at-startup = _: { };
           prefer-no-csd = _: { };
 
+          debug = {
+            honor-xdg-activation-with-invalid-serial = _: { };
+          };
+
           cursor = {
             xcursor-size = 24;
             hide-after-inactive-ms = 2000;
@@ -96,14 +100,33 @@
               matches = [ { namespace = "^quickshell$"; } ];
               place-within-backdrop = true;
             }
+            # Noctalia backdrop for blurred overview wallpaper
             {
-              matches = [ { namespace = "dms:blurwallpaper"; } ];
+              matches = [ { namespace = "^noctalia-backdrop"; } ];
+              place-within-backdrop = true;
+            }
+            # Noctalia wallpaper layer
+            {
+              matches = [ { namespace = "^noctalia-wallpaper"; } ];
               place-within-backdrop = true;
             }
           ];
 
           window-rules = [
-
+            # Rounded corners for Noctalia windows
+            {
+              geometry-corner-radius = 20;
+              clip-to-geometry = true;
+            }
+            # Floating Noctalia settings window
+            {
+              match = {
+                app-id = "dev.noctalia.Noctalia.Settings";
+              };
+              open-floating = true;
+              default-column-width = { fixed = 1080; };
+              default-window-height = { fixed = 920; };
+            }
           ];
 
           # ============================================================================
@@ -221,8 +244,7 @@
               "XDG_CURRENT_DESKTOP"
             ]
             [
-              "dms"
-              "run"
+              "noctalia"
             ]
           ];
 
@@ -311,70 +333,16 @@
             # Overview
             "Mod+X".toggle-overview = _: { };
 
-            # Dms Shell Commands
-            "Mod+S".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "spotlight"
-              "toggle"
-            ];
-            "Mod+comma".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "settings"
-              "toggle"
-            ];
-            "Mod+space".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "spotlight"
-              "toggle"
-            ];
-            "Mod+Escape".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "lock"
-              "lock"
-            ];
-            "Mod+P".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "dashboard"
-              "toggle"
-            ];
-            "Mod+Alt+E".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "emoji"
-              "toggle"
-            ];
-            "Mod+N".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "nightlight"
-              "enable"
-            ];
-            "Mod+Alt+N".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "nightlight"
-              "disable"
-            ];
-            "Mod+Shift+N".spawn = [
-              "dms"
-              "ipc"
-              "call"
-              "caffeine"
-              "toggle"
-            ];
+            # Noctalia Shell Commands
+            "Mod+S".spawn-sh = "noctalia msg panel-toggle launcher";
+            "Mod+comma".spawn-sh = "noctalia msg settings-toggle";
+            "Mod+space".spawn-sh = "noctalia msg panel-toggle launcher";
+            "Mod+Escape".spawn-sh = "noctalia msg session lock";
+            "Mod+P".spawn-sh = "noctalia msg panel-toggle session";
+            "Mod+Alt+E".spawn-sh = "noctalia msg panel-toggle launcher /emo";
+            "Mod+N".spawn-sh = "noctalia msg nightlight-enable";
+            "Mod+Alt+N".spawn-sh = "noctalia msg nightlight-disable";
+            "Mod+Shift+N".spawn-sh = "noctalia msg caffeine-toggle";
 
             # Mouse Scroll Bindings
             "Mod+WheelScrollDown" = _: {
@@ -549,12 +517,12 @@
                 {
                   key = "b";
                   desc = "Bluetooth";
-                  cmd = "dms ipc call bluetooth togglePanel";
+                  cmd = "noctalia msg bluetooth-toggle";
                 }
                 {
                   key = "w";
                   desc = "Wifi";
-                  cmd = "dms ipc call wifi togglePanel";
+                  cmd = "noctalia msg wifi-toggle";
                 }
                 {
                   key = "f";

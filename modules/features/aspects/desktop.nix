@@ -18,7 +18,7 @@
         self.nixosModules.docs
         self.nixosModules.networks
         self.nixosModules.wallust
-        self.nixosModules.dms
+        self.nixosModules.noctalia
         self.nixosModules.office
         self.nixosModules.productivity
       ];

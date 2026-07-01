@@ -14,10 +14,10 @@
               default = true;
               description = "Enable greetd login manager.";
             };
-            dmsgreetd = lib.mkOption {
+            noctalia-greeter = lib.mkOption {
               type = lib.types.bool;
               default = true;
-              description = "Enable dmsgreetd login manager.";
+              description = "Enable noctalia-greeter login manager.";
             };
           };
         };
