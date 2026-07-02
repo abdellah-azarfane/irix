@@ -5,7 +5,7 @@
         qalculate-gtk
         calcure
         taskwarrior3
-        ttime
+        pomodoro
         blanket
         yad
       ];

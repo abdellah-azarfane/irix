@@ -51,7 +51,7 @@
       };
       boot.resumeDevice = "/dev/nvme0n1p2";
       home-manager.users.${config.preferences.user.name} = {
-        home.stateVersion = "26.05";
+        home.stateVersion = "26.11";
       };
     };
 }
