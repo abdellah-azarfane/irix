@@ -35,16 +35,17 @@
       ];
 
       fonts.packages = with pkgs; [
+        # --- UI & Code Fonts ---
         nerd-fonts.jetbrains-mono
-        ubuntu-sans
-        cm_unicode
-        corefonts
-        unifont
+        inter
+
+        # --- Windows Compatibility ---
+        liberation_ttf
       ];
 
       fonts.fontconfig.defaultFonts = {
-        serif = [ "Ubuntu Sans" ];
-        sansSerif = [ "Ubuntu Sans" ];
+        serif = [ "Inter" "Liberation Serif" ];
+        sansSerif = [ "Inter" "Liberation Sans" ];
         monospace = [ "JetBrainsMono Nerd Font" ];
       };
 

@@ -52,9 +52,6 @@
         ];
       };
 
-      nixpkgs.config = {
-        allowUnfree = true;
-      };
 
       users.users.abosafiya.extraGroups = [
         "video"
@@ -107,22 +104,12 @@
           nix-search # Search nix packages
           nix-tree # Explore nix store
           nix-update # Update nix package versions
-          nix-web # Web interface for nix store
-
-          gdb # GNU Project Debugger
-          glib
-          gsettings-desktop-schemas
-          libGL
-          libGLU
-          libva # Video acceleration API
-          mesa # Open source 3D graphics library
 
           # --- Core System Utilities ---
           coreutils # Basic GNU tools
           util-linux # Includes lscpu
 
           # --- Version Control ---
-          git
           hwinfo # Hardware detection tool from openSUSE
 
           # --- Hardware Information Tools ---

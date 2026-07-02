@@ -28,39 +28,26 @@
       };
     };
 
+
     # Hardware graphics configuration
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        intel-compute-runtime
-        intel-media-driver
-        (intel-vaapi-driver.override {enableHybridCodec = true;})
-        libva-vdpau-driver
-        libvdpau-va-gl
-        mesa
-        nvidia-vaapi-driver
-        nv-codec-headers-12
-      ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [
-        intel-media-driver
-        (intel-vaapi-driver.override {enableHybridCodec = true;})
-        libva-vdpau-driver
-        libvdpau-va-gl
-        mesa
-      ];
-    };
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true;
+
+        extraPackages = with pkgs; [
+         intel-media-driver        # For Intel QuickSync
+         intel-compute-runtime     # For OpenCL/Compute
+         nvidia-vaapi-driver       # Essential if you want VA-API on NVIDIA
+         libva-vdpau-driver        # Legacy VDPAU support
+        ];
+      };
 
     # System packages
     environment.systemPackages = with pkgs; [
       egl-wayland
-      nvidia-vaapi-driver
-      libvdpau-va-gl
-      cudaPackages.cudatoolkit
-      cudaPackages.cudnn
-      vulkan-tools-lunarg
       vulkan-tools
       (pkgs.writeShellScriptBin "nvidia-offload" ''
+          # Hardware graphics configuration
       export LIBVA_DRIVER_NAME=nvidia
       export __NV_PRIME_RENDER_OFFLOAD=1
       export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0

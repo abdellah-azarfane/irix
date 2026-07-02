@@ -24,16 +24,14 @@
     in
     {
     home-manager.users.${user} = {
-      home.packages =
-        (with pkgs; [
-          random-fastfetch
+      home.packages = with pkgs; [
+          random-fastfetch # fastfetch with custom script
           cowsay # Generate ASCII pictures using a cow
           cmatrix # We all know what this is
+          cbonsai
           ascii # Interactive ASCII name and symbol chart
           trash-cli # Interact with trashcan
-        ])
-        ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
-          pkgs.via # GUI for adjusting RGB lighting
+          vial # GUI for adjusting RGB lighting
         ];
       xdg.configFile."fastfetch/config.jsonc" = {
         source = ../fastfetch/config.jsonc;

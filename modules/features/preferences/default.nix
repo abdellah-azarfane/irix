@@ -14,7 +14,7 @@
         audioPlayer = "mpv";
         pdfViewer = "zathura";
         wm = "niri";
-        pager = "most";
+        pager = "less";
       };
 
       autostart = [
@@ -30,9 +30,8 @@
 
       optionalServices = {
         greetd = true;
-        noctalia-greeter = false; # issues
       };
-
+      #noctalia-greeter = true;
       monitors = {
         "eDP-1" = {
           primary = true;

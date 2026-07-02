@@ -212,9 +212,6 @@
         environment.systemPackages = with pkgs; [
           # --- System Packages ---
           brightnessctl # Read & control device brightness
-          ddcutil # Gamma & temperature set fallback for hardware control
-          gammastep # Gamma & temperature set for wayland # NOTE: Very flimsy
-          geoclue2 # Geolocation framework for gammastep
           wdisplays # GUI for exploring and setting monitor options
           wlsunset # Gamma & temperature set for wayland supporting wlr-gamma-control-unstable-v1
           pamixer # Pulseaudio command line mixer
@@ -223,31 +220,20 @@
           wireplumber # Session manager for pipewire
 
           # --- Screenshot And Image Tools ---
-          # flameshot # Screenshot utility
+
           grim # Screenshot utility for Wayland
-          gtk3 # Includes gtk-launch
           satty
           slurp # Interactive area selection
-          swappy # Screenshot annotation tool
           tesseract # OCR Engine
 
           # --- Clipboard Utilities ---
-          clipman # Clipboard manager for Wayland
           wl-clipboard # Wayland clipboard utilities
 
           # --- Utils ---
           comma # Runs programs without installing them
-          fontforge # For font previews
-          ghostscript # Postscript interpreter
-          mermaid-cli # Generation of mermaid diagrams in text
-          poppler-utils # For PDF previews (pdftotext)
-          tui-journal # Rust TUI for note-taking
 
           # --- Documentation ---
-          # tldr # Simplified and community-driven man pages
-          # tlrc # Official tldr client written in Rust (includes tlrd)
           tealdeer # Alternative fast Rust client
-          wikiman # Offline search engine for Linux packages
 
           # --- Misc ---
           binutils # Tools for manipulating binaries
@@ -255,8 +241,6 @@
           hstr # Shell history suggest box (bound to <C-H> on Shell)
           ispell # Interactive spell checker (used by Doom Emacs)
 
-          # --- disk ---
-          duf # Yet another disk utility
         ];
       };
     };

@@ -11,13 +11,8 @@
           options = {
             greetd = lib.mkOption {
               type = lib.types.bool;
-              default = true;
+              default = false;
               description = "Enable greetd login manager.";
-            };
-            noctalia-greeter = lib.mkOption {
-              type = lib.types.bool;
-              default = true;
-              description = "Enable noctalia-greeter login manager.";
             };
           };
         };
@@ -25,6 +20,12 @@
         description = "Optional system services configuration.";
       };
     };
+    options.preferences.noctalia-greeter = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Enable noctalia-greeter login manager.";
+        };
+
     options.preferences.sops.sshKeyPath = lib.mkOption {
       type = lib.types.str;
       default = "/home/abosafiya/.ssh/id_rsa_managed";

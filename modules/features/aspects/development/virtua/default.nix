@@ -12,18 +12,14 @@
     {
       environment.systemPackages = with pkgs; [
         winbox
-        winboat
+        # --- Kubernetes TUI ---
+        k9s # Kubernetes TUI management
+
+        # --- Docker TUI ---
+        lazydocker # Docker management TUI
         docker-compose
-        wine
-        winetricks
-        dxvk
-        wineWow64Packages.staging
-        protonup-qt
+
         lsfg-vk
-        lsfg-vk-ui
-        quickemu
-        spice-gtk
-        swtpm
       ];
       # Ensure graphics drivers are actually enabled
       hardware.graphics.enable = lib.mkDefault true;

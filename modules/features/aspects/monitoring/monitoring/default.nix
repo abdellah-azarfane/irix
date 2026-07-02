@@ -13,7 +13,6 @@
       home.packages = with pkgs; [
 
         # Monitoring
-        bottom # Better htop alternative
         mesa-demos # OpenGL & Mesa tools (glxinfo, glxgears, etc.)
         hyperfine # Command-line benchmarking tool
         psmisc # killall, pstree, etc.
@@ -28,7 +27,6 @@
         ffmpegthumbnailer # For video previews
         ffmpeg-full # For video previews
         imagemagick # Image manipulation toolkit
-        mpvpaper # Set videos as wallpapers
         libwebp # Tools for WebP images
         ueberzugpp # Write images on terminal on wayland (kitty, etc)
       ];

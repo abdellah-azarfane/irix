@@ -1,45 +1,52 @@
-{ self, ... }: {
+{
   flake.nixosModules.noctalia =
     {
       inputs,
       config,
       pkgs,
-      lib,
       ...
     }:
     let
       user = config.preferences.user.name;
-      sys = pkgs.stdenv.hostPlatform.system;
     in
     {
-      imports = [
-        self.nixosModules.noctalia-plugins
+      hjem.extraModules = [
+        inputs.noctalia.hjemModules.default
       ];
-      home-manager.users.${user} = {
-        imports = [
-          inputs.noctalia.homeModules.default
-        ];
-        programs.noctalia = {
-          enable = true;
-          settings = {
-            theme = {
-              mode = "dark";
-              source = "builtin";
-              builtin = "Catppuccin";
-            };
-            wallpaper = {
-              enabled = true;
-            };
-            bar.main = {
-              position = "top";
-            };
-            shell = {
-              ui_scale = 1.0;
-              clipboard_enabled = true;
-            };
+      hjem.users.${user}.programs.noctalia = {
+        enable = true;
+        settings = {
+          theme = {
+            mode = "dark";
+            source = "wallpaper";
+       #     builtin = "Catppuccin";
           };
-          systemd.enable = true;
+          wallpaper = {
+            enabled = true;
+          };
+          bar.main = {
+            position = "top";
+          };
+          shell = {
+            ui_scale = 1.0;
+            clipboard_enabled = true;
+          };
+          hooks = {
+            wallpaper_changed = ''
+              ${pkgs.wallust}/bin/wallust run "$NOCTALIA_WALLPAPER_PATH"
+            '';
+            started = ''
+              logger -t noctalia-hooks "Noctalia started"
+            '';
+            session_locked = ''
+              logger -t noctalia-hooks "Session locked"
+            '';
+            session_unlocked = ''
+              logger -t noctalia-hooks "Session unlocked"
+            '';
+          };
         };
+        systemd.enable = true;
       };
     };
 }

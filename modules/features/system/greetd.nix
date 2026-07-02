@@ -1,13 +1,13 @@
-{ self, inputs, ... }:
+{ self, inputs,... }:
 {
-  flake.nixosModules.greetd = { pkgs, config, inputs, lib, ... }:
+  flake.nixosModules.greetd = { pkgs, config, inputs, lib, ...}:
     let
-      noctaliaEnabled = config.preferences.optionalServices.noctalia-greeter;
-    in
+      user = config.preferences.user.name;
+      in
     {
-      imports = lib.optional noctaliaEnabled inputs.noctalia-greeter.nixosModules.default;
+      # ----------------------------------------------------------------------
 
-      services.greetd = lib.mkIf (config.preferences.optionalServices.greetd && !noctaliaEnabled) {
+      services.greetd = lib.mkIf config.preferences.optionalServices.greetd {
         enable = true;
         settings = {
           default_session = {
@@ -15,11 +15,6 @@
             user = "greeter";
           };
         };
-      };
-
-      programs.noctalia-greeter = lib.mkIf noctaliaEnabled {
-        enable = true;
-        package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
       };
     };
 }

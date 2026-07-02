@@ -48,7 +48,7 @@
             keyboard = {
               xkb = {
                 layout = "us,fr,ara";
-                options = "grp:alt_shift_toggle";
+                options = "grp:caps_toggle";
               };
               repeat-delay = 300;
               repeat-rate = 90;

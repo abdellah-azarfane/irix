@@ -7,11 +7,7 @@
     home-manager.users.${user} = {
 
       home.packages = with pkgs; [
-        diff-so-fancy
-        git-extras
-        commitizen # Commit rules for projects
-        serie # Rich TUI commit graph
-        tig # Text-mode interface for git
+        git-extras # Keeps your lightweight shell aliases
       ];
 
       # ==========================================
@@ -22,32 +18,11 @@
 
         # Globally ignored files
         ignores = [
-          # Editor files
-          "*~"
-          "*.swp"
-          "*.swo"
-          ".vscode/"
-          ".idea/"
-
-          # OS files
-          ".DS_Store"
-          "Thumbs.db"
-
-          # Build artifacts
-          "*.o"
-          "*.so"
-          "*.a"
-          "*.out"
-
-          # Logs
+          "*~" "*.swp" "*.swo" ".vscode/" ".idea/"
+          ".DS_Store" "Thumbs.db"
+          "*.o" "*.so" "*.a" "*.out"
           "*.log"
-
-          # Temporary & Tool files
-          "*.tmp"
-          "*.bak"
-          ".cache/"
-          ".jj/"
-          ".direnv/"
+          "*.tmp" "*.bak" ".cache/" ".jj/" ".direnv/"
         ];
 
         settings = {
@@ -130,7 +105,7 @@
       };
 
       # ==========================================
-      # Delta
+      # Delta (Core Diff Viewer)
       # ==========================================
       programs.delta = {
         enable = true;
@@ -144,7 +119,7 @@
       };
 
       # ==========================================
-      # Lazygit Configuration
+      # Lazygit (Primary TUI)
       # ==========================================
       programs.lazygit = {
         enable = true;
@@ -203,9 +178,8 @@
       };
 
       # ==========================================
-      # Misc VCS Tools
+      # Advanced VCS Tools
       # ==========================================
-      programs.gitui.enable = true;
       programs.difftastic.enable = true;
 
       programs.mergiraf = {

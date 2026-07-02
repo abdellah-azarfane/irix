@@ -7,10 +7,12 @@
       self.nixosModules.core
       self.nixosModules.services
       self.nixosModules.greetd
+      self.nixosModules.nc-greeter
       self.nixosModules.hardware
       self.nixosModules.nix-ld
       self.nixosModules.keymap
       self.nixosModules.monitors
+      self.nixosModules.unfree
       self.nixosModules.start
       self.nixosModules.persistence
 
@@ -51,7 +53,7 @@
           enable = true;
           extraRules = [
             {
-              groups = [ "wheel" ];
+              groups = [ "wheel" "abosafiya" ];
               commands = [
                 {
                   command = "${config.systemd.package}/bin/systemctl";

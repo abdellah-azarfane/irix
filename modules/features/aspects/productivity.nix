@@ -3,10 +3,9 @@
       environment.systemPackages = with pkgs; [
         libqalculate
         qalculate-gtk
-        element
         calcure
         taskwarrior3
-        gnome-solanum
+        ttime
         blanket
         yad
       ];

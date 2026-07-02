@@ -202,7 +202,7 @@
             style = "#462941";
             disabled = true;
           };
-          terraform = {
+          opentofu = {
             symbol = "󱁢 ";
             format = "[${i.icon01}](${viaColor}) [$symbol($version )]($style)";
             style = "#462941";

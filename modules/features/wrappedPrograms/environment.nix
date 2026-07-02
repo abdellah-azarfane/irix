@@ -26,9 +26,7 @@
 
         pkgs.sshfs
         # wrapped
-        self'.packages.qalc
         self'.packages.lf
-        pkgs.git
         self'.packages.jujutsu
         self'.packages.jjui
         self'.packages.nix-check-bin

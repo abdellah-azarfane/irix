@@ -108,9 +108,7 @@ in
 
       home.packages = with pkgs; [
         carapace-bridge
-        vivid
-        python3Packages.sparklines # Used for your custom clear-screen script
-        lolcat
+        vivid  # Used for LS_COLORS
       ];
     };
   };

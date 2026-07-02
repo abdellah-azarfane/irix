@@ -3,14 +3,15 @@
     user = config.preferences.user.name;
   in {
     environment.systemPackages = with pkgs; [
-      obsidian
-      standardnotes
-      zathura
-      zotero
-      stirling-pdf
-      pandoc
-      foliate
-      handy
+      # --- PDF & Research Workhorses ---
+      zathura # The ultimate minimalist PDF viewer
+      pandoc  # The backbone of your academic writing workflow
+
+      # --- CLI PDF Tools ---
+      qpdf     # Better than Stirling-PDF for command-line manipulation
+      pdftk    # Essential for splitting/merging PDFs
+      # E-book
+      koreader
     ];
 
     home-manager.users.${user} = {
