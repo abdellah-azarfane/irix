@@ -12,11 +12,20 @@
 (setq-default vterm-shell "/run/current-system/sw/bin/fish")
 (setq-default explicit-shell-file-name "/run/current-system/sw/bin/fish")
 
-(setq doom-theme 'doom-gruvbox)
+;;(setq doom-theme 'doom-gruvbox)
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+(load-theme 'noctalia t)
+
+;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
+(add-to-list 'default-frame-alist '(alpha-background . 85))
+
+;; Apply it immediately to the current, already-open frame
+(set-frame-parameter nil 'alpha-background 85)
+
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
 
 (add-hook 'server-after-make-frame-hook #'doom/reload-font)
-(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
+;;(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
 
 (map! :leader
       :desc "Comment line" "-" #'comment-line)

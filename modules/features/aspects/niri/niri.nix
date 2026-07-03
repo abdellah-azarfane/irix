@@ -120,13 +120,11 @@
             }
             # Floating Noctalia settings window
             {
-              match = {
-                app-id = "dev.noctalia.Noctalia.Settings";
-              };
-              open-floating = true;
-              default-column-width = { fixed = 1080; };
-              default-window-height = { fixed = 920; };
-            }
+             matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
+             open-floating = true;
+             default-column-width = { fixed = 1080; };
+             default-window-height = { fixed = 920; };
+                        }
           ];
 
           # ============================================================================
@@ -237,13 +235,13 @@
           # ============================================================================
           xwayland-satellite.path = lib.getExe config.pkgs.xwayland-satellite;
           spawn-at-startup = [
-            [
+          [
               "dbus-update-activation-environment"
               "--systemd"
               "WAYLAND_DISPLAY"
               "XDG_CURRENT_DESKTOP"
             ]
-            [
+           [
               "noctalia"
             ]
           ];

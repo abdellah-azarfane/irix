@@ -113,14 +113,23 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 
 * Doom UI & Theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-gruvbox)
+;;(setq doom-theme 'doom-gruvbox)
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+(load-theme 'noctalia t)
+
+;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
+(add-to-list 'default-frame-alist '(alpha-background . 85))
+
+;; Apply it immediately to the current, already-open frame
+(set-frame-parameter nil 'alpha-background 85)
+
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
 #+end_src
 
 ** hooks for pgtk + daemon nudge
 #+begin_src emacs-lisp
 (add-hook 'server-after-make-frame-hook #'doom/reload-font)
-(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
+;;(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
 #+end_src
 
 * Keybindings

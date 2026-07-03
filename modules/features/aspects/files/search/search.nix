@@ -9,16 +9,17 @@
       imports = [
         self.nixosModules.env
       ];
-
       home-manager.users.${user} = {
-        home.packages = with pkgs; [
+        home.packages = with pkgs;
+        [
           # --- File & Archive Interactions ---
           dust # Modern du replacement with colors
           eza # Modern ls replacement
           file # Determine file types
           lsof # Tool to list open files
           p7zip # 7-Zip archiver
-          rar # RAR archives
+          rar
+          # RAR archives
           unzip # Extract ZIP archives
           zip # Create ZIP archives
           zstd # Compression algorithm
@@ -80,6 +81,9 @@
           enable = true;
           enableBashIntegration = true;
 
+          # Disable fzf's Ctrl-R history widget so Atuin can take priority without collision
+          historyWidget.command = "";
+
           # Default command for file finding
           defaultCommand = "fd --type f --strip-cwd-prefix";
 
@@ -109,7 +113,6 @@
             "hl+" = "161";
           };
         };
-
       };
     };
 }

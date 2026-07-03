@@ -36,6 +36,10 @@
           findutils
         ];
 
+        home.sessionPath = [
+          "${config.home.homeDirectory}/.config/emacs/bin"
+        ];
+
         xdg.configFile."doom".source =
           config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/irix/emacs-module/doom-config";
 
