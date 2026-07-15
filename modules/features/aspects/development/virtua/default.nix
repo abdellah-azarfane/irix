@@ -21,10 +21,14 @@
 
         lsfg-vk
       ];
+
       # Ensure graphics drivers are actually enabled
       hardware.graphics.enable = lib.mkDefault true;
       virtualisation.libvirtd.enable = true;
-      users.users.${user}.extraGroups = [ "libvirtd" "kvm" ];
+      users.users.${user}.extraGroups = [
+        "libvirtd"
+        "kvm"
+      ];
       services.zerotierone.enable = true;
       virtualisation.docker = {
         enable = true;

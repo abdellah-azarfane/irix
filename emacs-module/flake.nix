@@ -1,4 +1,3 @@
-
 {
   description = "Irix Standalone Emacs Module";
 
@@ -17,7 +16,7 @@
       {
         programs.emacs = {
           enable = true;
-          package = pkgs.emacs-pgtk; # Native Wayland support
+          package = if pkgs.stdenv.isDarwin then pkgs.emacs else pkgs.emacs-pgtk; # Native Wayland support
           extraPackages = epkgs: [ epkgs.vterm ]; # Pre-compile vterm module for faster builds
         };
 

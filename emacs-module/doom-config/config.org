@@ -118,10 +118,10 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 (load-theme 'noctalia t)
 
 ;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
-(add-to-list 'default-frame-alist '(alpha-background . 85))
+(add-to-list 'default-frame-alist '(alpha-background . 91))
 
 ;; Apply it immediately to the current, already-open frame
-(set-frame-parameter nil 'alpha-background 85)
+(set-frame-parameter nil 'alpha-background 91)
 
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
 #+end_src

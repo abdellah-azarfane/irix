@@ -13,10 +13,14 @@
 
     my-emacs.url = "./emacs-module";
 
+    darwin.url = "github:nix-darwin/nix-darwin";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
-    flake-file.url = "github:vic/flake-file";
+
+    den.url = "github:denful/den";
+    import-tree.url = "github:denful/import-tree";
+    flake-file.url = "github:denful/flake-file";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +33,6 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-
 
     hjem.url = "github:feel-co/hjem";
     hjem.inputs.nixpkgs.follows = "nixpkgs";
