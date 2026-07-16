@@ -12,6 +12,9 @@
       pdftk    # Essential for splitting/merging PDFs
       # E-book
       koreader
+      hunspell
+      hunspellDicts.fr-any
+      languagetool
     ];
 
     home-manager.users.${user} = {
