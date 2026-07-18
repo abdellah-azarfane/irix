@@ -11,14 +11,6 @@
       user = config.preferences.user.name;
     in
     {
-      hjem.users.${user}.xdg.config.files = {
-        "yazi/plugins" = {
-          source = ./plugins; # Puts your max-preview plugin in place
-        };
-        "yazi/plugins/init.lua" = {
-          source = ./init.lua; # Puts your size_and_mtime lua code in place
-        };
-      };
       irix.apps.yazi = {
         enable = true;
         homeConfigDir = "yazi";
@@ -39,7 +31,7 @@
               sort_sensitive = false;
               sort_reverse = false;
               sort_dir_first = true;
-              linemode = "size_and_mtime";
+              linemode = "size";
               show_hidden = false;
               show_symlink = true;
             };
