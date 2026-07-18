@@ -15,7 +15,7 @@
         "yazi/plugins" = {
           source = ./plugins; # Puts your max-preview plugin in place
         };
-        "yazi/init.lua" = {
+        "yazi/plugins/init.lua" = {
           source = ./init.lua; # Puts your size_and_mtime lua code in place
         };
       };
