@@ -1,70 +1,71 @@
 { ... }:
 {
-  flake.nixosModules.nvidia = {
-    pkgs,
-    config,
-    ...
-  }: {
-    # X11 / Wayland drivers
-    services.xserver.videoDrivers = ["nvidia"];
+  flake.nixosModules.nvidia =
+    {
+      pkgs,
+      config,
+      ...
+    }:
+    {
+      # X11 / Wayland drivers
+      services.xserver.videoDrivers = [ "nvidia" ];
 
-    # NVIDIA drivers
-    hardware.nvidia = {
-      open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      modesetting.enable = true;
-      nvidiaSettings = true;
-      powerManagement.enable = true;
-      dynamicBoost.enable = true;
+      # NVIDIA drivers
+      hardware.nvidia = {
+        open = true;
+        package = config.boot.kernelPackages.nvidiaPackages.latest;
+        modesetting.enable = true;
+        nvidiaSettings = true;
+        powerManagement.enable = true;
+        dynamicBoost.enable = true;
 
-      # PRIME offload (Intel + NVIDIA hybrid laptops)
-      prime = {
-        offload = {
-          enable = false;
-          enableOffloadCmd = false;
+        # PRIME offload (Intel + NVIDIA hybrid laptops)
+        prime = {
+          offload = {
+            enable = false;
+            enableOffloadCmd = false;
+          };
+          nvidiaBusId = "PCI:1:0:0";
+          intelBusId = "PCI:0:2:0";
         };
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:0:2:0";
       };
-    };
 
-
-    # Hardware graphics configuration
+      # Hardware graphics configuration
       hardware.graphics = {
         enable = true;
         enable32Bit = true;
 
         extraPackages = with pkgs; [
-         intel-media-driver        # For Intel QuickSync
-         intel-compute-runtime     # For OpenCL/Compute
-         nvidia-vaapi-driver       # Essential if you want VA-API on NVIDIA
-         libva-vdpau-driver        # Legacy VDPAU support
+          intel-media-driver # For Intel QuickSync
+          intel-compute-runtime # For OpenCL/Compute
+          nvidia-vaapi-driver # Essential if you want VA-API on NVIDIA
+          libva-vdpau-driver # Legacy VDPAU support
         ];
       };
 
-    # System packages
-    environment.systemPackages = with pkgs; [
-      egl-wayland
-      vulkan-tools
-      (pkgs.writeShellScriptBin "nvidia-offload" ''
-          # Hardware graphics configuration
-      export LIBVA_DRIVER_NAME=nvidia
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      exec "$@"
-    '')
-    ];
+      # System packages
+      environment.systemPackages = with pkgs; [
+        egl-wayland
+        vulkan-tools
+        (pkgs.writeShellScriptBin "nvidia-offload" ''
+              # Hardware graphics configuration
+          export LIBVA_DRIVER_NAME=nvidia
+          export __NV_PRIME_RENDER_OFFLOAD=1
+          export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+          export __GLX_VENDOR_LIBRARY_NAME=nvidia
+          export __VK_LAYER_NV_optimus=NVIDIA_only
+          exec "$@"
+        '')
+      ];
 
-    # Session / environment variables
-    environment.sessionVariables = {
-      NVD_BACKEND = "direct";
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
-      NIXOS_OZONE_WL = "1";
+      # Session / environment variables
+      environment.sessionVariables = {
+        NVD_BACKEND = "direct";
+        ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        NIXOS_OZONE_WL = "1";
+      };
+
+      # Containers support (Docker, Podman)
+      hardware.nvidia-container-toolkit.enable = true;
     };
-
-    # Containers support (Docker, Podman)
-    hardware.nvidia-container-toolkit.enable = true;
-  };
 }

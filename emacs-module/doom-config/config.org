@@ -5,6 +5,7 @@
 - [[#identity][Identity]]
 - [[#sensible-defaults][Sensible Defaults]]
 - [[#doom-ui--theme][Doom UI & Theme]]
+- [[#french-spell-and-grammar-checking][French Spell and Grammar Checking]]
   - [[#hooks-for-pgtk--daemon-nudge][hooks for pgtk + daemon nudge]]
 - [[#keybindings][Keybindings]]
 - [[#performance-tuning-lsp--daemon][Performance tuning (LSP + daemon)]]
@@ -124,6 +125,16 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 (set-frame-parameter nil 'alpha-background 91)
 
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
+#+end_src
+
+* French Spell and Grammar Checking
+Set Hunspell as the primary engine for flyspell and configure LanguageTool for French grammar checking.
+
+#+begin_src elisp
+(setq ispell-program-name "hunspell"
+      ispell-dictionary "fr_FR")
+
+(setq langtool-default-language "fr")
 #+end_src
 
 ** hooks for pgtk + daemon nudge

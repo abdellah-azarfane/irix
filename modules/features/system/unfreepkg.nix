@@ -30,6 +30,7 @@
         ];
 
       permittedInsecurePackages = [
+        "electron-40.10.5"
         "pnpm-10.34.0"
         "pnpm-10.29.2"
       ];

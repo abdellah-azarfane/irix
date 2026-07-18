@@ -6,9 +6,9 @@
       theme = self.lib.theme;
 
       apps = {
-        browser = "helium";
-        editor = "zeditor";
-        terminal = "kitty";
+        browser = "libreoffice";
+        editor = "emacsclient -c -a " "";
+        terminal = "ghostty";
         imageViewer = "imv";
         videoPlayer = "mpv";
         audioPlayer = "mpv";

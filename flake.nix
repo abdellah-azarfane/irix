@@ -18,7 +18,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    den.url = "github:denful/den";
     import-tree.url = "github:denful/import-tree";
     flake-file.url = "github:denful/flake-file";
 

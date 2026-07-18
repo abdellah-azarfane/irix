@@ -6,7 +6,7 @@
     # Bootloader & Kernel
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
-      boot.kernelPackages = pkgs.linuxPackages_7_0;
+      boot.kernelPackages = pkgs.linuxPackages_zen;
       boot.consoleLogLevel = 4;
       boot.supportedFilesystems = [ "ntfs" ];
       boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

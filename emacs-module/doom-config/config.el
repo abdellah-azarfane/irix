@@ -24,6 +24,11 @@
 
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
 
+(setq ispell-program-name "hunspell"
+      ispell-dictionary "fr_FR")
+
+(setq langtool-default-language "fr")
+
 (add-hook 'server-after-make-frame-hook #'doom/reload-font)
 ;;(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
 
