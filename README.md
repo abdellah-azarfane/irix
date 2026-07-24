@@ -60,5 +60,5 @@ nix flake update
 
 | Host           | Architecture | Role                              |
 |----------------|-------------|-----------------------------------|
-| `main`         | x86_64-linux| ASUS ROG Zephyrus G14 workstation |
+| `main`         | x86_64-linux| ASUS TUF GAMING F17  workstation |
 | `pi-runner`    | aarch64-linux| Raspberry Pi 3 GitLab CI runner  |
