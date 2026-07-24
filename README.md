@@ -5,6 +5,7 @@ Personal NixOS configuration for an ASUS TUF F17 M-2023 (main workstation) and a
 ## Structure
 
 ```
+|-- emacs-module         # emacs comfiguration with doom
 ├── flake.nix            # Flake entry point, inputs, and outputs
 ├── flake.lock           # Locked input revisions
 ├── modules/
