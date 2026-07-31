@@ -124,7 +124,13 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 ;; Apply it immediately to the current, already-open frame
 (set-frame-parameter nil 'alpha-background 91)
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
+;;  Define your two distinct fonts
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
+
+;;  Tell Doom to automatically use both in Org mode
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
+
 #+end_src
 
 * French Spell and Grammar Checking
@@ -328,6 +334,13 @@ This sets the font size for each Org header level. Having variable font sizes in
           (:name "Tasks" :todo "TODO")))
   :config
   (org-super-agenda-mode))
+#+end_src
+
+** Plantuml mode
+#+begin_src emacs-lisp
+(after! plantuml-mode
+  (setq plantuml-default-exec-mode 'executable
+        plantuml-executable-path "plantuml"))
 #+end_src
 
 * AI pair programming via local Ollama

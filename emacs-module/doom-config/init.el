@@ -29,7 +29,7 @@
        vi-tilde-fringe           ; fringe tildes to mark beyond EOB
        window-select             ; visually switch windows
        workspaces                ; tab emulation, persistence & separate workspaces
-       ;;deft              ; notational velocity for Emacs
+       deft              ; notational velocity for Emacs
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        (emoji +unicode)  ; 🙂
        ;;ligatures         ; ligatures and symbols to make your code pretty again
@@ -85,19 +85,19 @@
        magit                     ; a git porcelain for Emacs
        pdf                       ; pdf enhancements
        ;;ansible
-       ;;biblio            ; Writes a PhD for you (citation needed)
+       biblio            ; Writes a PhD for you (citation needed)
        ;;collab            ; buffers with friends
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
-       ;;docker
+       debugger          ; FIXME stepping through code, to help you add bugs
+       docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
-       ;;ein               ; tame Jupyter notebooks with emacs
-       ;;llm               ; when I said you needed friends, I didn't mean...
+       ein               ; tame Jupyter notebooks with emacs
+       llm               ; when I said you needed friends, I didn't mean...
        ;;lsp               ; M-x vscode
-       ;;make              ; run make tasks from Emacs
-       ;;pass              ; password manager for nerds
+       make              ; run make tasks from Emacs
+       pass              ; password manager for nerds
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       ;;tree-sitter       ; syntax and parsing, sitting in a tree...
+       tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
 
 
@@ -111,13 +111,13 @@
        json                                ; JavaScript Object Notation
        markdown                            ; writing docs for people to ignore
        nix                                 ; I hereby declare "nix geht mehr!"
-       (org +roam2 +pomodoro +pretty)      ; organize your plain life in plain text
+       (org +roam +pomodoro +pretty)      ; organize your plain life in plain text
        (python +lsp +pyright +tree-sitter) ; beautiful is better than ugly
        (rust +lsp +tree-sitter)            ; Fe2O3.unwrap().unwrap().unwrap().fall()
        sh                                  ; she sells {ba,z,fi}sh shells on the C xor
        yaml                                ; JSON, but readable
        data                                ; config/data formats
-       (haskell +lsp)                      ; a language that's lazier than I am
+       ;;(haskell +lsp)                      ; a language that's lazier than I am
        (graphql +lsp)                      ; Give querties a REST
        gdscript                            ; the language you waited for
        ;;agda                              ; types of types of types of types...
@@ -132,7 +132,7 @@
        ;;elixir                            ; erlang done right
        ;;elm                               ; care for a cup of TEA?
        ;;erlang                            ; an elegant language for a more civilized age
-       ;;ess                               ; emacs speaks statistics
+       ess                               ; emacs speaks statistics
        ;;factor
        ;;faust                             ; dsp, but you get to keep your soul
        ;;fortran                           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
@@ -143,33 +143,33 @@
        ;;idris                             ; a language you can depend on
        ;;janet                             ; Fun fact: Janet is me!
        ;;(java +lsp)                       ; the poster child for carpal tunnel syndrome
-       javascript                        ; all(hope(abandon(ye(who(enter(here))))))
-       julia                             ; a better, faster MATLAB
-       ;;kotlin                            ; a better, slicker Java(Script)
-       latex                             ; writing papers in Emacs has never been so fun
-       ;;lean                              ; for folks with too much to prove
-       ;;ledger                            ; be audit you can be
-       lua                               ; one-based indices? one-based indices
-       ;;nim                               ; python + lisp at the speed of c
-       ;;ocaml                             ; an objective camel
-       ;;php                               ; perl's insecure younger brother
-       ;;plantuml                          ; diagrams for confusing people more
-       ;;graphviz                          ; diagrams for confusing yourself even more
-       ;;purescript                        ; javascript, but functional
-       qt                                ; the 'cutest' gui framework ever
-       ;;racket                            ; a DSL for DSLs
-       ;;raku                              ; the artist formerly known as perl6
-       ;;rest                              ; Emacs as a REST client
-       ;;rst                               ; ReST in peace
-       ;;(ruby +rails)                     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;scala                             ; java, but good
-       ;;(scheme +guile)                   ; a fully conniving family of lisps
+       (javascript +tree-sitter)           ; all(hope(abandon(ye(who(enter(here))))))
+       julia                               ; a better, faster MATLAB
+       ;;kotlin                             ; a better, slicker Java(Script)
+       latex                               ; writing papers in Emacs has never been so fun
+       ;;lean                               ; for folks with too much to prove
+       ;;ledger                             ; be audit you can be
+       lua                                 ; one-based indices? one-based indices
+       ;;nim                                ; python + lisp at the speed of c
+       ;;ocaml                              ; an objective camel
+       ;;php                                ; perl's insecure younger brother
+       plantuml                            ; diagrams for confusing people more
+       graphviz                            ; diagrams for confusing yourself even more
+       ;;purescript                         ; javascript, but functional
+       qt                                  ; the 'cutest' gui framework ever
+       ;;racket                             ; a DSL for DSLs
+       ;;raku                               ; the artist formerly known as perl6
+       ;;rest                               ; Emacs as a REST client
+       ;;rst                                ; ReST in peace
+       ;;(ruby +rails)                      ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;scala                              ; java, but good
+       ;;(scheme +guile)                    ; a fully conniving family of lisps
        ;;sml
-       ;;solidity                          ; do you need a blockchain? No.
-       ;;swift                             ; who asked for emoji variables?
-       ;;terra                             ; Earth and Moon in alignment for performance.
-       ;;web                               ; the tubes
-       zig                               ; C, but simpler
+       solidity                            ; do you need a blockchain? No.
+       ;;swift                              ; who asked for emoji variables?
+       ;;terra                              ; Earth and Moon in alignment for performance.
+       ;;web                                ; the tubes
+       zig                                 ; C, but simpler
 
        :email
        ;;(mu4e +org +gmail)

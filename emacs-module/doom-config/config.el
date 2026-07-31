@@ -22,7 +22,12 @@
 ;; Apply it immediately to the current, already-open frame
 (set-frame-parameter nil 'alpha-background 91)
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
+;;  Define your two distinct fonts
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
+
+;;  Tell Doom to automatically use both in Org mode
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
 
 (setq ispell-program-name "hunspell"
       ispell-dictionary "fr_FR")
@@ -176,6 +181,10 @@
           (:name "Tasks" :todo "TODO")))
   :config
   (org-super-agenda-mode))
+
+(after! plantuml-mode
+  (setq plantuml-default-exec-mode 'executable
+        plantuml-executable-path "plantuml"))
 
 (after! gptel
   (setq gptel-model 'qwen2.5-coder:14b   ; swap for whatever you've `ollama pull`ed

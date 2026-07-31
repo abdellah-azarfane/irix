@@ -11,6 +11,7 @@
         self.nixosModules.development
         self.nixosModules.files
         self.nixosModules.yazi
+        self.nixosModules.gaming
         self.nixosModules.media
         self.nixosModules.terminals
         self.nixosModules.monitoring
@@ -35,19 +36,33 @@
       ];
 
       fonts.packages = with pkgs; [
-        # --- UI & Code Fonts ---
-        nerd-fonts.jetbrains-mono
+       # --- UI & Reading Fonts ---
         inter
+        merriweather              # A highly legible, beautiful serif for academic reading/PDFs
 
-        # --- Windows Compatibility ---
+        # --- Code & Terminal Fonts ---
+        nerd-fonts.jetbrains-mono
+        iosevka                   # Required for the Emacs variable-pitch configuration
+        julia-mono                # Flawless rendering for pure mathematics and informatics notation
+
+        # --- Fallbacks & Compatibility ---
+        symbola
         liberation_ttf
-      ];
+        ];
 
       fonts.fontconfig.defaultFonts = {
-        serif = [ "Inter" "Liberation Serif" ];
-        sansSerif = [ "Inter" "Liberation Sans" ];
-        monospace = [ "JetBrainsMono Nerd Font" ];
-      };
-
+        serif = [
+          "Merriweather"      # Prioritize modern elegance for documents
+          "Liberation Serif"  # Fallback for strict Microsoft Times New Roman requirements
+            ];
+        sansSerif = [
+          "Inter"             # Prioritize modern UI scaling
+          "Liberation Sans"   # Fallback for Arial requirements
+            ];
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "JuliaMono"         # Secondary fallback to catch advanced mathematical operators
+            ];
+          };
     };
 }

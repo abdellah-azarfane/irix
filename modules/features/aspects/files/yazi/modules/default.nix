@@ -14,13 +14,13 @@
       irix.apps.yazi = {
         enable = true;
         homeConfigDir = "yazi";
-
-        # Passing the package here handles the installation automatically
         package = pkgs.yazi;
 
         files = {
-          # Main settings
           "yazi.toml" = {
+            flavor = {
+              use = "wallust";
+            };
             manager = {
               ratio = [
                 1
@@ -55,7 +55,7 @@
             opener = {
               edit = [
                 {
-                  run = "emacsclient -c \"$@\"";
+                  run = "emacsclient -c -a \"$@\"";
                   block = false;
                   desc = "Emacs";
                   for = "unix";
@@ -121,51 +121,58 @@
 
             # File mapping rules
             open = {
-              # Using a list of attribute sets maps directly to TOML's array of tables: [[open.rules]]
               rules = [
-                # Microsoft Office formats
                 {
-                  name = "*.{docx,doc,xlsx,xls,pptx,ppt}";
+                  url = "*.{docx,doc,xlsx,xls,pptx,ppt}";
                   use = "office";
                 }
-                # Other document formats (ODT, ODS, etc.)
                 {
                   mime = "application/vnd.oasis.opendocument.*";
                   use = "libre";
                 }
-                # PDFs
                 {
                   mime = "application/pdf";
                   use = "pdf";
                 }
-                # Images
                 {
                   mime = "image/*";
                   use = "image";
                 }
-                # Video
                 {
                   mime = "video/*";
                   use = "video";
                 }
-                # Audio
                 {
                   mime = "audio/*";
                   use = "audio";
                 }
-                # Web
                 {
                   mime = "text/html";
                   use = "browser";
                 }
-                # Default to Emacs for text and catch-all
                 {
                   mime = "text/*";
-                  use = "edit";
+                  use = [ "edit" ];
                 }
                 {
-                  mime = "*";
-                  use = "edit";
+                  url = "*.{nix,lua,conf,ini,cfg,vim,sh,bash,zsh,fish,nu,Xresources}";
+                  use = [ "edit" ];
+                }
+                {
+                  url = "*.{js,jsx,ts,tsx,html,htm,xhtml,css,scss,sass,less,xml,graphql}";
+                  use = [ "edit" ];
+                }
+                {
+                  url = "*.{py,rs,go,c,h,hpp,cpp,java,rb,php,hs,sql,proto}";
+                  use = [ "edit" ];
+                }
+                {
+                  url = "*.{md,markdown,org,rst,tex}";
+                  use = [ "edit" ];
+                }
+                {
+                  url = "*.{toml,json,yaml,yml}";
+                  use = [ "edit" ];
                 }
               ];
             };
@@ -186,28 +193,6 @@
                   desc = "Maximize or restore preview";
                 }
               ];
-            };
-          };
-
-          # Theme configuration
-          "theme.toml" = {
-            manager = {
-              cwd = {
-                fg = "#89b4fa";
-              };
-              # Hovered file styles
-              hovered = {
-                fg = "#1e1e2e";
-                bg = "#89b4fa";
-              };
-              preview_hovered = {
-                underline = true;
-              };
-              # Border styles
-              border_symbol = "│";
-              border_style = {
-                fg = "#7f849c";
-              };
             };
           };
         };

@@ -7,7 +7,7 @@
 
       apps = {
         browser = "libreoffice";
-        editor = "emacsclient -c -a " "";
+        editor = "emacsclient -c -a ";
         terminal = "ghostty";
         imageViewer = "imv";
         videoPlayer = "mpv";

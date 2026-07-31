@@ -33,6 +33,9 @@
           ripgrep
           fd
           findutils
+          gnumake
+          libvterm
+          dockfmt
         ];
 
         home.sessionPath = [

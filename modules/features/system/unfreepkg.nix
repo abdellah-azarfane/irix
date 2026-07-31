@@ -20,6 +20,9 @@
           # --- Utilities ---
           "rar"
           "winbox"
+          "steam-unwrapped"
+          "steam"
+          "symbola"
 
           # --- Hardware Firmware (Required if enabling these chips) ---
           "broadcom-bt-firmware"

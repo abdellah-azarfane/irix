@@ -8,9 +8,6 @@
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
 
-    dgop.url = "github:AvengeMedia/dgop";
-    dgop.inputs.nixpkgs.follows = "nixpkgs";
-
     my-emacs.url = "./emacs-module";
 
     darwin.url = "github:nix-darwin/nix-darwin";
@@ -30,7 +27,7 @@
     hermes-agent.url = "github:NousResearch/hermes-agent";
     preservation.url = "github:nix-community/preservation";
 
-    disko.url = "github:nix-community/disko";
+        disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     hjem.url = "github:feel-co/hjem";

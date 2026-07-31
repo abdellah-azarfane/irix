@@ -19,7 +19,6 @@
         lazydocker # Docker management TUI
         docker-compose
 
-        lsfg-vk
       ];
 
       # Ensure graphics drivers are actually enabled

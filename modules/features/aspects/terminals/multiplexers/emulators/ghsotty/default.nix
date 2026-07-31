@@ -14,7 +14,7 @@
             font-family = "JetBrainsMono Nerd Font";
             font-size = 15;
             adjust-cell-height = "8%"; # Strings required for percentage values
-
+          
             # Window Layout & Decoration
             window-padding-x = 14;
             window-padding-y = 12;
@@ -24,7 +24,6 @@
             # Visuals
             background-opacity = 0.85;
             background-blur = true;
-
             # Cursor & Mouse Behavior
             cursor-style = "block";
             cursor-style-blink = false;

@@ -7,6 +7,9 @@
       ...
     }:
     {
+      # Force the memory preservation parameter at the kernel level
+      boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+
       # X11 / Wayland drivers
       services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -16,14 +19,19 @@
         package = config.boot.kernelPackages.nvidiaPackages.latest;
         modesetting.enable = true;
         nvidiaSettings = true;
-        powerManagement.enable = true;
+
+        powerManagement = {
+          enable = true;
+          finegrained = false; # Explicitly set this to false
+        };
+
         dynamicBoost.enable = true;
 
         # PRIME offload (Intel + NVIDIA hybrid laptops)
         prime = {
           offload = {
-            enable = false;
-            enableOffloadCmd = false;
+            enable = true; # Changed to true
+            enableOffloadCmd = true; # Changed to true
           };
           nvidiaBusId = "PCI:1:0:0";
           intelBusId = "PCI:0:2:0";
@@ -36,10 +44,10 @@
         enable32Bit = true;
 
         extraPackages = with pkgs; [
-          intel-media-driver # For Intel QuickSync
-          intel-compute-runtime # For OpenCL/Compute
-          nvidia-vaapi-driver # Essential if you want VA-API on NVIDIA
-          libva-vdpau-driver # Legacy VDPAU support
+          intel-media-driver
+          intel-compute-runtime
+          nvidia-vaapi-driver
+          libva-vdpau-driver
         ];
       };
 
@@ -48,7 +56,6 @@
         egl-wayland
         vulkan-tools
         (pkgs.writeShellScriptBin "nvidia-offload" ''
-              # Hardware graphics configuration
           export LIBVA_DRIVER_NAME=nvidia
           export __NV_PRIME_RENDER_OFFLOAD=1
           export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0

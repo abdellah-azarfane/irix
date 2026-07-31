@@ -10,7 +10,7 @@
       self.nixosModules.lang-scripting
       ###
       self.nixosModules.misc
-      self.nixosModules.hermes
+      #      self.nixosModules.hermes
       self.nixosModules.vcs
       self.nixosModules.virt
       self.nixosModules.sops
