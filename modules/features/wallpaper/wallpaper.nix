@@ -16,11 +16,5 @@
         pkgs.awww
       ];
 
-      home-manager.users.${user} = {
-        home.file."wallpapers" = {
-          source = inputs.wallpapers.packages.${system}.default;
-          recursive = true;
-        };
-      };
     };
 }

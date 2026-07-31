@@ -21,13 +21,11 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    wallpapers.url = "github:abdellah-azarfane/wallpapers";
-
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     hermes-agent.url = "github:NousResearch/hermes-agent";
     preservation.url = "github:nix-community/preservation";
 
-        disko.url = "github:nix-community/disko";
+    disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     hjem.url = "github:feel-co/hjem";
