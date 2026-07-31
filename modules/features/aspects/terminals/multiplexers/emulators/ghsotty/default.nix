@@ -40,6 +40,21 @@
             theme = "wallust";
           };
         };
+        systemd.user.services."app-com.mitchellh.ghostty" = {
+          Unit = {
+            Description = "Ghostty Terminal Emulator Daemon";
+            PartOf = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
+          };
+          Service = {
+            # Start Ghostty in the background without spawning a window
+            ExecStart = "${pkgs.ghostty}/bin/ghostty --initial-window=false";
+            Restart = "on-failure";
+          };
+          Install = {
+            WantedBy = [ "graphical-session.target" ];
+          };
+        };
       };
     };
 }
