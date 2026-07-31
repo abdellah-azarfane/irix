@@ -45,20 +45,17 @@
             theme = "wallust";
           };
         };
-        systemd.user.services."app-com.mitchellh.ghostty" = pkgs.lib.mkForce {
-          Unit = {
-            Description = "Ghostty Terminal Emulator Daemon";
-            PartOf = [ "graphical-session.target" ];
-            After = [ "graphical-session.target" ];
-          };
-          Service = {
-            # Start Ghostty in the background without spawning a window
-            ExecStart = "${pkgs.ghostty}/bin/ghostty --initial-window=false";
-            Restart = "on-failure";
-          };
-          Install = {
-            WantedBy = [ "graphical-session.target" ];
-          };
+      };
+      systemd.user.services.ghostty-daemon = {
+        description = "Ghostty Terminal Emulator Daemon";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+
+        serviceConfig = {
+          ExecStart = "${pkgs.ghostty}/bin/ghostty --initial-window=false";
+          Restart = "on-failure";
+          RestartSec = "2s";
         };
       };
     };
