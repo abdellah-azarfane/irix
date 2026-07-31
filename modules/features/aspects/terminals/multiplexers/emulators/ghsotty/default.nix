@@ -1,6 +1,11 @@
 { ... }: {
   flake.nixosModules.ghostty =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     let
       user = config.preferences.user.name;
     in
@@ -40,7 +45,7 @@
             theme = "wallust";
           };
         };
-        systemd.user.services."app-com.mitchellh.ghostty" = {
+        systemd.user.services."app-com.mitchellh.ghostty" = pkgs.lib.mkForce {
           Unit = {
             Description = "Ghostty Terminal Emulator Daemon";
             PartOf = [ "graphical-session.target" ];
