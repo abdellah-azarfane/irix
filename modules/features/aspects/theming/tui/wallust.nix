@@ -22,7 +22,7 @@
                 # Your existing Ghostty setup
                 ghostty = {
                   template = "ghostty-colors.tmpl";
-                  target = "~/.cache/wallust/ghostty-colors";
+                  target = "~/.config/ghostty/themes/wallust";
                 };
 
                 # New: Yazi setup

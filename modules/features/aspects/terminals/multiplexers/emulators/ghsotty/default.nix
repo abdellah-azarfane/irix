@@ -14,7 +14,7 @@
             font-family = "JetBrainsMono Nerd Font";
             font-size = 15;
             adjust-cell-height = "8%"; # Strings required for percentage values
-          
+
             # Window Layout & Decoration
             window-padding-x = 14;
             window-padding-y = 12;
@@ -37,7 +37,7 @@
               "ctrl+v=paste_from_clipboard"
             ];
 
-            config-file = "/home/${user}/.cache/wallust/ghostty-colors";
+            theme = "wallust";
           };
         };
       };
