@@ -83,6 +83,7 @@
         # CRITICAL: This allows Noctalia and GTK4 apps to communicate
         extraPortals = with pkgs; [
           xdg-desktop-portal-gnome
+          xdg-desktop-portal-wlr
           xdg-desktop-portal-gtk
           xdg-desktop-portal-termfilechooser # Portal for using TUIs as file pickers
         ];
