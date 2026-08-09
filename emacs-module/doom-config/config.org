@@ -20,6 +20,7 @@
   - [[#org-roam-zettelkasten-knowledge-base][Org-roam: Zettelkasten knowledge base]]
   - [[#org-pomodoro-1201030][Org-Pomodoro (120/10/30)]]
   - [[#org-super-agenda][org-super-agenda]]
+  - [[#plantuml-mode][Plantuml mode]]
 - [[#ai-pair-programming-via-local-ollama][AI pair programming via local Ollama]]
 
 * Package Management (packages.el)
@@ -86,6 +87,7 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 ;; A force-directed graph view over your org-roam notes (the closest thing
 ;; to Obsidian's graph, without Obsidian):
 (package! org-roam-ui)
+(package! org-pomodoro)
 ;;
 ;; Cleaner visual org buffers, pairs well with doom-gruvbox + a Nerd Font:
 (package! org-modern)
@@ -312,6 +314,7 @@ This sets the font size for each Org header level. Having variable font sizes in
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
 #+end_src
+
 
 ** Org-Pomodoro (120/10/30)
 #+begin_src emacs-lisp

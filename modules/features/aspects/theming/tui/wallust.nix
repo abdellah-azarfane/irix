@@ -41,6 +41,13 @@
           };
 
           # ---------------------------------------------------------
+          # Template Target Directories (.keep)
+          # ---------------------------------------------------------
+          # Force Home Manager to create these directories so Wallust doesn't crash (os error 2)
+          xdg.configFile."yazi/flavors/wallust.yazi/.keep".text = "";
+          xdg.configFile."vesktop/themes/.keep".text = "";
+
+          # ---------------------------------------------------------
           # Template Definitions
           # ---------------------------------------------------------
 

@@ -120,11 +120,15 @@
             }
             # Floating Noctalia settings window
             {
-             matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
-             open-floating = true;
-             default-column-width = { fixed = 1080; };
-             default-window-height = { fixed = 920; };
-                        }
+              matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
+              open-floating = true;
+              default-column-width = {
+                fixed = 1080;
+              };
+              default-window-height = {
+                fixed = 920;
+              };
+            }
           ];
 
           # ============================================================================
@@ -235,13 +239,19 @@
           # ============================================================================
           xwayland-satellite.path = lib.getExe config.pkgs.xwayland-satellite;
           spawn-at-startup = [
-          [
+            [
               "dbus-update-activation-environment"
               "--systemd"
               "WAYLAND_DISPLAY"
-              "XDG_CURRENT_DESKTOP"
+              "XDG_CURRENT_DESKTOP=niri"
             ]
-           [
+
+            [
+              "sh"
+              "-c"
+              "while ! busctl --user status org.gnome.Mutter.ScreenCast >/dev/null 2>&1; do sleep 0.2; done; pkill -f xdg-desktop-portal-gnome"
+            ]
+            [
               "noctalia"
             ]
           ];
@@ -252,7 +262,12 @@
           binds = {
             "Mod+Return".spawn = config.terminal;
             # APPS
-            "Mod+E".spawn = [ "emacsclient" "-c" "-a" "" ];
+            "Mod+E".spawn = [
+              "emacsclient"
+              "-c"
+              "-a"
+              ""
+            ];
 
             # Focus Navigation
             "Mod+Left".focus-column-left = _: { };

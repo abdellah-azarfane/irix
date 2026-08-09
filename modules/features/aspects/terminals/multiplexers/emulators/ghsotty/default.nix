@@ -18,7 +18,7 @@
             # Font Configuration
             font-family = "JetBrainsMono Nerd Font";
             font-size = 15;
-            adjust-cell-height = "8%"; # Strings required for percentage values
+            adjust-cell-height = "8%";
 
             # Window Layout & Decoration
             window-padding-x = 14;
@@ -29,6 +29,7 @@
             # Visuals
             background-opacity = 0.85;
             background-blur = true;
+
             # Cursor & Mouse Behavior
             cursor-style = "block";
             cursor-style-blink = false;
@@ -42,21 +43,11 @@
               "ctrl+v=paste_from_clipboard"
             ];
 
-            theme = "wallust";
+            # FIX: Use an absolute path so Ghostty doesn't search the Nix store
+            theme = "/home/${user}/.config/ghostty/themes/wallust";
           };
         };
-      };
-      systemd.user.services.ghostty-daemon = {
-        description = "Ghostty Terminal Emulator Daemon";
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
-
-        serviceConfig = {
-          ExecStart = "${pkgs.ghostty}/bin/ghostty --initial-window=false";
-          Restart = "on-failure";
-          RestartSec = "2s";
-        };
+        xdg.configFile."ghostty/themes/.keep".text = "";
       };
     };
 }

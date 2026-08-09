@@ -58,6 +58,7 @@
 ;; A force-directed graph view over your org-roam notes (the closest thing
 ;; to Obsidian's graph, without Obsidian):
 (package! org-roam-ui)
+(package! org-pomodoro)
 ;;
 ;; Cleaner visual org buffers, pairs well with doom-gruvbox + a Nerd Font:
 (package! org-modern)
