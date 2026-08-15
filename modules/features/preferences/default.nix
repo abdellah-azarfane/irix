@@ -29,9 +29,9 @@
       };
 
       optionalServices = {
-        greetd = true;
+        greetd = false;
+        noctalia-greeter = true; # Enable the new Noctalia module
       };
-      #noctalia-greeter = true;
       monitors = {
         "eDP-1" = {
           primary = true;

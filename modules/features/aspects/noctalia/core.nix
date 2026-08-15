@@ -36,9 +36,9 @@
             # Everything compressed onto one single line so Noctalia's parser doesn't cut it off
             wallpaper_changed = ''
               ${pkgs.wallust}/bin/wallust run "$NOCTALIA_WALLPAPER_PATH"
-                        if [ -f "$HOME/.cache/wallust/openrgb_static.sh" ]; then
-                   bash "$HOME/.cache/wallust/openrgb_static.sh" &
-                 fi
+                          if [ -f "$HOME/.cache/wallust/openrgb_static.sh" ]; then
+                     bash "$HOME/.cache/wallust/openrgb_static.sh" &
+                   fi
             '';
             started = ''
               logger -t noctalia-hooks "Noctalia started"

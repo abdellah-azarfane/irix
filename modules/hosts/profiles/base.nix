@@ -7,7 +7,7 @@
       self.nixosModules.core
       self.nixosModules.services
       self.nixosModules.greetd
-      self.nixosModules.nc-greeter
+      self.nixosModules.noctalia-greeter
       self.nixosModules.hardware
       self.nixosModules.nix-ld
       self.nixosModules.keymap
@@ -17,35 +17,42 @@
       self.nixosModules.persistence
 
       # autostart module — inlined due to import-tree not exposing it
-      ({ lib, config, ... }: let
-        user = config.preferences.user.name;
-        acfg = config.preferences.autostart;
-      in {
-        config = lib.mkIf (acfg != []) {
-          home-manager.users.${user} = {
-            systemd.user.services = lib.listToAttrs (map (entry:
-              let
-                exec = if lib.isString entry then entry else lib.getExe entry;
-                name = "autostart-" + (builtins.hashString "sha256" exec);
-              in
-              lib.nameValuePair name {
-                Unit = {
-                  Description = "Autostart: ${exec}";
-                  PartOf = [ "graphical-session.target" ];
-                };
-                Service = {
-                  Type = "simple";
-                  ExecStart = exec;
-                  Restart = "on-failure";
-                };
-                Install = {
-                  WantedBy = [ "graphical-session.target" ];
-                };
-              }
-            ) acfg);
+      (
+        { lib, config, ... }:
+        let
+          user = config.preferences.user.name;
+          acfg = config.preferences.autostart;
+        in
+        {
+          config = lib.mkIf (acfg != [ ]) {
+            home-manager.users.${user} = {
+              systemd.user.services = lib.listToAttrs (
+                map (
+                  entry:
+                  let
+                    exec = if lib.isString entry then entry else lib.getExe entry;
+                    name = "autostart-" + (builtins.hashString "sha256" exec);
+                  in
+                  lib.nameValuePair name {
+                    Unit = {
+                      Description = "Autostart: ${exec}";
+                      PartOf = [ "graphical-session.target" ];
+                    };
+                    Service = {
+                      Type = "simple";
+                      ExecStart = exec;
+                      Restart = "on-failure";
+                    };
+                    Install = {
+                      WantedBy = [ "graphical-session.target" ];
+                    };
+                  }
+                ) acfg
+              );
+            };
           };
-        };
-      })
+        }
+      )
 
       # sudo module — inlined due to import-tree not exposing it
       ({ lib, config, ... }: {
@@ -53,7 +60,10 @@
           enable = true;
           extraRules = [
             {
-              groups = [ "wheel" "abosafiya" ];
+              groups = [
+                "wheel"
+                "abosafiya"
+              ];
               commands = [
                 {
                   command = "${config.systemd.package}/bin/systemctl";
