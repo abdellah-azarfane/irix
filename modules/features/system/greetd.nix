@@ -1,9 +1,16 @@
-{ self, inputs,... }:
+{ self, inputs, ... }:
 {
-  flake.nixosModules.greetd = { pkgs, config, inputs, lib, ...}:
+  flake.nixosModules.greetd =
+    {
+      pkgs,
+      config,
+      inputs,
+      lib,
+      ...
+    }:
     let
       user = config.preferences.user.name;
-      in
+    in
     {
       # ----------------------------------------------------------------------
 
@@ -11,7 +18,8 @@
         enable = true;
         settings = {
           default_session = {
-            command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri";
+            # Use niri-session instead of niri
+            command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri-session";
             user = "greeter";
           };
         };
