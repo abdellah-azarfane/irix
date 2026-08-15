@@ -36,6 +36,12 @@
                   template = "vesktop-colors.tmpl";
                   target = "~/.config/vesktop/themes/wallust.theme.css";
                 };
+
+                # NEW: Open Rgb
+                openrgb_static = {
+                  template = "openrgb_static.sh";
+                  target = "~/.cache/wallust/openrgb_static.sh";
+                };
               };
             };
           };
@@ -116,6 +122,13 @@
             body, #app-mount, .app_b1f720, .bg_d4b6c5 {
                 background: transparent !important;
             }
+          '';
+
+          # --- MOVED INSIDE HOME MANAGER ---
+
+          xdg.configFile."wallust/templates/openrgb_static.sh".text = ''
+            #!/usr/bin/env bash
+            ${pkgs.openrgb}/bin/openrgb --mode static --color {{color1 | strip}} >/dev/null 2>&1
           '';
         };
     };

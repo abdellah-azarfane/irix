@@ -1,9 +1,15 @@
 { ... }:
 {
-  flake.nixosModules.hardware = { pkgs, config, lib, ... }:
+  flake.nixosModules.hardware =
     {
-    # Bootloader & Kernel
-    # Bootloader & Kernel
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
+    {
+      # Bootloader & Kernel
+      # Bootloader & Kernel
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -39,30 +45,30 @@
       boot.extraModprobeConfig = ''
         options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
       '';
-    # Hardware Support
-    hardware.uinput.enable = true;
-    hardware.enableAllFirmware = true;
-    hardware.enableRedistributableFirmware = true;
-    hardware.cpu.intel.updateMicrocode = true;
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings = {
-        General = {
-          Experimental = true; # Needed for modern headset battery/mic features
-          Enable = "Source,Sink,Media,Socket";
-          ControllerMode = "bredr"; # CRITICAL: Allows both BR/EDR and LE
-          FastConnectable = true;
+      # Hardware Support
+      hardware.uinput.enable = true;
+      hardware.enableAllFirmware = true;
+      hardware.enableRedistributableFirmware = true;
+      hardware.cpu.intel.updateMicrocode = true;
+      hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+        settings = {
+          General = {
+            Experimental = true; # Needed for modern headset battery/mic features
+            Enable = "Source,Sink,Media,Socket";
+            ControllerMode = "bredr"; # CRITICAL: Allows both BR/EDR and LE
+            FastConnectable = true;
+          };
         };
       };
-    };
 
-   hardware.logitech.wireless = {
-      enable = true;
-      enableGraphical = true; # NOTE: Adds solaar
-    };
+      hardware.logitech.wireless = {
+        enable = true;
+      };
+      programs.solaar.enable = true;
 
-    # Power & Thermal Management
-    powerManagement.powertop.enable = true;
+      # Power & Thermal Management
+      powerManagement.powertop.enable = true;
     };
 }

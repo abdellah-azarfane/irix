@@ -12,6 +12,8 @@
     {
       environment.systemPackages = with pkgs; [
         winbox
+        winboat
+        remmina
         # --- Kubernetes TUI ---
         k9s # Kubernetes TUI management
 

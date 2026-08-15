@@ -11,7 +11,6 @@
         self.nixosModules.development
         self.nixosModules.files
         self.nixosModules.yazi
-        self.nixosModules.gaming
         self.nixosModules.media
         self.nixosModules.terminals
         self.nixosModules.monitoring

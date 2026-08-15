@@ -137,8 +137,10 @@
         services.flatpak.enable = cfg.flatpak;
         services.hardware.openrgb = {
           enable = cfg.openrgb;
+          server.port = 6742;
         };
         services.asusd.enable = cfg.asusd;
+        services.ratbagd.enable = true;
         services.dbus.enable = true;
         services.dbus.implementation = "broker";
         # Required for niri wm
@@ -174,7 +176,7 @@
           login.enableGnomeKeyring = true;
           # Enable Gnome keyring on login # FIX: This is flimsy. Sometimes it unlocks, sometimes it does not.
           hyprlock.enableGnomeKeyring = true; # Enable unlocking keyring on unlock lockscreen
-          greetd.enableGnomeKeyring = true;   # Ensure keyring daemon is ready before greetd session
+          greetd.enableGnomeKeyring = true; # Ensure keyring daemon is ready before greetd session
         };
 
         security.pam.loginLimits = [
@@ -231,6 +233,7 @@
 
           # --- Utils ---
           comma # Runs programs without installing them
+          piper
 
           # --- Documentation ---
           tealdeer # Alternative fast Rust client

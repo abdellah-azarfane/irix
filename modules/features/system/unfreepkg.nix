@@ -14,6 +14,7 @@
           # Required strictly because of native services.ollama.acceleration = "cuda";
           "cuda_cudart"
           "cuda_nvcc"
+          "cuda_nvrtc"
           "cuda_cccl"
           "libcublas"
 
