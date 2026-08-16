@@ -14,18 +14,19 @@
         winbox
         winboat
         remmina
+        # --- QEMU/KVM & Passthrough ---
+        virt-manager # ADDED: To create and manage the VM
+
         # --- Kubernetes TUI ---
         k9s # Kubernetes TUI management
 
         # --- Docker TUI ---
         lazydocker # Docker management TUI
         docker-compose
-
       ];
 
       # Ensure graphics drivers are actually enabled
       hardware.graphics.enable = lib.mkDefault true;
-      virtualisation.libvirtd.enable = true;
       users.users.${user}.extraGroups = [
         "libvirtd"
         "kvm"
@@ -36,6 +37,16 @@
         autoPrune.enable = true;
         enableOnBoot = true;
       };
-    };
 
+      # --- EXPANDED LIBVIRTD CONFIGURATION ---
+      virtualisation.libvirtd = {
+        enable = true;
+
+        qemu = {
+          package = pkgs.qemu_kvm;
+          runAsRoot = true;
+        };
+
+      };
+    };
 }
