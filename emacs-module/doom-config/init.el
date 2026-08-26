@@ -16,7 +16,7 @@
 
        :ui
        doom                      ; visual theme framework
-       doom-dashboard            ; custom start screen
+       dashboard            ; custom start screen
        hl-todo                   ; highlight TODO/FIXME/etc in comments
        indent-guides             ; visual indentation guides
        ligatures                 ; JetBrainsMono NF renders these natively

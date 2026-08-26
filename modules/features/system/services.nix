@@ -16,7 +16,6 @@
           default = true;
           description = "Enable greetd login manager service";
         };
-
         xserver = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -60,7 +59,7 @@
 
         blueman = lib.mkOption {
           type = lib.types.bool;
-          default = true;
+          default = false;
           description = "Enable Blueman Bluetooth manager service";
         };
 
@@ -114,25 +113,6 @@
         services.udisks2.enable = cfg.udisks2;
         services.blueman.enable = cfg.blueman;
 
-        # 3. Prevent the Kernel from "autosuspending" your Bluetooth USB controller
-        boot.kernelParams = [ "btusb.enable_autosuspend=n" ];
-
-        services.pipewire = {
-          wireplumber = {
-            enable = true;
-            # Tell WirePlumber to only use A2DP (Stereo Audio) and ignore HFP/HSP (Microphone)
-            extraConfig = {
-              "10-bluez-disable-hfp" = {
-                "monitor.bluez.properties" = {
-                  "bluez5.roles" = [
-                    "a2dp_sink"
-                    "a2dp_source"
-                  ];
-                };
-              };
-            };
-          };
-        };
         services.udev.enable = true; # Enable device manager
         services.flatpak.enable = cfg.flatpak;
         services.hardware.openrgb = {

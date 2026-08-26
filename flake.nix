@@ -10,7 +10,7 @@
 
     my-emacs.url = "./emacs-module";
 
-    darwin.url = "github:nix-darwin/nix-darwin";
+    #    darwin.url = "github:nix-darwin/nix-darwin";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";

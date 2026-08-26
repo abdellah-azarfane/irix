@@ -14,7 +14,7 @@
               obs-vkcapture # For Vulkan screen capture
               obs-multi-rtmp # For multi RTMP output
               obs-backgroundremoval # For background removal
-              obs-move-transition # For move transition
+              #              obs-move-transition # For move transition
             ];
           };
 

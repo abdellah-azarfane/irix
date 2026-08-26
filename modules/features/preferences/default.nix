@@ -27,7 +27,6 @@
         "SUPER + d"."p".package = pkgs.librewolf;
         "SUPER + d"."y".package = pkgs.yazi;
       };
-
       optionalServices = {
         greetd = false;
         noctalia-greeter = true; # Enable the new Noctalia module
