@@ -22,6 +22,7 @@
   - [[#org-super-agenda][org-super-agenda]]
   - [[#plantuml-mode][Plantuml mode]]
 - [[#ai-pair-programming-via-local-ollama][AI pair programming via local Ollama]]
+- [[#dired-file-manager][Dired File Manager]]
 
 * Package Management (packages.el)
 This block handles all package downloads. When you run =doom sync=, Doom extracts this block into a hidden =packages.el= file automatically.
@@ -121,7 +122,7 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 (load-theme 'noctalia t)
 
 ;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
-(add-to-list 'default-frame-alist '(alpha-background . 91))
+(add-to-list 'default-frame-alist '(alpha-background . 100))
 
 ;; Apply it immediately to the current, already-open frame
 (set-frame-parameter nil 'alpha-background 91)
@@ -355,4 +356,16 @@ This sets the font size for each Org header level. Having variable font sizes in
           :host "localhost:11434"
           :stream t
           :models '(qwen2.5-coder:14b llama3.2:latest deepseek-coder-v2:latest))))
+#+end_src
+* Dired File Manager
+Dired with some visuals
+#+begin_src emacs-lisp
+(after! dired
+  ;; Group directories first and use human-readable sizes
+  (setq dired-listing-switches "-agho --group-directories-first")
+
+  ;; Prevent Dired from spawning a new buffer for every visited dir
+  (setq dired-kill-when-opening-new-dired-buffer t)
+
+ )
 #+end_src

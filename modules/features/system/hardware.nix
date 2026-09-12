@@ -32,6 +32,7 @@
         "vt.global_cursor_default=0"
         "nowatchdog"
         "btusb.enable_autosuspend=n"
+        "i915.enable_psr=2"
       ];
       # Merged Kernel Modules
       boot.kernelModules = [

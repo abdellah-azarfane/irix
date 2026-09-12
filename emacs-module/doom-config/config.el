@@ -17,7 +17,7 @@
 (load-theme 'noctalia t)
 
 ;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
-(add-to-list 'default-frame-alist '(alpha-background . 91))
+(add-to-list 'default-frame-alist '(alpha-background . 100))
 
 ;; Apply it immediately to the current, already-open frame
 (set-frame-parameter nil 'alpha-background 91)
@@ -193,3 +193,12 @@
           :host "localhost:11434"
           :stream t
           :models '(qwen2.5-coder:14b llama3.2:latest deepseek-coder-v2:latest))))
+
+(after! dired
+  ;; Group directories first and use human-readable sizes
+  (setq dired-listing-switches "-agho --group-directories-first")
+
+  ;; Prevent Dired from spawning a new buffer for every visited dir
+  (setq dired-kill-when-opening-new-dired-buffer t)
+
+ )

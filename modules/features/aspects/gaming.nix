@@ -23,6 +23,7 @@
         dxvk
         gamescope
 
+        heroic
         mangohud
 
         r2modman
