@@ -37,10 +37,10 @@ Personal NixOS configuration for an ASUS TUF F17 M-2023 (main workstation) and a
 
 ```bash
 # Build & switch to main workstation
-sudo nixos-rebuild switch --flake .#main
+sudo nixos-rebuild switch --flake .#main or nrs
 
 # Build & switch to Pi runner (remote)
-nixos-rebuild switch --flake .#pi-runner --target-host root@pi-runner
+nixos-rebuild switch --flake .#pi-runner --target-host root@pi-runner 
 
 # Check flake validity
 nix flake check
