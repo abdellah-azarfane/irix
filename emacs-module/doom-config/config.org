@@ -6,7 +6,7 @@
 - [[#sensible-defaults][Sensible Defaults]]
 - [[#doom-ui--theme][Doom UI & Theme]]
 - [[#french-spell-and-grammar-checking][French Spell and Grammar Checking]]
-  - [[#hooks-for-pgtk--daemon-nudge][hooks for pgtk + daemon nudge]]
+  - [[#hooks-for-pgtk--daemon-nudge][Hooks for pgtk + daemon nudge]]
 - [[#keybindings][Keybindings]]
 - [[#performance-tuning-lsp--daemon][Performance tuning (LSP + daemon)]]
 - [[#lsp-clangd-cpp-rust-analyzer-rust-and-nil-nix][LSP: clangd (cpp), rust-analyzer (Rust), and nil (Nix)]]
@@ -16,11 +16,12 @@
 - [[#org-mode--knowledge-base][Org Mode & Knowledge Base]]
   - [[#basic-settings][Basic Settings]]
   - [[#headers-1][Headers]]
-  - [[#workflow--capture-templates][workflow & capture templates]]
-  - [[#org-roam-zettelkasten-knowledge-base][Org-roam: Zettelkasten knowledge base]]
+  - [[#workflow--capture-templates][Workflow & Capture Templates]]
+  - [[#org-roam-zettelkasten-knowledge-base][Org-roam: Zettelkasten Knowledge Base]]
+  - [[#citar-bibliography--citations][Citar: Bibliography & Citations]]
   - [[#org-pomodoro-1201030][Org-Pomodoro (120/10/30)]]
-  - [[#org-super-agenda][org-super-agenda]]
-  - [[#plantuml-mode][Plantuml mode]]
+  - [[#org-super-agenda][Org-super-agenda]]
+  - [[#plantuml-mode][Plantuml Mode]]
 - [[#ai-pair-programming-via-local-ollama][AI pair programming via local Ollama]]
 - [[#dired-file-manager][Dired File Manager]]
 
@@ -31,67 +32,22 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 ;; -*- no-byte-compile: t; -*-
 ;;; packages.el
 
-;; To install a package with Doom you must declare them here and run 'doom sync'
-;; on the command line, then restart Emacs for the changes to take effect -- or
+;; --- Academic & Citations ---
+(package! citar)
+(package! citar-org-roam)
 
-;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;; (package! some-package)
-
-;; To install a package directly from a remote git repo, you must specify a
-;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
-;; https://github.com/radian-software/straight.el#the-recipe-format
-;; (package! another-package
-;;   :recipe (:host github :repo "username/repo"))
-
-;; If the package you are trying to install does not contain a PACKAGENAME.el
-;; file, or is located in a subdirectory of the repo, you'll need to specify
-;; `:files' in the `:recipe':
-;; (package! this-package
-;;   :recipe (:host github :repo "username/repo"
-;;            :files ("some-file.el" "src/lisp/*.el")))
-
-;; If you'd like to disable a package included with Doom, you can do so here
-;; with the `:disable' property:
-;; (package! builtin-package :disable t)
-
-;; You can override the recipe of a built in package without having to specify
-;; all the properties for `:recipe'. These will inherit the rest of its recipe
-;; from Doom or MELPA/ELPA/Emacsmirror:
-;; (package! builtin-package :recipe (:nonrecursive t))
-;; (package! builtin-package-2 :recipe (:repo "myfork/package"))
-
-;; Specify a `:branch' to install a package from a particular branch or tag.
-;; This is required for some packages whose default branch isn't 'master' (which
-;; our package manager can't deal with; see radian-software/straight.el#279)
-;; (package! builtin-package :recipe (:branch "develop"))
-
-;; Use `:pin' to specify a particular commit to install.
-;; (package! builtin-package :pin "1a2b3c4d5e")
-
-;; Doom's packages are pinned to a specific commit and updated from release to
-;; release. The `unpin!' macro allows you to unpin single packages...
-;; (unpin! pinned-package)
-;; ...or multiple packages
-;; (unpin! pinned-package another-pinned-package)
-;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
-;; (unpin! t)
-
-;; --- Local LLM / Ollama pair-programming ---
-;; gptel is a thin, multi-backend client; it talks straight to Ollama's
-;; local HTTP API, so no cloud calls and no API key.
-(package! gptel)
-
-;; --- Task management ---
+;; --- Task & Knowledge Management ---
 (package! org-super-agenda)
-
-;; --- Optional, uncomment if you want them ---
-;; A force-directed graph view over your org-roam notes (the closest thing
-;; to Obsidian's graph, without Obsidian):
 (package! org-roam-ui)
 (package! org-pomodoro)
-;;
-;; Cleaner visual org buffers, pairs well with doom-gruvbox + a Nerd Font:
 (package! org-modern)
+(package! flycheck-languagetool)
+
+;; --- Local LLM / Ollama pair-programming ---
+;; gptel is a thin, multi-backend client; it talks straight to Ollama's local HTTP API
+(package! gptel)
+
+;; --- Utilities ---
 (package! tldr)
 #+end_src
 
@@ -117,36 +73,43 @@ This block handles all package downloads. When you run =doom sync=, Doom extract
 
 * Doom UI & Theme
 #+begin_src emacs-lisp
-;;(setq doom-theme 'doom-gruvbox)
-(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-(load-theme 'noctalia t)
+(setq doom-theme 'doom-gruvbox)
 
 ;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
-(add-to-list 'default-frame-alist '(alpha-background . 100))
+(add-to-list 'default-frame-alist '(alpha-background . 94))
 
 ;; Apply it immediately to the current, already-open frame
-(set-frame-parameter nil 'alpha-background 91)
+(set-frame-parameter nil 'alpha-background 94)
 
-;;  Define your two distinct fonts
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
+;; Define your two distinct fonts
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12.0 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Iosevka" :size 14.0))
 
-;;  Tell Doom to automatically use both in Org mode
+;; Tell Doom to automatically use both in Org mode
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
-
 #+end_src
 
 * French Spell and Grammar Checking
 Set Hunspell as the primary engine for flyspell and configure LanguageTool for French grammar checking.
 
-#+begin_src elisp
-(setq ispell-program-name "hunspell"
-      ispell-dictionary "fr_FR")
-
-(setq langtool-default-language "fr")
+#+begin_src emacs-lisp
+(after! ispell
+  (setq ispell-program-name "hunspell"
+        ispell-dictionary "fr-toutesvariantes,en_US")
+  
+  ;; Use the local alist which takes strict precedence and won't be overwritten
+  (setq ispell-local-dictionary-alist
+        '(("fr-toutesvariantes,en_US"
+           "[[:alpha:]]"
+           "[^[:alpha:]]"
+           "[']"
+           nil
+           ("-d" "fr-toutesvariantes,en_US")
+           nil
+           utf-8))))
 #+end_src
 
-** hooks for pgtk + daemon nudge
+** Hooks for pgtk + daemon nudge
 #+begin_src emacs-lisp
 (add-hook 'server-after-make-frame-hook #'doom/reload-font)
 ;;(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
@@ -179,14 +142,14 @@ Set Hunspell as the primary engine for flyspell and configure LanguageTool for F
 #+end_src
 
 * Performance tuning (LSP + daemon)
-"Hardware-accelerated" in practice means : native JSON parsing (built into Emacs 27+ if compiled --with-json, which nixpkgs' emacs-pgtk is by default), native-comp doing its job, and not choking lsp-mode's pipe.
+"Hardware-accelerated" in practice means: native JSON parsing (built into Emacs 27+ if compiled --with-json, which nixpkgs' emacs-pgtk is by default), native-comp doing its job, and not choking lsp-mode's pipe.
 #+begin_src emacs-lisp
 (setq read-process-output-max (* 3 1024 1024))   ; 3mb chunks from LSP servers
 (setq gcmh-high-cons-threshold (* 64 1024 1024)) ; raise gcmh's ceiling for LSP sessions
 #+end_src
 
 * LSP: clangd (cpp), rust-analyzer (Rust), and nil (Nix)
- Both are resolved from $PATH, so a NixOS systemPackages install (or a per-project flake devShell via direnv) is all that's needed — nothing Nix-specific to configure on the Emacs side.
+Both are resolved from $PATH, so a NixOS systemPackages install (or a per-project flake devShell via direnv) is all that's needed — nothing Nix-specific to configure on the Emacs side.
 #+begin_src emacs-lisp
 (after! lsp-mode
   (setq lsp-clients-clangd-executable "clangd"
@@ -212,15 +175,14 @@ Set Hunspell as the primary engine for flyspell and configure LanguageTool for F
   (setq rustic-lsp-client 'lsp-mode
         rustic-analyzer-command '("rust-analyzer")))
 
-;; Nix LSP via `nil` (the actively maintained server; rnix-lsp is dead).
-;; Install with: environment.systemPackages = with pkgs; [ nil nixpkgs-fmt ];
+;; Nix LSP via `nil` (the actively maintained server)
 (after! lsp-nix-nil
   (setq lsp-nix-nil-server-path "nil"
         lsp-nix-nil-formatter '("nixpkgs-fmt")))
 #+end_src
 
 * Markdown
-This sets the font size for each markdown header level. Having variable font sizes in a markdown outline makes it visually appealing and more readable.
+This sets the font size for each markdown header level, making it visually appealing and readable.
 
 ** Headers
 #+begin_src emacs-lisp
@@ -235,7 +197,7 @@ This sets the font size for each markdown header level. Having variable font siz
 #+end_src
 
 ** Toggle Markdown View
-A custom function to toggle between standard 'markdown-mode' and 'markdown-view-mode'. Custom functions in Emacs should be named as "prefix/name-of-function" to make it clear that the function is custom and not a standard Emacs function. In my case, I begin all my custom functions with 'ix'.
+A custom function to toggle between standard 'markdown-mode' and 'markdown-view-mode'. Custom functions begin with 'ix'.
 
 #+begin_src emacs-lisp
 (defun ix/toggle-markdown-view-mode ()
@@ -257,7 +219,7 @@ A custom function to toggle between standard 'markdown-mode' and 'markdown-view-
 #+end_src
 
 ** Headers
-This sets the font size for each Org header level. Having variable font sizes in an Org outline makes it visually appealing and more readable.
+Sets the font size for each Org header level.
 #+begin_src emacs-lisp
 (custom-theme-set-faces!
   'doom-gruvbox
@@ -272,17 +234,11 @@ This sets the font size for each Org header level. Having variable font sizes in
   '(org-document-title  :height 1.8 :bold t :underline nil))
 #+end_src
 
-** TODO workflow & capture templates
-#+begin_src emacs-lisp
-(setq org-todo-keywords
-      '((sequence
-         "TODO(t)"          ; not started
-         "NEXT(n)"          ; the next actionable thing
-         "IN_PROGRESS(i)"   ; actively being worked
-         "|"
-         "DONE(d)"
-         "CANCELLED(c)")))
+#+RESULTS:
+| doom--customize-themes-h-73 | doom--customize-themes-h-75 |
 
+** Workflow & Capture Templates
+#+begin_src emacs-lisp
 (setq org-todo-keyword-faces
       '(("TODO"        . (:foreground "#fb4934" :weight bold))  ; gruvbox red
         ("NEXT"        . (:foreground "#fabd2f" :weight bold))  ; gruvbox yellow
@@ -299,7 +255,7 @@ This sets the font size for each Org header level. Having variable font sizes in
          "* %U %?\n%i")))
 #+end_src
 
-** Org-roam: Zettelkasten knowledge base
+** Org-roam: Zettelkasten Knowledge Base
 #+begin_src emacs-lisp
 (after! org-roam
   (setq org-roam-directory (concat org-directory "roam/")
@@ -316,16 +272,29 @@ This sets the font size for each Org header level. Having variable font sizes in
                               "#+title: %<%Y-%m-%d>\n")))))
 #+end_src
 
+** Citar: Bibliography & Citations
+Integrates Zotero bibliographies directly into Emacs, enabling quick citation insertion, PDF opening, and literature note generation in Org-roam.
+#+begin_src emacs-lisp
+(after! citar
+  (setq citar-bibliography '("~/documents/org/references.bib")
+        citar-library-paths '("~/documents/academic/docs/")
+        citar-notes-paths '("~/documents/org/roam/")))
+
+(use-package! citar-org-roam
+  :after citar
+  :config
+  (citar-org-roam-mode 1))
+#+end_src
 
 ** Org-Pomodoro (120/10/30)
 #+begin_src emacs-lisp
 (after! org-pomodoro
   (setq org-pomodoro-length 120
         org-pomodoro-short-break-length 10
-        org-pomodoro-long-break-length 30))
+        org-pomodor  qq o-long-break-length 30))
 #+end_src
 
-** org-super-agenda
+** Org-super-agenda
 #+begin_src emacs-lisp
 (use-package! org-super-agenda
   :after org-agenda
@@ -340,7 +309,7 @@ This sets the font size for each Org header level. Having variable font sizes in
   (org-super-agenda-mode))
 #+end_src
 
-** Plantuml mode
+** Plantuml Mode
 #+begin_src emacs-lisp
 (after! plantuml-mode
   (setq plantuml-default-exec-mode 'executable
@@ -357,15 +326,14 @@ This sets the font size for each Org header level. Having variable font sizes in
           :stream t
           :models '(qwen2.5-coder:14b llama3.2:latest deepseek-coder-v2:latest))))
 #+end_src
+
 * Dired File Manager
-Dired with some visuals
+Dired with visual grouping and automatic buffer cleanup.
 #+begin_src emacs-lisp
 (after! dired
   ;; Group directories first and use human-readable sizes
   (setq dired-listing-switches "-agho --group-directories-first")
 
   ;; Prevent Dired from spawning a new buffer for every visited dir
-  (setq dired-kill-when-opening-new-dired-buffer t)
-
- )
+  (setq dired-kill-when-opening-new-dired-buffer t))
 #+end_src

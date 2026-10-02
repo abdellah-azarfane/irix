@@ -12,6 +12,7 @@
       environment.systemPackages = with pkgs; [
         exiv2 # Excellent, lightweight CLI tool for reading/writing image metadata
         #  handbrake
+        inkscape
         mpv
         yt-dlp
         imv

@@ -24,6 +24,7 @@
           "steam-unwrapped"
           "steam"
           "symbola"
+          "staruml"
 
           # --- Hardware Firmware (Required if enabling these chips) ---
           "broadcom-bt-firmware"

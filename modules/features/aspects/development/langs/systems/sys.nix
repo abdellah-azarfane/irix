@@ -10,7 +10,13 @@
         cmake # Cross-platform build system
         pkg-config # Package information finder
         cmake-language-server
-        libxml2   # Provides xmllint for formatting XML/data
+        libxml2 # Provides xmllint for formatting XML/data
+        gdb
+        valgrind
+        hexyl
+        tectonic
+        typstyle
+        python3Packages.jupytext
 
         # --- Rust ---
         rustup # Rust toolchain

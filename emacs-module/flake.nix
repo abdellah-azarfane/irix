@@ -16,7 +16,7 @@
       {
         programs.emacs = {
           enable = true;
-          package = if pkgs.stdenv.isDarwin then pkgs.emacs else pkgs.emacs-pgtk; # Native Wayland support
+          package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.emacs else pkgs.emacs-pgtk; # Native Wayland support
           extraPackages = epkgs: [ epkgs.vterm ]; # Pre-compile vterm module for faster builds
         };
 
@@ -36,6 +36,12 @@
           gnumake
           libvterm
           dockfmt
+          (hunspell.withDicts (
+            dicts: with dicts; [
+              fr-any
+              en_US
+            ]
+          ))
         ];
 
         home.sessionPath = [

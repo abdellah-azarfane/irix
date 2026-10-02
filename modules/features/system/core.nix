@@ -35,17 +35,23 @@
       services.xserver.xkb.layout = "us";
 
       nix.settings = {
+        trusted-users = [
+          "root"
+          "abosafiya"
+        ];
         experimental-features = [
           "nix-command"
           "flakes"
         ];
         download-buffer-size = 134217728;
         substituters = [
+          "https://cache.nixos-cuda.org"
           "https://cache.nixos.org"
           "https://niri.cachix.org"
           "https://noctalia.cachix.org"
         ];
         trusted-public-keys = [
+          "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
           "niri.cachix.org-1:Wv0OmO7PsuocCEzfP24EQoSweUkG9bHoIksv0yXWH9o="
           "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="

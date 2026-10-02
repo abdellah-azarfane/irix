@@ -19,7 +19,7 @@
 
         # --- Kubernetes TUI ---
         k9s # Kubernetes TUI management
-
+        cabextract
         # --- Docker TUI ---
         lazydocker # Docker management TUI
         docker-compose

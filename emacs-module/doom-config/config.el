@@ -12,27 +12,35 @@
 (setq-default vterm-shell "/run/current-system/sw/bin/fish")
 (setq-default explicit-shell-file-name "/run/current-system/sw/bin/fish")
 
-;;(setq doom-theme 'doom-gruvbox)
-(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-(load-theme 'noctalia t)
+(setq doom-theme 'doom-gruvbox)
 
 ;; Set default background opacity for all new frames (0-100, where 100 is fully opaque)
-(add-to-list 'default-frame-alist '(alpha-background . 100))
+(add-to-list 'default-frame-alist '(alpha-background . 94))
 
 ;; Apply it immediately to the current, already-open frame
-(set-frame-parameter nil 'alpha-background 91)
+(set-frame-parameter nil 'alpha-background 94)
 
-;;  Define your two distinct fonts
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
+;; Define your two distinct fonts
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12.0 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Iosevka" :size 14.0))
 
-;;  Tell Doom to automatically use both in Org mode
+;; Tell Doom to automatically use both in Org mode
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
 
-(setq ispell-program-name "hunspell"
-      ispell-dictionary "fr_FR")
-
-(setq langtool-default-language "fr")
+(after! ispell
+  (setq ispell-program-name "hunspell"
+        ispell-dictionary "fr-toutesvariantes,en_US")
+  
+  ;; Use the local alist which takes strict precedence and won't be overwritten
+  (setq ispell-local-dictionary-alist
+        '(("fr-toutesvariantes,en_US"
+           "[[:alpha:]]"
+           "[^[:alpha:]]"
+           "[']"
+           nil
+           ("-d" "fr-toutesvariantes,en_US")
+           nil
+           utf-8))))
 
 (add-hook 'server-after-make-frame-hook #'doom/reload-font)
 ;;(add-hook 'server-after-make-frame-hook #'doom/reload-theme)
@@ -87,8 +95,7 @@
   (setq rustic-lsp-client 'lsp-mode
         rustic-analyzer-command '("rust-analyzer")))
 
-;; Nix LSP via `nil` (the actively maintained server; rnix-lsp is dead).
-;; Install with: environment.systemPackages = with pkgs; [ nil nixpkgs-fmt ];
+;; Nix LSP via `nil` (the actively maintained server)
 (after! lsp-nix-nil
   (setq lsp-nix-nil-server-path "nil"
         lsp-nix-nil-formatter '("nixpkgs-fmt")))
@@ -127,15 +134,6 @@
   '(org-level-1 :inherit outline-1 :height 1.6)
   '(org-document-title  :height 1.8 :bold t :underline nil))
 
-(setq org-todo-keywords
-      '((sequence
-         "TODO(t)"          ; not started
-         "NEXT(n)"          ; the next actionable thing
-         "IN_PROGRESS(i)"   ; actively being worked
-         "|"
-         "DONE(d)"
-         "CANCELLED(c)")))
-
 (setq org-todo-keyword-faces
       '(("TODO"        . (:foreground "#fb4934" :weight bold))  ; gruvbox red
         ("NEXT"        . (:foreground "#fabd2f" :weight bold))  ; gruvbox yellow
@@ -165,10 +163,20 @@
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
 
+(after! citar
+  (setq citar-bibliography '("~/documents/org/references.bib")
+        citar-library-paths '("~/documents/academic/docs/")
+        citar-notes-paths '("~/documents/org/roam/")))
+
+(use-package! citar-org-roam
+  :after citar
+  :config
+  (citar-org-roam-mode 1))
+
 (after! org-pomodoro
   (setq org-pomodoro-length 120
         org-pomodoro-short-break-length 10
-        org-pomodoro-long-break-length 30))
+        org-pomodor  qq o-long-break-length 30))
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -199,6 +207,4 @@
   (setq dired-listing-switches "-agho --group-directories-first")
 
   ;; Prevent Dired from spawning a new buffer for every visited dir
-  (setq dired-kill-when-opening-new-dired-buffer t)
-
- )
+  (setq dired-kill-when-opening-new-dired-buffer t))

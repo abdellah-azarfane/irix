@@ -13,7 +13,7 @@
 
       config = lib.mkIf config.preferences.optionalServices.noctalia-greeter {
 
-        programs.noctalia-greeter = {
+        services.displayManager.noctalia-greeter = {
           enable = true;
           greeter-args = "--session niri-session";
           settings = {
