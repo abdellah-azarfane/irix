@@ -24,7 +24,10 @@
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     hermes-agent.url = "github:NousResearch/hermes-agent";
     preservation.url = "github:nix-community/preservation";
-
+    
+    helium-flake.url = "github:oxcl/nix-flake-helium-browser";
+    helium-flake.inputs.nixpkgs.follows = "nixpkgs";
+    
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 

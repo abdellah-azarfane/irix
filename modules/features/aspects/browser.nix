@@ -5,9 +5,12 @@
       system = pkgs.stdenv.hostPlatform.system;
     in
     {
+      nixpkgs.overlays = [
+        inputs.helium-flake.overlays.default
+      ];
       environment.systemPackages = with pkgs; [
         librewolf
-        brave
+        helium
       ];
     };
 }

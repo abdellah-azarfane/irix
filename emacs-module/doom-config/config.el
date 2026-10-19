@@ -176,7 +176,7 @@
 (after! org-pomodoro
   (setq org-pomodoro-length 120
         org-pomodoro-short-break-length 10
-        org-pomodor  qq o-long-break-length 30))
+        org-pomodoro-long-break-length 30))
 
 (use-package! org-super-agenda
   :after org-agenda

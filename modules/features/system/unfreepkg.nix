@@ -16,6 +16,7 @@
           "cuda_nvcc"
           "cuda_nvrtc"
           "cuda_cccl"
+          "cuda_crt"
           "libcublas"
 
           # --- Utilities ---
@@ -25,6 +26,12 @@
           "steam"
           "symbola"
           "staruml"
+          "lsfg-vk"
+          "lsfg-vk-ui"
+          "antigravity-ide"
+          "stirling-pdf-desktop"
+          "libnvvm"
+          "cccl"
 
           # --- Hardware Firmware (Required if enabling these chips) ---
           "broadcom-bt-firmware"

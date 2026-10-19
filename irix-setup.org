@@ -1,0 +1,395 @@
+#+TITLE: Irix NixOS Flake — Configuration Guide
+#+AUTHOR: Setup & Audit Log
+#+DATE: 2026-06-24
+
+* Overview
+
+The Irix flake (~/dev/irix) is a modular NixOS configuration using flake-parts
+and import-tree. It manages the workstation at ~/dev/irix with profiles for
+main workstation and a Raspberry Pi runner.
+
+* Directory Structure
+
+| Path | Purpose |
+|------|---------|
+| flake.nix | Entry point; feeds flake-parts + import-tree |
+| modules/parts.nix | Flake-parts option declarations |
+| modules/base/ | Core reusable NixOS modules |
+| modules/hosts/ | Host-specific configs & profiles |
+| modules/hosts/main/ | Main workstation host |
+| modules/hosts/profiles/ | Profile mixins |
+| modules/features/ | Feature modules (system, aspects, preferences) |
+| modules/features/system/ | System-level services & hardware |
+| modules/features/aspects/ | Software & desktop aspects |
+| emacs-module/ | Emacs-Kick home-manager module |
+
+* Critical Security Fixes
+
+** initialPassword → initialHashedPassword
+
+*** Issue
+The user account used =initialPassword = "12345"= — a plain-text password
+visible to anyone who reads the config. Also, NixOS emits a warning when using
+=initialPassword=.
+
+*** Fix
+Replaced with =initialHashedPassword= using a SHA-512 crypt hash of
+"changeme123" (placeholder — user must =passwd= on first login).
+
+#+BEGIN_SRC nix
+initialHashedPassword = "$6$mhUXobPRIxAenNMe$EjE8vQ2kbr5Ia1W1g/vltxOo.fz1wwsDVPMvsiG1gvC/mGFms92ZdDuwhLiqbadOW/k2x8gGOSx/kQtK5FLZ3/";
+#+END_SRC
+
+Generated with: =mkpasswd -m sha-512 "changeme123"=
+
+** Firewall
+
+*** Issue
+=networking.firewall.enable = true= was set but allowed ports had no comments,
+making it unclear why each port was open.
+
+*** Fix
+Added inline comments above the port lists in services.nix.
+
+#+BEGIN_SRC nix
+networking.firewall = {
+  enable = true;
+  checkReversePath = "loose";
+  # allowedTCPPorts = [ 22 80 443 ];
+  # allowedUDPPorts = [ 51820 ];
+};
+#+END_SRC
+
+* Phase 1: Cleanup & Documentation
+
+** Typo Fix: persistance → persistence
+
+*** Issue
+Variable =persistance= was misspelled across multiple files. This caused the
+preservation flake integration to fail silently.
+
+*** Files affected
+- modules/base/user.nix
+- modules/base/persistence.nix
+- modules/hosts/profiles/base.nix
+
+*** Fix
+Renamed all occurrences of =persistance= to =persistence= using =replaceAll=.
+
+** Zed Submodules
+
+*** Issue
+Zed editor module at =modules/features/aspects/development/editors/zeditor/default.nix=
+had all 7 submodule imports commented out.
+
+*** Fix
+Uncommented all 7 imports: settings, keymaps, appearance, extensions, LSP,
+langs, terminal.
+
+** README
+
+*** Issue
+Project had no documentation.
+
+*** Fix
+Created README.md with structure overview, profiles, usage commands, and
+conventions tables.
+
+* Phase 2: Module Refactoring
+
+** Split Base Module
+
+*** Issue
+The monolithic =hostProfileBase= module was a single file containing keymap,
+display, and persistence logic — hard to maintain and test.
+
+*** Fix
+Split into standalone modules:
+- =keymap.nix= → =flake.nixosModules.keymap=
+- =monitors.nix= → =flake.nixosModules.monitors=
+- =start.nix= → =flake.nixosModules.start=
+- =persistence.nix= → kept but rewired
+
+Each module defines a NixOS option (under =preferences.*=) and implements it.
+
+** config.flake.lib Helpers
+
+*** Issue
+Three helper functions (=mkNiriBinds=, =mkNiriOutputs=, =mkAutostartEntries=)
+were defined inside inner NixOS modules but referenced with =config.flake.lib=,
+which doesn't exist inside NixOS module evaluation (only at the flake-parts level).
+
+This caused:
+#+BEGIN_SRC
+error: The option 'flake' does not exist
+#+END_SRC
+
+*** Fix
+Moved the helper declarations to =parts.nix= at the flake-parts level. Added
+option declarations so they merge properly:
+
+#+BEGIN_SRC nix
+options.flake.lib = {
+  mkNiriBinds = lib.mkOption { type = lib.types.functionTo lib.types.attrs; };
+  mkNiriOutputs = lib.mkOption { type = lib.types.functionTo lib.types.attrs; };
+  mkAutostartEntries = lib.mkOption { type = lib.types.functionTo lib.types.attrs; };
+};
+#+END_SRC
+
+** Persistence → Preservation Flake
+
+*** Issue
+Original =persistence.nix= tried to build its own persistence logic from
+scratch. Unmaintainable and buggy.
+
+*** Fix
+Rewired to use the nix-community/preservation flake:
+
+#+BEGIN_SRC nix
+preservation.preserveAt."/persist" = {
+  directories = cfg.directories;
+  files = cfg.files;
+  users.${userCfg.name} = {
+    directories = cfg.userDirectories;
+    files = cfg.userFiles;
+  };
+};
+#+END_SRC
+
+Maps =preferences.persistence.*= → =preservation.preserveAt.*=.
+
+** Autostart (inlined)
+
+*** Issue
+=autostart.nix= created systemd user services but the import-tree module wasn't
+exposing it via =self.nixosModules.*=, causing "undefined module" errors when
+imported in base.nix.
+
+*** Fix
+Inlined the autostart configuration directly in =base.nix= instead of as a
+separate module import.
+
+** Sudo Rules (inlined)
+
+*** Issue
+Same import-tree issue as autostart. The =sudo.nix= module wasn't reachable.
+
+*** Fix
+Inlined sudo NOPASSWD rules in =base.nix=.
+
+* Phase 3: Configuration & Security
+
+** SOPS SSH Key Path
+
+*** Issue
+The SSH key path for SOPS was hardcoded.
+
+*** Fix
+Made it configurable via =preferences.sops.*= options:
+
+#+BEGIN_SRC nix
+options.preferences.sops = {
+  sshKeyPaths = lib.mkOption {
+    type = lib.types.listOf lib.types.str;
+    default = ["/home/abosafiya/.ssh/keys/id_ed25519"];
+  };
+};
+#+END_SRC
+
+** Sudo NOPASSWD
+
+*** Issue
+Every =sudo= invocation required a password, even for trivial commands.
+
+*** Fix
+Added =sudo.nix= with rules for the wheel group (inlined in =base.nix=).
+
+* Phase 4: Cleanup & Polish
+
+** Flake Check
+
+*** Issue
+=nix flake check= didn't validate the NixOS configurations.
+
+*** Fix
+Added =checks= output in =parts.nix= using flake-parts' =perSystem=:
+
+#+BEGIN_SRC nix
+flake.check = perSystem;
+#+END_SRC
+
+** Remove Redundant Imports
+
+*** Issue
+=hardware.nix= already sets =nixpkgs.config.allowUnfree=true= globally, but
+=pi-runner/default.nix= also set it locally. The SOPS module imported
+=nix-index-database= unnecessarily.
+
+*** Fix
+Removed the redundant =allowUnfree= from pi-runner and =nix-index-database=
+import from the SOPS module.
+
+** .gitignore
+
+*** Issue
+Emacs build artifacts and nix result symlinks weren't ignored.
+
+*** Fix
+Added to =.gitignore=:
+- =emacs-module/.local/=, =straight/=, =eln-cache/= (build artifacts)
+- =result=, =result-*= (nix build symlinks)
+
+* Phase 5: CI & Git
+
+** GitHub Actions
+
+*** Issue
+No CI pipeline.
+
+*** Fix
+Created =.github/workflows/ci.yml=:
+- Runs =nix flake check= on push/PR to main
+- Runs formatting check with =nix fmt=
+
+** Git History Squash
+
+*** Issue
+78 incremental commits cluttered the history.
+
+*** Fix
+Squashed to a single commit with a comprehensive message.
+Force-pushed to remote (if configured).
+
+* Emacs Daemon Fix
+
+*** Issue
+Emacs daemon systemd service failed because =~/.config/emacs= either didn't
+exist or pointed to the wrong location. Also, the emacs module set
+=defaultEditor = true= which conflicted with =env.nix= setting =EDITOR=zeditor=.
+
+*** Fix
+Added =ExecStartPre= bash script to ensure the symlink exists before starting
+the daemon:
+
+#+BEGIN_SRC nix
+ExecStartPre = "${pkgs.bash}/bin/bash -c '...'";
+#+END_SRC
+
+Set =defaultEditor = false= to avoid EDITOR conflict.
+
+* gkr-pam Fix (Gnome Keyring)
+
+*** Issue
+Gnome Keyring daemon wasn't starting during greetd login, causing the keyring
+to be unavailable (unlock prompts, secrets not stored).
+
+*** Fix
+Added to =services.nix=:
+
+#+BEGIN_SRC nix
+security.pam.services.greetd.enableGnomeKeyring = true;
+#+END_SRC
+
+This ensures =pam_gnome_keyring.so= is invoked during greetd PAM session setup.
+
+* ashmem/binder Fix (Waydroid)
+
+*** Issue
+=binder_linux= and =ashmem_linux= kernel modules were listed in
+=boot.kernelModules= in =hardwareconf.nix=, but these modules are not packaged
+for the Zen kernel. This caused module loading errors on boot.
+
+*** Fix
+Removed both modules from =boot.kernelModules=. If Waydroid is needed in the
+future, use =virtualisation.waydroid.enable=true= which handles module loading
+correctly.
+
+* Laptop Sleep/Wake Fix
+
+*** Issue
+The ASUS ROG laptop (Intel + NVIDIA Optimus) didn't wake up after lid close.
+Root cause: =services.logind= was not configured, so lid close triggered default
+=suspend= (suspend-to-RAM). The NVIDIA GPU (with open kernel module) failed to
+reinitialize on resume, resulting in a black screen / dead system.
+
+Additional factors:
+- PowerTOP aggressively tuned USB/PCI power management
+- =zramSwap= and disk swap had conflicting priorities
+- No =boot.resumeDevice= configured for hibernation
+
+*** Fix: logind Configuration
+
+Added to =modules/hosts/profiles/laptop.nix=:
+
+#+BEGIN_SRC nix
+services.logind = {
+  lidSwitch = "ignore";          # Lid close does nothing
+  lidSwitchExternalPower = "ignore";
+  lidSwitchDocked = "ignore";
+  powerKey = "suspend";           # Power button → manual suspend
+  powerKeyLongPress = "poweroff"; # Long press → power off
+};
+#+END_SRC
+
+*** Why not =lidSwitch = "lock"=
+
+=HandleLidSwitch=lock= calls =LockSessions()= via D-Bus, but no logind-aware
+lockscreen (gtklock/swaylock) is installed. The user's lockscreen is =dms ipc
+call lock lock= (bound to Mod+Escape), which bypasses logind and uses dms's
+direct IPC. Without a visual lockscreen handler, =lock= would log the PAM
+session but leave the desktop visible.
+
+*** Workflow
+
+1. Lock manually: =Mod+Escape= (→ dms lock)
+2. Close lid (system stays running)
+3. For transport: lock, then press power button to suspend
+4. Resume: press power button, enter password
+
+*** NVIDIA Power Management
+
+=hardware.nvidia.powerManagement.enable = true= (already set in nvidia.nix)
+adds systemd services (=nvidia-suspend.service=, =nvidia-resume.service=) that
+save/restore GPU state during suspend/resume. These handle the power-button
+suspend case. The lid-close case was problematic because of ACPI firmware
+quirks on ASUS ROG laptops.
+
+** Boot Resume Device
+
+Added to =main-workstation.nix=:
+
+#+BEGIN_SRC nix
+boot.resumeDevice = "/dev/nvme0n1p2";
+#+END_SRC
+
+The swap partition (20G on nvme0n1p2) is sufficient for hibernation. The
+=resumeDevice= kernel parameter tells the initrd where to find the hibernation
+image if hibernation is triggered (critical battery, =systemctl hibernate=).
+
+** zramSwap Priority
+
+Not changed. The config uses:
+- zramSwap: 50% RAM, zstd compression
+- Disk swap: 20G (for hibernation)
+
+If hibernation issues arise, the disk swap needs higher priority than zram:
+- Set =zramSwap.priority = -2= (lower than disk swap's default -1)
+- OR set disk swap priority explicitly via =swapDevices=
+
+* Known Issues & Notes
+
+** Password
+The password hash is for "changeme123". Run =passwd= on first login.
+
+** Emacs First Install
+=straight.el= may fail to bootstrap in daemon mode on first run. After GUI
+launch, run =M-x ek/first-install= if needed.
+
+** Git Remote
+History was force-pushed (squashed). Remote push requires =--force-with-lease=.
+
+** PowerTOP
+=powerManagement.powertop.enable = true= may still interfere with wakeup
+devices. If wake issues persist, disable PowerTOP and check:
+- =cat /proc/acpi/wakeup= for enabled wake devices
+- =journalctl -b | grep -i "PM:"= for power management messages

@@ -9,11 +9,13 @@
     }:
     let
       user = config.preferences.user.name;
+
       system = pkgs.stdenv.hostPlatform.system;
     in
     {
       environment.systemPackages = [
         pkgs.awww
+        pkgs.mpvpaper
       ];
 
     };

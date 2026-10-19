@@ -31,6 +31,7 @@
         "libvirtd"
         "kvm"
       ];
+
       services.zerotierone.enable = true;
       virtualisation.docker = {
         enable = true;
@@ -38,6 +39,11 @@
         enableOnBoot = true;
       };
 
+      virtualisation.waydroid = {
+        enable = true;
+        package = pkgs.waydroid-nftables;
+      };
+      networking.firewall.trustedInterfaces = [ "waydroid0" ];
       # --- EXPANDED LIBVIRTD CONFIGURATION ---
       virtualisation.libvirtd = {
         enable = true;

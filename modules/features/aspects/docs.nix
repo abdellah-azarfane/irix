@@ -9,7 +9,7 @@
         # --- PDF & Research Workhorses ---
         zathura # The ultimate minimalist PDF viewer
         pandoc
-        zotero
+        # zotero
         stirling-pdf-desktop
 
         # --- CLI PDF Tools ---
