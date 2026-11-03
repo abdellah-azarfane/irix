@@ -1,58 +1,71 @@
-{ self, lib, ... }: {
-  flake.nixosModules.monitors = { lib, ... }: {
-    options.preferences.monitors = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submodule {
-        options = {
-          primary = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-          };
-          width = lib.mkOption {
-            type = lib.types.int;
-            example = 1920;
-          };
-          height = lib.mkOption {
-            type = lib.types.int;
-            example = 1080;
-          };
-          refreshRate = lib.mkOption {
-            type = lib.types.float;
-            default = 60.0;
-          };
-          scale = lib.mkOption {
-            type = lib.types.float;
-            default = 1.0;
-            description = "Display scale factor (e.g., 1.0, 1.5, 2.0)";
-          };
-          x = lib.mkOption {
-            type = lib.types.int;
-            default = 0;
-          };
-          y = lib.mkOption {
-            type = lib.types.int;
-            default = 0;
-          };
-          enabled = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-          };
+{ lib, ... }:
+{
+  flake.lib.mkNiriOutputs =
+    monitors:
+    lib.mapAttrs (
+      _: mon:
+      let
+        mode =
+          if mon.mode != null then
+            mon.mode
+          else
+            "${toString mon.width}x${toString mon.height}@${toString mon.refreshRate}";
+      in
+      {
+        mode = lib.mkIf (mon.width != null || mon.mode != null) mode;
+        scale = mon.scale;
+        position = {
+          x = mon.x;
+          y = mon.y;
         };
-      });
-      default = {};
-    };
-  };
+      }
+    ) monitors;
 
-  flake.lib.mkNiriOutputs = monitors:
-    lib.mapAttrs' (name: mon: lib.nameValuePair name {
-      mode = {
-        width = mon.width;
-        height = mon.height;
-        refresh-rate = mon.refreshRate;
+  flake.nixosModules.monitors =
+    { config, ... }:
+    {
+      options.preferences.monitors = lib.mkOption {
+        type = lib.types.attrsOf (
+          lib.types.submodule {
+            options = {
+              primary = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+              };
+              width = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = null;
+              };
+              height = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = null;
+              };
+              refreshRate = lib.mkOption {
+                type = lib.types.float;
+                default = 60.0;
+              };
+              mode = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = "Optional explicit Niri mode string; otherwise derived from width/height/refreshRate.";
+              };
+              scale = lib.mkOption {
+                type = lib.types.float;
+                default = 1.0;
+              };
+              x = lib.mkOption {
+                type = lib.types.int;
+                default = 0;
+              };
+              y = lib.mkOption {
+                type = lib.types.int;
+                default = 0;
+              };
+            };
+          }
+        );
+        default = { };
+        description = "Monitor configurations.";
       };
-      position = {
-        x = mon.x;
-        y = mon.y;
-      };
-      scale = mon.scale;
-    }) (lib.filterAttrs (_: mon: mon.enabled) monitors);
+    };
 }

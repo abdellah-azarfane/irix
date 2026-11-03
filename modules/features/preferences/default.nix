@@ -3,10 +3,8 @@
   flake.nixosModules.preferences = { pkgs, lib, ... }: {
     preferences = {
       user.name = "abosafiya";
-      theme = self.lib.theme;
-
       apps = {
-        browser = "libreoffice";
+        browser = "helium";
         editor = "emacsclient -c -a ";
         terminal = "ghostty";
         imageViewer = "imv";
@@ -26,10 +24,6 @@
         "SUPER + d"."s".package = pkgs.pwvucontrol;
         "SUPER + d"."p".package = pkgs.librewolf;
         "SUPER + d"."y".package = pkgs.yazi;
-      };
-      optionalServices = {
-        greetd = false;
-        noctalia-greeter = true; # Enable the new Noctalia module
       };
       monitors = {
         "eDP-1" = {

@@ -31,9 +31,9 @@
       };
     };
 
-    services.journald.extraConfig = ''
-      SystemMaxUse=200M
-      MaxFileSec=7day
-    '';
+    services.journald.settings.Journal = {
+      SystemMaxUse = "200M";
+      MaxFileSec = "7day";
+    };
   };
 }

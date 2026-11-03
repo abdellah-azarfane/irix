@@ -30,7 +30,7 @@
     packages.fish = inputs."wrapper-modules".lib.wrapPackage {
       inherit pkgs;
       package = pkgs.fish;
-      extraPackages = [
+      runtimePkgs = [
         pkgs.zoxide
       ];
       flags = {

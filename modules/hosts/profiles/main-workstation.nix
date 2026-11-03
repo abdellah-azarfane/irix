@@ -13,20 +13,14 @@
         self.lib.diskoConfigurations.MainWorkstation
       ];
 
-      users.users.${config.preferences.user.name} = {
-        isNormalUser = true;
-        description = "${config.preferences.user.name}'s account";
-        extraGroups = [
-          "wheel"
-          "docker"
-          "input"
-          "uinput"
-          "video"
-        ];
-        shell = pkgs.fish;
-        initialHashedPassword = "$6$mhUXobPRIxAenNMe$EjE8vQ2kbr5Ia1W1g/vltxOo.fz1wwsDVPMvsiG1gvC/mGFms92ZdDuwhLiqbadOW/k2x8gGOSx/kQtK5FLZ3/";
-        # NOTE: change this password on first login via `passwd`
-      };
+      # The primary user account itself is owned by modules/base/user.nix
+      # (via the `preferences.user` options) — including the fish shell.
+      # Only add host-specific extras here to avoid redefining the same
+      # options twice (which NixOS rejects as non-unique).
+      users.users.${config.preferences.user.name}.extraGroups = [
+        "docker"
+        "uinput"
+      ];
       features.optionalServices = {
         greetd = true;
         xserver = true;

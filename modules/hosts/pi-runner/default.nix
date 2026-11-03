@@ -18,11 +18,8 @@
         boot.loader.generic-extlinux-compatible.enable = true;
         
         # From zupo/nix: clock speed fix & headless optimization
-        boot.loader.raspberryPi.firmwareConfig = ''
-          force_turbo=1
-          avoid_warnings=1
-          gpu_mem=16
-        '';
+        # (boot.loader.raspberryPi was removed from nixpkgs — the Pi
+        # now boots via the generic-extlinux-compatible loader above)
 
         hardware.enableRedistributableFirmware = true;
         hardware.cpu.intel.updateMicrocode = lib.mkForce false;

@@ -8,7 +8,7 @@
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
 
-    my-emacs.url = "./emacs-module";
+    my-emacs.url = "path:/home/abosafiya/dev/emaxy";
 
     #    darwin.url = "github:nix-darwin/nix-darwin";
 

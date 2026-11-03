@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = { lib, config, pkgs, ... }:
+  flake.nixosModules.tomlgener = { lib, config, pkgs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };
 

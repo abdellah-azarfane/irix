@@ -1,9 +1,6 @@
 { self, inputs, ... }: {
   flake.nixosModules.desktop =
     { pkgs, ... }:
-    let
-      selfpkgs = self.packages."${pkgs.stdenv.hostPlatform.system}";
-    in
     {
       imports = [
         self.nixosModules.gtk
@@ -14,9 +11,8 @@
         self.nixosModules.media
         self.nixosModules.terminals
         self.nixosModules.monitoring
-        self.nixosModules.browsers
+        self.nixosModules.browsers  
         self.nixosModules.docs
-        self.nixosModules.gaming
         self.nixosModules.networks
         self.nixosModules.wallust
         self.nixosModules.noctalia
@@ -31,7 +27,6 @@
 
       environment.systemPackages = [
         pkgs.xwayland-satellite
-        selfpkgs.terminal
         pkgs.bibata-cursors
       ];
 

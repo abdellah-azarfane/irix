@@ -112,6 +112,7 @@
         services.printing.enable = cfg.printing; # CUPS
         services.udisks2.enable = cfg.udisks2;
         services.blueman.enable = cfg.blueman;
+        services.gvfs.enable = true;
 
         services.udev.enable = true; # Enable device manager
         services.flatpak.enable = cfg.flatpak;
@@ -210,6 +211,7 @@
 
           # --- Clipboard Utilities ---
           wl-clipboard # Wayland clipboard utilities
+          gvfs
 
           # --- Utils ---
           comma # Runs programs without installing them

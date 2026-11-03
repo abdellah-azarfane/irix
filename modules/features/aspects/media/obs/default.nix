@@ -26,6 +26,9 @@
       };
     in
     {
-      environment.systemPackages = [ obsWrapped ];
+      environment.systemPackages = [
+        obsWrapped
+        pkgs.gpu-screen-recorder
+      ];
     };
 }

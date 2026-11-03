@@ -10,8 +10,7 @@
         self.nixosModules.env
       ];
       home-manager.users.${user} = {
-        home.packages = with pkgs;
-        [
+        home.packages = with pkgs; [
           # --- File & Archive Interactions ---
           dust # Modern du replacement with colors
           eza # Modern ls replacement
@@ -19,7 +18,6 @@
           lsof # Tool to list open files
           p7zip # 7-Zip archiver
           rar
-          # RAR archives
           unzip # Extract ZIP archives
           zip # Create ZIP archives
           zstd # Compression algorithm
@@ -42,12 +40,16 @@
 
           # --- Utilities & Viewers ---
           duckdb # Embeddable SQL OLAP database (required for yazi duckdb plugin)
+          kdePackages.qtsvg
+          kdePackages.qtwayland
+          kdePackages.dolphin
           thunar
           thunar-volman
           thunar-archive-plugin
           glow # Markdown renderer
           desktop-file-utils # Command line utilities for working with .desktop files
           less # Pager
+          tree
         ];
 
         # ==========================================

@@ -3,18 +3,21 @@
    let
     user = config.preferences.user.name;
 
-    logoDir = ../fastfetch/logos;
+    logoDir = if builtins.pathExists ../fastfetch/logos then ../fastfetch/logos else null;
       random-fastfetch = pkgs.writeShellScriptBin "fastfetch" ''
-        LOGO_DIR="${logoDir}"
-        RANDOM_LOGO=$(${pkgs.findutils}/bin/find "$LOGO_DIR" -type f \( \
-          -iname "*.svg" -o \
-          -iname "*.png" -o \
-          -iname "*.jpg" -o \
-          -iname "*.jpeg" -o \
-          -iname "*.webp" -o \
-          -iname "*.gif" -o \
-          -iname "*.bmp" \
-        \) | ${pkgs.coreutils}/bin/shuf -n 1)
+        LOGO_DIR="${lib.optionalString (logoDir != null) logoDir}"
+        RANDOM_LOGO=""
+        if [ -n "$LOGO_DIR" ]; then
+          RANDOM_LOGO=$(${pkgs.findutils}/bin/find "$LOGO_DIR" -type f \( \
+            -iname "*.svg" -o \
+            -iname "*.png" -o \
+            -iname "*.jpg" -o \
+            -iname "*.jpeg" -o \
+            -iname "*.webp" -o \
+            -iname "*.gif" -o \
+            -iname "*.bmp" \
+          \) | ${pkgs.coreutils}/bin/shuf -n 1)
+        fi
         if [ -n "$RANDOM_LOGO" ]; then
           exec ${pkgs.fastfetch}/bin/fastfetch --logo "$RANDOM_LOGO" --logo-height 15 "$@"
         else
@@ -24,15 +27,16 @@
     in
     {
     home-manager.users.${user} = {
-      home.packages = with pkgs; [
+      home.packages =
+        (with pkgs; [
           random-fastfetch # fastfetch with custom script
           cowsay # Generate ASCII pictures using a cow
           cmatrix # We all know what this is
           cbonsai
           ascii # Interactive ASCII name and symbol chart
           trash-cli # Interact with trashcan
-          vial # GUI for adjusting RGB lighting
-        ];
+        ])
+        ++ lib.optionals (pkgs.stdenv.hostPlatform.isx86) [ pkgs.vial ];
       xdg.configFile."fastfetch/config.jsonc" = {
         source = ../fastfetch/config.jsonc;
         force = true;

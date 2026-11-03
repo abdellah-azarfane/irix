@@ -19,7 +19,9 @@
         python3Packages.jupytext
 
         # --- Rust ---
-        rustup # Rust toolchain
+        rustc # Rust compiler
+        cargo # Rust package manager
+        rustfmt # Rust formatter
         bacon # Rust background build tool
 
         # --- Go (Lean API support) ---

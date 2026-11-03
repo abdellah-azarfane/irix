@@ -1,52 +1,53 @@
+{ lib, ... }:
 {
-  flake.nixosModules.base = { lib, config, ... }: {
-    options.preferences = {
-      user.name = lib.mkOption {
-        type = lib.types.str;
-        default = "abosafiya";
-      };
-
-      optionalServices = lib.mkOption {
-        description = "Optional system services configuration.";
-        default = { };
-        type = lib.types.submodule {
-          options = {
-            greetd = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              description = "Enable the standard greetd login manager.";
-            };
-
-            noctalia-greeter = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              description = "Enable the Noctalia-specific login manager.";
-            };
-          };
+  flake.nixosModules.user =
+    { config, pkgs, ... }:
+    let
+      cfg = config.preferences.user;
+    in
+    {
+      options.preferences.user = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "abosafiya";
+          description = "Primary username.";
+        };
+        fullName = lib.mkOption {
+          type = lib.types.str;
+          default = "Abdellah Azarfane";
+          description = "Primary user's full name.";
+        };
+        email = lib.mkOption {
+          type = lib.types.str;
+          default = "abdellahazarfane@proton.me";
+          description = "Primary user's email.";
+        };
+        initialHashedPassword = lib.mkOption {
+          type = lib.types.str;
+          default = "$6$mhUXobPRIxAenNMe$EjE8vQ2kbr5Ia1W1g/vltxOo.fz1wwsDVPMvsiG1gvC/mGFms92ZdDuwhLiqbadOW/k2x8gGOSx/kQtK5FLZ3/";
+          description = "SHA-512 hashed initial password.";
+        };
+        extraGroups = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [
+            "wheel"
+            "networkmanager"
+            "video"
+            "audio"
+            "input"
+          ];
+          description = "Extra groups for the primary user.";
         };
       };
 
-      sops = {
-        sshKeyPath = lib.mkOption {
-          type = lib.types.str;
-          default = "/home/abosafiya/.ssh/id_rsa_managed";
-          description = "Path to store the SOPS-managed SSH private key.";
-        };
-
-        sshdKeyPath = lib.mkOption {
-          type = lib.types.str;
-          default = "/etc/ssh/ssh_host_ed25519_key";
-          description = "Path to the SSH host key used for SOPS age decryption.";
+      config = {
+        programs.fish.enable = true;
+        users.users.${cfg.name} = {
+          isNormalUser = true;
+          description = cfg.fullName;
+          inherit (cfg) initialHashedPassword extraGroups;
+          shell = pkgs.fish;
         };
       };
     };
-
-    config = {
-      sops.secrets."ssh_private_key" = {
-        owner = config.preferences.user.name;
-        mode = "0600";
-        path = config.preferences.sops.sshKeyPath;
-      };
-    };
-  };
 }

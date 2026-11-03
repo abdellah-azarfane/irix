@@ -117,6 +117,11 @@
               geometry-corner-radius = 20;
               clip-to-geometry = true;
             }
+            # Semi-transparent Dolphin window (~75% opacity)
+            {
+              matches = [ { app-id = "org.kde.dolphin"; } ];
+              opacity = 0.75;
+            }
             # Floating Noctalia settings window
             {
               matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
@@ -355,6 +360,10 @@
             "Mod+N".spawn-sh = "noctalia msg nightlight-enable";
             "Mod+Alt+N".spawn-sh = "noctalia msg nightlight-disable";
             "Mod+Shift+N".spawn-sh = "noctalia msg caffeine-toggle";
+            "Mod+W".spawn-sh = "noctalia msg panel-toggle ashur-d/wallpaper-widget:hub";
+            "Mod+Alt+W".spawn-sh = "noctalia msg panel-toggle noctalia/wallhaven:browser";
+            "Mod+M".spawn-sh = "noctalia msg panel-toggle kv7499/asus-fan:panel";
+            # "Mod+Alt+R".spawn-sh = "noctalia msg panel-toggle ";
 
             # Mouse Scroll Bindings
             "Mod+WheelScrollDown" = _: {
@@ -539,7 +548,7 @@
                 {
                   key = "f";
                   desc = "File Manager";
-                  cmd = "thunar";
+                  cmd = "dolphin";
                 }
                 {
                   key = "y";
@@ -563,8 +572,8 @@
                 }
                 {
                   key = "p";
-                  desc = "LibreWolf Browser";
-                  cmd = "librewolf";
+                  desc = "Browser";
+                  cmd = "helium";
                 }
                 {
                   key = "s";

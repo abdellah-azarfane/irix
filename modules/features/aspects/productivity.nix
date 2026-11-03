@@ -3,7 +3,6 @@
     environment.systemPackages = with pkgs; [
       maxima
       wxmaxima
-      antigravity-ide
       codeblocksFull
       gnuplot
       calcure

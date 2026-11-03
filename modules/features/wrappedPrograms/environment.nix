@@ -22,8 +22,7 @@
     packages.environment = inputs."wrapper-modules".lib.wrapPackage {
       inherit pkgs;
       package = self'.packages.fish;
-      extraPackages = [
-
+      runtimePkgs = [
         pkgs.sshfs
         # wrapped
         self'.packages.lf

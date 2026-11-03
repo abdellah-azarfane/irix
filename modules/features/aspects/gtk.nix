@@ -20,7 +20,8 @@
         GTK_THEME = "${theme-name}:dark";
         # Force Qt apps to use Wayland natively and respect qt5ct/qt6ct
         QT_QPA_PLATFORM = "wayland;xcb";
-        QT_QPA_PLATFORMTHEME = "qt5ct";
+        #   QT_QPA_PLATFORMTHEME = "qt5ct";
+        QT_QPA_PLATFORMTHEME = "qt6ct";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       };
 
@@ -51,6 +52,14 @@
         qt = {
           enable = true;
           platformTheme.name = "qtct";
+          style = {
+            name = "kvantum";
+            package = pkgs.kdePackages.breeze;
+          };
+          kvantum = {
+            enable = true;
+            settings.General.theme = "Breeze";
+          };
         };
 
         dconf.settings = {
@@ -60,22 +69,26 @@
             icon-theme = icon-theme-name;
           };
         };
-        # Lock qt5ct and qt6ct to the file Noctalia just generated via the IDs above.
-        xdg.configFile."qt6ct/qt6ct.conf".text = ''
-          [Appearance]
-          color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/noctalia.conf
-          custom_palette=true
-          standard_dialogs=default
-          style=kvantum
-        '';
+        /*
+          # Lock qt5ct and qt6ct to the file Noctalia just generated via the IDs above.
+          xdg.configFile."qt6ct/qt6ct.conf".text = ''
+            [Appearance]
+            color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/noctalia.conf
+            custom_palette=true
+            standard_dialogs=default
+            style=kvantum
+            icon_theme = "Papirus-Dark"
+          '';
 
-        xdg.configFile."qt5ct/qt5ct.conf".text = ''
-          [Appearance]
-          color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/noctalia.conf
-          custom_palette=true
-          standard_dialogs=default
-          style=kvantum
-        '';
+          xdg.configFile."qt5ct/qt5ct.conf".text = ''
+            [Appearance]
+            color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/noctalia.conf
+            custom_palette=true
+            standard_dialogs=default
+            style=kvantum
+            icon_theme = "Papirus-Dark"
+          '';
+        */
         home.file.".local/share/icons/Papirus-Dark".source =
           "${icon-theme-package}/share/icons/Papirus-Dark";
       };

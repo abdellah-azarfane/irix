@@ -2,67 +2,85 @@
   lib,
   inputs,
   config,
+  self,
   ...
 }:
 {
-  options.flake.lib.defaultSystems = lib.mkOption {
-    type = lib.types.listOf lib.types.str;
-    default = [ ];
-    description = "Default systems used for perSystem evaluation.";
-  };
+  options.flake = {
+    mkWhichKeyExe = lib.mkOption {
+      type = lib.types.raw;
+      default = null;
+      description = "Build a wlr-which-key executable from a menu tree.";
+    };
 
-  options.flake.lib.mkWhichKeyExe = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Helper function to build which-key wrapper executables.";
-  };
+    wrappersModules = lib.mkOption {
+      type = lib.types.lazyAttrsOf lib.types.raw;
+      default = { };
+      description = "Wrapper-manager modules exported at flake.wrappersModules.";
+    };
 
-  options.flake.lib.mkNiriBinds = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Helper to convert keymap preferences to Niri bind format.";
-  };
-
-  options.flake.lib.mkNiriOutputs = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Helper to convert monitor preferences to Niri output format.";
-  };
-
-  options.flake.lib.mkAutostartEntries = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Helper to convert autostart preferences to systemd service entries.";
-  };
-
-  options.flake.lib.mkShellAliases = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Shared shell alias builder exported by the flake.";
-  };
-
-  options.flake.lib.mkFishShellInit = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Shared fish shell initialization snippet exported by the flake.";
-  };
-
-  options.flake.lib.diskoConfigurations = lib.mkOption {
-    type = lib.types.lazyAttrsOf lib.types.raw;
-    default = { };
-    description = "Disko configuration modules exported by this flake.";
-  };
-
-  options.flake.lib.wrapperModules = lib.mkOption {
-    type = lib.types.lazyAttrsOf lib.types.raw;
-    default = { };
-    description = "Custom wrapper modules exported by this flake.";
-  };
-
-  options.flake.lib.mkNixos = lib.mkOption {
-    type = lib.types.raw;
-    default = null;
-    description = "Helper to build NixOS hosts with consistent defaults.";
+    lib = {
+      defaultSystems = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        description = "Default systems used for perSystem evaluation.";
+      };
+      theme = lib.mkOption {
+        type = lib.types.lazyAttrsOf lib.types.raw;
+        default = {
+          bg = "#282828";
+          fg = "#ebdbb2";
+          red = "#cc241d";
+          green = "#98971a";
+          yellow = "#d79921";
+          blue = "#458588";
+          purple = "#b16286";
+          aqua = "#689d6a";
+          orange = "#d65d0e";
+        };
+        description = "Shared color palette (Gruvbox-inspired).";
+      };
+      mkNiriBinds = lib.mkOption {
+        type = lib.types.raw;
+        default = null;
+        description = "Helper to convert keymap preferences to Niri bind format.";
+      };
+      mkNiriOutputs = lib.mkOption {
+        type = lib.types.raw;
+        default = null;
+        description = "Helper to convert monitor preferences to Niri output format.";
+      };
+      mkAutostartEntries = lib.mkOption {
+        type = lib.types.raw;
+        default = null;
+        description = "Helper to convert autostart preferences to systemd service entries.";
+      };
+      mkShellAliases = lib.mkOption {
+        type = lib.types.raw;
+        default = null;
+        description = "Shared shell alias builder exported by the flake.";
+      };
+      mkFishShellInit = lib.mkOption {
+        type = lib.types.raw;
+        default = null;
+        description = "Shared fish shell initialization snippet exported by the flake.";
+      };
+      diskoConfigurations = lib.mkOption {
+        type = lib.types.lazyAttrsOf lib.types.raw;
+        default = { };
+        description = "Disko configuration modules exported by this flake.";
+      };
+      wrapperModules = lib.mkOption {
+        type = lib.types.lazyAttrsOf lib.types.raw;
+        default = { };
+        description = "Custom wrapper modules exported by this flake.";
+      };
+      mkNixos = lib.mkOption {
+        type = lib.types.raw;
+        default = null;
+        description = "Helper to build NixOS hosts with consistent defaults.";
+      };
+    };
   };
 
   config = {
@@ -76,7 +94,7 @@
       }:
       inputs.nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs;
+          inherit inputs self;
         }
         // extraSpecialArgs;
         modules = modules ++ [
@@ -88,8 +106,17 @@
 
     systems = lib.mkDefault config.flake.lib.defaultSystems;
 
-    flake.checks = builtins.mapAttrs (
-      name: cfg: cfg.config.system.build.toplevel
-    ) config.flake.nixosConfigurations;
+    perSystem =
+      { system, ... }:
+      {
+        checks = lib.mapAttrs' (
+          name: cfg:
+          lib.nameValuePair "nixos-${name}" cfg.config.system.build.toplevel
+        ) (
+          lib.filterAttrs (
+            _: cfg: cfg.pkgs.stdenv.hostPlatform.system == system
+          ) config.flake.nixosConfigurations
+        );
+      };
   };
 }
