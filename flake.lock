@@ -199,8 +199,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1793558108,
-        "narHash": "sha256-O6NSeP5PCYdcPrfjFT8nJOebJNKLjOnd3cPmhJY48bs=",
+        "lastModified": 1793771800,
+        "narHash": "sha256-x9zXW9DWaEyRkWRaGPR0Dch4NkKl7/p9U3mMHW980zQ=",
         "path": "/home/abosafiya/dev/emaxy",
         "type": "path"
       },

@@ -14,7 +14,7 @@
       (inputs."wrapper-modules".wrappers.niri.apply ({config, ...}: {
         inherit pkgs;
         env = {
-          EDITOR = "zeditor";
+          EDITOR = lib.getExe self'.packages.neovim;
         };
       })).wrapper;
 
@@ -30,6 +30,9 @@
         self'.packages.jjui
         self'.packages.nix-check-bin
       ];
+      env = {
+        EDITOR = lib.getExe self'.packages.neovimDynamic;
+      };
     };
 
     packages.nix-check-bin = pkgs.writeShellApplication {
