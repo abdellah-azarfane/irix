@@ -122,6 +122,13 @@
               matches = [ { app-id = "org.kde.dolphin"; } ];
               opacity = 0.75;
             }
+            {
+              matches = [ { app-id = "dev.zed.Zed"; } ];
+              opacity = 0.78;
+              background-effect = {
+                blur = true;
+              };
+            }
             # Floating Noctalia settings window
             {
               matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];

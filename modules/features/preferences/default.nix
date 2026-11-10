@@ -5,7 +5,7 @@
       user.name = "abosafiya";
       apps = {
         browser = "helium";
-        editor = "emacsclient -c -a ";
+        editor = "neovide";
         terminal = "ghostty";
         imageViewer = "imv";
         videoPlayer = "mpv";

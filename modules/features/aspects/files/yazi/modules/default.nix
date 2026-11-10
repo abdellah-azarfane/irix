@@ -55,15 +55,23 @@
             opener = {
               edit = [
                 {
-                  run = "emacsclient -c -a \"$@\"";
+                  run = "neovide %s";
                   block = false;
-                  desc = "Emacs";
+                  desc = "Neovim";
                   for = "unix";
+                }
+              ];
+            emacs = [
+                {
+                 run = "emacsclient -c -a \"\" %s";
+                 block = false;
+                 desc = "Emacs";
+                 for = "unix";
                 }
               ];
               image = [
                 {
-                  run = "imv \"$@\"";
+                  run = "imv %s";
                   block = false;
                   desc = "imv";
                   for = "unix";
@@ -71,7 +79,7 @@
               ];
               video = [
                 {
-                  run = "mpv \"$@\"";
+                  run = "mpv %s";
                   block = false;
                   desc = "mpv";
                   for = "unix";
@@ -79,7 +87,7 @@
               ];
               audio = [
                 {
-                  run = "mpv \"$@\"";
+                  run = "mpv %s";
                   block = false;
                   desc = "mpv";
                   for = "unix";
@@ -87,7 +95,7 @@
               ];
               pdf = [
                 {
-                  run = "zathura \"$@\"";
+                  run = "zathura %s";
                   block = false;
                   desc = "Zathura";
                   for = "unix";
@@ -95,7 +103,7 @@
               ];
               office = [
                 {
-                  run = "onlyoffice-desktopeditors \"$@\"";
+                  run = "onlyoffice-desktopeditors %s";
                   block = false;
                   desc = "OnlyOffice";
                   for = "unix";
@@ -103,7 +111,7 @@
               ];
               libre = [
                 {
-                  run = "libreoffice \"$@\"";
+                  run = "libreoffice %s";
                   block = false;
                   desc = "LibreOffice";
                   for = "unix";
@@ -111,9 +119,9 @@
               ];
               browser = [
                 {
-                  run = "librewolf \"$@\"";
+                  run = "helium %s";
                   block = false;
-                  desc = "Librewolf";
+                  desc = "Helium";
                   for = "unix";
                 }
               ];
@@ -167,8 +175,12 @@
                   use = [ "edit" ];
                 }
                 {
-                  url = "*.{md,markdown,org,rst,tex}";
+                  url = "*.{md,markdown,rst,tex}";
                   use = [ "edit" ];
+                }
+                {
+                  url = "*.org";
+                  use = "emacs";
                 }
                 {
                   url = "*.{toml,json,yaml,yml}";

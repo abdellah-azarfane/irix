@@ -6,7 +6,7 @@
       codeblocksFull
       gnuplot
       calcure
-      taskwarrior3
+#      taskwarrior3 # FIXME: temporarily commented out - taskchampion fails to link sqlite3 in current nixpkgs master
       pomodoro
       blanket
       yad

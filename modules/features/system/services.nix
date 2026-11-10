@@ -96,7 +96,9 @@
           alsa.enable = true;
           alsa.support32Bit = true;
           pulse.enable = true;
-          jack.enable = true;
+          # NOTE: `jack.enable` is deprecated upstream (nixpkgs nixos/pipewire:
+          # "introduces global impurity via LD_LIBRARY_PATH"); JACK clients are
+          # launched through the `pw-jack` wrapper from `pipewire.jack` instead.
         };
 
         # Hardware Daemons
@@ -201,6 +203,7 @@
           pavucontrol # GUI audio control
           playerctl # Media player control
           wireplumber # Session manager for pipewire
+          pipewire.jack # pw-jack JACK wrapper for PipeWire (from the pipewire `jack` output)
 
           # --- Screenshot And Image Tools ---
 

@@ -3,6 +3,7 @@
     imports = [
       self.nixosModules.zeditor
       self.nixosModules.emacs
+      self.nixosModules.nvim
     ];
   };
 }

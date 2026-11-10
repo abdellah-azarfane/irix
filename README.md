@@ -19,7 +19,6 @@ Personal NixOS configuration for an ASUS TUF F17 M-2023 (main workstation) and a
 │   │   └── wrappedPrograms/ # Wrapper-module packaged programs
 │   └── hosts/           # Host definitions & profiles
 │       ├── main/        # Main workstation (disko, nvidia, hardware)
-│       ├── pi-runner/   # Raspberry Pi 3 GitLab CI runner
 │       └── profiles/    # Profile hierarchy (base → laptop → workstation)
 ├── secrets/             # SOPS-encrypted secrets
 ├── emacs-module/        # Standalone Emacs-Kick flake (straight.el)
@@ -39,9 +38,6 @@ Personal NixOS configuration for an ASUS TUF F17 M-2023 (main workstation) and a
 # Build & switch to main workstation
 sudo nixos-rebuild switch --flake .#main or nrs
 
-# Build & switch to Pi runner (remote)
-nixos-rebuild switch --flake .#pi-runner --target-host root@pi-runner 
-
 # Check flake validity
 nix flake check
 
@@ -55,11 +51,9 @@ nix flake update
 |-----------------|-------------------------------------------------|
 | `preferences.*` | User-facing preferences (apps, theme, monitors) |
 | `features.*`    | Optional feature/service toggles                |
-| `persistence.*` | Impermanence persistence rules                  |
 
 ## Hosts
 
 | Host           | Architecture | Role                              |
 |----------------|-------------|-----------------------------------|
 | `main`         | x86_64-linux| ASUS TUF GAMING F17  workstation |
-| `pi-runner`    | aarch64-linux| Raspberry Pi 3 GitLab CI runner  |

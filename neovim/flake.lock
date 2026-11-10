@@ -1,0 +1,99 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1793977579,
+        "narHash": "sha256-WrSODdZFVIs/Hh2NzC0bY+ROByi0bATg8WfePX8dPj8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4fe25e12eb9f4c744966dd3de5a05246cf098601",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "plugins-ember": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787703848,
+        "narHash": "sha256-BTSilulR4R8K+jxn3ajt5BgakON9JP78t51i/qro+P0=",
+        "owner": "ember-theme",
+        "repo": "nvim",
+        "rev": "6f8ca3d0f228fbd61e5aeeb5c68343c410720873",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ember-theme",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
+    "plugins-lze": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794225074,
+        "narHash": "sha256-OCbpn6n/KlnhYoiYXV6EEeV/PS1WqLmzyz0lw/Q5qts=",
+        "owner": "BirdeeHub",
+        "repo": "lze",
+        "rev": "a7c2f81e3290f4b4f5e05b1dc550470289b7e34c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "lze",
+        "type": "github"
+      }
+    },
+    "plugins-lzextras": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793684930,
+        "narHash": "sha256-0uRhhj5pSJAIjJNCj7x7Sw82SNdHpKdBCpz139b2uGM=",
+        "owner": "BirdeeHub",
+        "repo": "lzextras",
+        "rev": "eee2f240380b07dc10b9f9b217afaf5de2c7e084",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "lzextras",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "plugins-ember": "plugins-ember",
+        "plugins-lze": "plugins-lze",
+        "plugins-lzextras": "plugins-lzextras",
+        "wrappers": "wrappers"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794220105,
+        "narHash": "sha256-jclJs4Ckq4aiAOm7xY/Iq5PmLbVBl/IAh9uknRd4N4k=",
+        "owner": "nix-community",
+        "repo": "nix-wrapper-modules",
+        "rev": "e8cc2dc5f75250d3a9c1c760040b9137d5a2c7a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-wrapper-modules",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

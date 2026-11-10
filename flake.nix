@@ -8,9 +8,10 @@
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
 
-    my-emacs.url = "path:/home/abosafiya/dev/emaxy";
+    my-emacs.url = "path:./emaxy";
+    my-neovim.url = "path:./neovim";
 
-    #    darwin.url = "github:nix-darwin/nix-darwin";
+    # darwin.url = "github:nix-darwin/nix-darwin";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -22,12 +23,11 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
-    hermes-agent.url = "github:NousResearch/hermes-agent";
-    preservation.url = "github:nix-community/preservation";
-    
+    # hermes-agent.url = "github:NousResearch/hermes-agent";
+
     helium-flake.url = "github:oxcl/nix-flake-helium-browser";
     helium-flake.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 

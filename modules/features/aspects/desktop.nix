@@ -7,11 +7,12 @@
         self.nixosModules.wallpaper
         self.nixosModules.development
         self.nixosModules.files
+        self.nixosModules.gaming
         self.nixosModules.yazi
         self.nixosModules.media
         self.nixosModules.terminals
         self.nixosModules.monitoring
-        self.nixosModules.browsers  
+        self.nixosModules.browsers
         self.nixosModules.docs
         self.nixosModules.networks
         self.nixosModules.wallust

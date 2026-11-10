@@ -15,10 +15,7 @@
       self.nixosModules.start
       self.nixosModules.autostart
       self.nixosModules.sudo
-      self.nixosModules.persistence
     ];
-
-    preferences.persistence.enable = false;
 
     system.stateVersion = "26.11";
   };

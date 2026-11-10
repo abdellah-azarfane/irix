@@ -1,0 +1,53 @@
+-- lua/plugins/ui.lua
+return {
+	{
+		"vim-startuptime",
+		auto_enable = true,
+		cmd = { "StartupTime" },
+		before = function(_)
+			vim.g.startuptime_event_width = 0
+			vim.g.startuptime_tries = 10
+			vim.g.startuptime_exe_path = nixInfo(vim.v.progpath, "progpath")
+		end,
+	},
+	{
+		"fidget.nvim",
+		auto_enable = true,
+		event = "DeferredUIEnter",
+		after = function(plugin)
+			require("fidget").setup({})
+		end,
+	},
+	{
+		"lualine.nvim",
+		auto_enable = true,
+		event = "DeferredUIEnter",
+		after = function(plugin)
+			require("lualine").setup({
+				options = {
+					icons_enabled = false,
+					theme = nixInfo("onedark_dark", "settings", "colorscheme"),
+					component_separators = "|",
+					section_separators = "",
+				},
+				sections = {
+					lualine_c = {
+						{ "filename", path = 1, status = true },
+					},
+				},
+				inactive_sections = {
+					lualine_b = {
+						{ "filename", path = 3, status = true },
+					},
+					lualine_x = { "filetype" },
+				},
+				tabline = {
+					lualine_a = { "buffers" },
+					-- if you use lualine-lsp-progress, I have mine here instead of fidget
+					-- lualine_b = { 'lsp_progress', },
+					lualine_z = { "tabs" },
+				},
+			})
+		end,
+	},
+}
