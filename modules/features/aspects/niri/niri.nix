@@ -99,20 +99,10 @@
               matches = [ { namespace = "^quickshell$"; } ];
               place-within-backdrop = true;
             }
-            # Noctalia backdrop for blurred overview wallpaper
-            {
-              matches = [ { namespace = "^noctalia-backdrop"; } ];
-              place-within-backdrop = true;
-            }
-            # Noctalia wallpaper layer
-            {
-              matches = [ { namespace = "^noctalia-wallpaper"; } ];
-              place-within-backdrop = true;
-            }
           ];
 
           window-rules = [
-            # Rounded corners for Noctalia windows
+            # Rounded corners for shell windows
             {
               geometry-corner-radius = 20;
               clip-to-geometry = true;
@@ -127,17 +117,6 @@
               opacity = 0.78;
               background-effect = {
                 blur = true;
-              };
-            }
-            # Floating Noctalia settings window
-            {
-              matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
-              open-floating = true;
-              default-column-width = {
-                fixed = 1080;
-              };
-              default-window-height = {
-                fixed = 920;
               };
             }
           ];
@@ -262,8 +241,9 @@
               "-c"
               "while ! busctl --user status org.gnome.Mutter.ScreenCast >/dev/null 2>&1; do sleep 0.2; done; pkill -f xdg-desktop-portal-gnome"
             ]
+
             [
-              "noctalia"
+              "mandara"
             ]
           ];
 
@@ -357,20 +337,22 @@
             # Overview
             "Mod+X".toggle-overview = _: { };
 
-            # Noctalia Shell Commands
-            "Mod+S".spawn-sh = "noctalia msg panel-toggle launcher";
-            "Mod+comma".spawn-sh = "noctalia msg settings-toggle";
-            "Mod+space".spawn-sh = "noctalia msg panel-toggle launcher";
-            "Mod+Escape".spawn-sh = "noctalia msg session lock";
-            "Mod+P".spawn-sh = "noctalia msg panel-toggle session";
-            "Mod+Alt+E".spawn-sh = "noctalia msg panel-toggle launcher /emo";
-            "Mod+N".spawn-sh = "noctalia msg nightlight-enable";
-            "Mod+Alt+N".spawn-sh = "noctalia msg nightlight-disable";
-            "Mod+Shift+N".spawn-sh = "noctalia msg caffeine-toggle";
-            "Mod+W".spawn-sh = "noctalia msg panel-toggle ashur-d/wallpaper-widget:hub";
-            "Mod+Alt+W".spawn-sh = "noctalia msg panel-toggle noctalia/wallhaven:browser";
-            "Mod+M".spawn-sh = "noctalia msg panel-toggle kv7499/asus-fan:panel";
-            # "Mod+Alt+R".spawn-sh = "noctalia msg panel-toggle ";
+            # Mandara Shell Commands
+            "Mod+S".spawn-sh = "mandara msg launcher toggle";
+            "Mod+comma".spawn-sh = "mandara msg studio";
+            "Mod+space".spawn-sh = "mandara msg launcher toggle";
+            "Mod+Escape".spawn-sh = "mandara msg lock";
+            "Mod+P".spawn-sh = "mandara msg session menu toggle";
+            "Mod+Alt+E".spawn-sh = "mandara msg launcher toggle";
+            "Mod+N".spawn-sh = "mandara msg nightlight on";
+            "Mod+Alt+N".spawn-sh = "mandara msg nightlight off";
+            "Mod+Shift+N".spawn-sh = "mandara msg keep-awake toggle";
+            "Mod+W".spawn-sh = "mandara msg wallpaper picker toggle";
+            "Mod+Alt+W".spawn-sh = "mandara msg wallpaper picker toggle";
+
+            # Retired after the Mandara migration: no Mandara command exists for the
+            # ASUS fan-control panel, so Mod+M was left without a migrated bind
+            # (fan control is handled by the asusd service).
 
             # Mouse Scroll Bindings
             "Mod+WheelScrollDown" = _: {
@@ -542,16 +524,10 @@
             # App Launcher
             "Mod+d".spawn = [
               (self.mkWhichKeyExe pkgs [
-                {
-                  key = "b";
-                  desc = "Bluetooth";
-                  cmd = "noctalia msg bluetooth-toggle";
-                }
-                {
-                  key = "w";
-                  desc = "Wifi";
-                  cmd = "noctalia msg wifi-toggle";
-                }
+                # Retired after the Mandara migration: no `mandara msg` toggle
+                # command exists for the Wi-Fi / Bluetooth radios, so the old
+                # which-key toggle entries were dropped rather than hacked; Mandara
+                # exposes those toggles through its native quick settings instead.
                 {
                   key = "f";
                   desc = "File Manager";
@@ -580,7 +556,7 @@
                 {
                   key = "p";
                   desc = "Browser";
-                  cmd = "helium";
+                  cmd = "zen-beta";
                 }
                 {
                   key = "s";

@@ -119,9 +119,9 @@
               ];
               browser = [
                 {
-                  run = "helium %s";
+                  run = "zen-beta %s";
                   block = false;
-                  desc = "Helium";
+                  desc = "Zen Browser";
                   for = "unix";
                 }
               ];

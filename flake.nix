@@ -3,10 +3,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    noctalia.url = "github:noctalia-dev/noctalia";
-    noctalia.inputs.nixpkgs.follows = "nixpkgs";
-    noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
-    noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
+    mandara.url = "github:theHamdiz/mandara";
+    mandara.inputs.nixpkgs.follows = "nixpkgs";
 
     my-emacs.url = "path:./emaxy";
     my-neovim.url = "path:./neovim";
@@ -24,6 +22,10 @@
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     # hermes-agent.url = "github:NousResearch/hermes-agent";
+
+    zen-browser-flake.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser-flake.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser-flake.inputs.home-manager.follows = "home-manager";
 
     helium-flake.url = "github:oxcl/nix-flake-helium-browser";
     helium-flake.inputs.nixpkgs.follows = "nixpkgs";

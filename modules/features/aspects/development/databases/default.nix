@@ -4,7 +4,7 @@
     {
       environment.systemPackages = with pkgs; [
         # --- TUI Clients ---
-        rainfrog # Database management TUI for Postgres, MySQL, SQLite
+        # rainfrog # Database management TUI for Postgres, MySQL, SQLite (commented out - failing build)
       ];
     };
 }

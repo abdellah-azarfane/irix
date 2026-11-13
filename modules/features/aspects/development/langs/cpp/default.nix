@@ -1,6 +1,5 @@
-{ ... }:
-{
-  flake.nixosModules.lang-systems = { pkgs, config, ... }: {
+{ ... }: {
+  flake.nixosModules.lang-cpp = { pkgs, config, ... }: {
     home-manager.users.${config.preferences.user.name} = {
       home.packages = with pkgs; [
         # --- C / C++ / Build Systems ---
@@ -17,16 +16,6 @@
         tectonic
         typstyle
         python3Packages.jupytext
-
-        # --- Rust ---
-        rustc # Rust compiler
-        cargo # Rust package manager
-        rustfmt # Rust formatter
-        bacon # Rust background build tool
-
-        # --- Go (Lean API support) ---
-        go
-        gopls
       ];
     };
   };

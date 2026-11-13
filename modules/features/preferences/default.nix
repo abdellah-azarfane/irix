@@ -1,10 +1,10 @@
 { self, ... }:
 {
-  flake.nixosModules.preferences = { pkgs, lib, ... }: {
+  flake.nixosModules.preferences = { pkgs, inputs, lib, ... }: {
     preferences = {
       user.name = "abosafiya";
       apps = {
-        browser = "helium";
+        browser = "zen-beta";
         editor = "neovide";
         terminal = "ghostty";
         imageViewer = "imv";
@@ -22,7 +22,7 @@
       keymap = {
         "SUPER + v".exec = "${pkgs.alsa-utils}/bin/amixer sset Capture toggle";
         "SUPER + d"."s".package = pkgs.pwvucontrol;
-        "SUPER + d"."p".package = pkgs.librewolf;
+        "SUPER + d"."p".package = inputs.zen-browser-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
         "SUPER + d"."y".package = pkgs.yazi;
       };
       monitors = {

@@ -5,9 +5,7 @@
       self.nixosModules.android
       self.nixosModules.databases
       ## languages
-      self.nixosModules.lang-web
-      self.nixosModules.lang-systems
-      self.nixosModules.lang-scripting
+      self.nixosModules.langs
       ###
       self.nixosModules.misc
       #      self.nixosModules.hermes

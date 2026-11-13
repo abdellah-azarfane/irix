@@ -8,9 +8,8 @@
       nixpkgs.overlays = [
         inputs.helium-flake.overlays.default
       ];
-      environment.systemPackages = with pkgs; [
-        librewolf
-        helium
+      environment.systemPackages = [
+        inputs.zen-browser-flake.packages.${pkgs.system}.default
       ];
     };
 }

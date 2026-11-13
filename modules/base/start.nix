@@ -40,7 +40,7 @@
       apps = {
         browser = lib.mkOption {
           type = lib.types.str;
-          default = "helium";
+          default = "zen-beta";
         };
         editor = lib.mkOption {
           type = lib.types.str;

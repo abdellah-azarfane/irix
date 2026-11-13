@@ -69,26 +69,8 @@
             icon-theme = icon-theme-name;
           };
         };
-        /*
-          # Lock qt5ct and qt6ct to the file Noctalia just generated via the IDs above.
-          xdg.configFile."qt6ct/qt6ct.conf".text = ''
-            [Appearance]
-            color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/noctalia.conf
-            custom_palette=true
-            standard_dialogs=default
-            style=kvantum
-            icon_theme = "Papirus-Dark"
-          '';
-
-          xdg.configFile."qt5ct/qt5ct.conf".text = ''
-            [Appearance]
-            color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/noctalia.conf
-            custom_palette=true
-            standard_dialogs=default
-            style=kvantum
-            icon_theme = "Papirus-Dark"
-          '';
-        */
+        # Qt theming (qt5ct/qt6ct color schemes) is now owned by Mandara, which
+        # applies app themes live via `mandara msg icons apply` / Studio.
         home.file.".local/share/icons/Papirus-Dark".source =
           "${icon-theme-package}/share/icons/Papirus-Dark";
       };
